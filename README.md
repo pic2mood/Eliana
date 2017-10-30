@@ -1,4 +1,4 @@
-# Eliana
+# Eliana [![Build Status](https://travis-ci.org/raymelon/tagalog-dictionary-scraper.svg)](https://travis-ci.org/raymelon/Eliana)
 Eliana is a prediction engine aiming at predicting the most likely human emotion response towards an image of different photographic genres.
 
 # Why Eliana
