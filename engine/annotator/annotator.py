@@ -28,7 +28,7 @@ categories = label_map_util.convert_label_map_to_categories(label_map, max_num_c
                                                             use_display_name=True)
 category_index = label_map_util.create_category_index(categories)
 
-def detect_objects(image_np, sess, detection_graph):
+def detect_objects(image, image_np, sess, detection_graph):
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     image_np_expanded = np.expand_dims(image_np, axis=0)
     image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
@@ -47,6 +47,44 @@ def detect_objects(image_np, sess, detection_graph):
         [boxes, scores, classes, num_detections],
         feed_dict={image_tensor: image_np_expanded})
 
+
+    (im_width, im_height) = image.size
+
+
+    # get object counts
+    final_score = np.squeeze(scores)    
+    count = 0
+    for i in range(100):
+        if scores is None or final_score[i] > 0.5:
+            count = count + 1
+    print(count)
+
+
+    # get each object bounding box crop coords
+    for i in range(count):
+	    ymin = boxes[0,i,0]
+	    xmin = boxes[0,i,1]
+	    ymax = boxes[0,i,2]
+	    xmax = boxes[0,i,3]
+
+	    (xminn, xmaxx, yminn, ymaxx) = (xmin * im_width, xmax * im_width, ymin * im_height, ymax * im_height)
+	    print(xminn, xmaxx, yminn, ymaxx)
+
+
+	    yminn = int(yminn)
+	    xminn = int(xminn)
+	    ymaxx = int(ymaxx)
+	    xmaxx = int(xmaxx)
+
+
+	    image_cropped = tf.image.crop_to_bounding_box(image_np, yminn, xminn, ymaxx - yminn, xmaxx - xminn)
+	    img_data = sess.run(image_cropped)
+
+	    plt.figure(figsize=IMAGE_SIZE)
+	    plt.imshow(img_data)
+	    plt.show()
+
+
     # Visualization of the results of a detection.
     vis_util.visualize_boxes_and_labels_on_image_array(
         image_np,
@@ -56,6 +94,7 @@ def detect_objects(image_np, sess, detection_graph):
         category_index,
         use_normalized_coordinates=True,
         line_thickness=8)
+
     return image_np
 
 # First test on images
@@ -76,7 +115,7 @@ for image_path in TEST_IMAGE_PATHS:
     image = Image.open(image_path)
     image_np = load_image_into_numpy_array(image)
     #plt.imshow(image_np)
-    print(image.size, image_np.shape)
+    #print(image.size, image_np.shape)
 
 
 #Load a frozen TF model 
@@ -94,9 +133,9 @@ with detection_graph.as_default():
         for image_path in TEST_IMAGE_PATHS:
             image = Image.open(image_path)
             image_np = load_image_into_numpy_array(image)
-            image_process = detect_objects(image_np, sess, detection_graph)
+            image_process = detect_objects(image, image_np, sess, detection_graph)
             print(image_process.shape)
-            plt.figure(figsize=IMAGE_SIZE)
-            plt.imshow(image_process)
-            plt.show()
+            # plt.figure(figsize=IMAGE_SIZE)
+            # plt.imshow(image_process)
+            # plt.show()
 
