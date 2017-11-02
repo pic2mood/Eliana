@@ -20,10 +20,6 @@ TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(
 # Size, in inches, of the output images.
 IMAGE_SIZE = (12, 8)
 
-# for image_path in TEST_IMAGE_PATHS:
-#     img = Image.open(image_path)
-#     img_el = ElianaImage(img)
-
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'

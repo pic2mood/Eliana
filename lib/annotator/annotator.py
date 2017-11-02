@@ -11,10 +11,6 @@ from matplotlib import pyplot as plt
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
-# import os, sys
-
-# sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../engine/annotator")
-
 class Annotator:
 
     def __init__(self, img_w, img_h, model: str, ckpt: str, labels: str, classes: int):
