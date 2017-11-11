@@ -1,3 +1,10 @@
+"""
+.. module:: annotator
+    :platform: Linux
+    :synopsis: main module for object detection/annotation in images
+
+.. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
+"""
 
 import os
 import cv2
@@ -13,6 +20,8 @@ from object_detection.utils import visualization_utils as vis_util
 
 
 class Annotator:
+    """Class for object detection/annotation in images.
+    """
 
     def __init__(
             self,
@@ -22,6 +31,13 @@ class Annotator:
             ckpt: str,
             labels: str,
             classes: int):
+
+        """Annotator class constructor.
+
+        Args:
+            img_w (int): Width of the image in pixels.
+            img_h (int): Height of the image in pixels.
+        """
 
         self.IMAGE_SIZE = (12, 8)
 
@@ -44,9 +60,14 @@ class Annotator:
             self.categories
         )
 
-    #
-    #
     def annotate(self, img: np, session, detection_graph):
+        """Method for annotation action.
+
+        Args:
+            img (np): image in numpy array representation
+            session (Session): tensorflow session
+            detection_graph: pass
+        """
 
         dg = detection_graph
         img_expanded: np = np.expand_dims(img, axis=0)
@@ -74,7 +95,6 @@ class Annotator:
 
             self.show_img(img_crop, session)
 
-    #
     def __annotate(
             self,
             session,
@@ -84,6 +104,14 @@ class Annotator:
             detections,
             img_tensor,
             img_expanded):
+
+        """
+        Helper method for Annotate.annotate(). Runs a tensorflow session for
+        object detection/annotation.
+
+        Args:
+            session (Session): tensorflow session.
+        """
 
         (boxes, scores, classes, detections) = session.run(
             [boxes, scores, classes, detections],
