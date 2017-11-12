@@ -17,7 +17,7 @@ CWD_PATH = os.getcwd()
 
 # First test on images
 PATH_TO_TEST_IMAGES_DIR = \
-    '../Eliana/lib/annotator/object_detection/test_images'
+    '../Eliana/env/eliana/lib/python3.6/site-packages/object_detection/test_images'
 
 TEST_IMAGE_PATHS = [
     os.path.join(
@@ -34,13 +34,13 @@ IMAGE_SIZE = (12, 8)
 # This is the actual model that is used for the object detection.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
 PATH_TO_CKPT = os.path.join(
-    CWD_PATH, 'lib', 'annotator', 'object_detection',
+    CWD_PATH, 'env', 'eliana', 'lib', 'python3.6', 'site-packages', 'object_detection',
     MODEL_NAME, 'frozen_inference_graph.pb'
 )
 
 # List of the strings that is used to add correct label for each box.
 PATH_TO_LABELS = os.path.join(
-    CWD_PATH, 'lib', 'annotator',
+    CWD_PATH, 'env', 'eliana', 'lib', 'python3.6', 'site-packages',
     'object_detection', 'data', 'mscoco_label_map.pbtxt'
 )
 

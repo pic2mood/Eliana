@@ -20,7 +20,9 @@ from object_detection.utils import visualization_utils as vis_util
 
 
 class Annotator:
-    """Class for object detection/annotation in images.
+    """.. class:: Annotator
+
+    Class for object detection/annotation in images.
     """
 
     def __init__(
@@ -61,7 +63,9 @@ class Annotator:
         )
 
     def annotate(self, img: np, session, detection_graph):
-        """Method for annotation action.
+        """annotate(img: np, session, detection_graph)
+
+        Method for annotation action.
 
         Args:
             img (np): image in numpy array representation

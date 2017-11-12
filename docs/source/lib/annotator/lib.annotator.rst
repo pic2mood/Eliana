@@ -1,13 +1,6 @@
 lib\.annotator package
 ======================
 
-Subpackages
------------
-
-.. toctree::
-
-    lib.annotator.object_detection
-
 Submodules
 ----------
 

@@ -40,26 +40,56 @@
             
   <div class="section" id="lib-annotator-package">
 <h1>lib.annotator package<a class="headerlink" href="#lib-annotator-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
-</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="lib-annotator-annotator-module">
-<h2>lib.annotator.annotator module<a class="headerlink" href="#lib-annotator-annotator-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-lib.annotator.annotator">
+<span id="lib-annotator-annotator-module"></span><h2>lib.annotator.annotator module<a class="headerlink" href="#module-lib.annotator.annotator" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-annotator"></span><dl class="class">
+<dt id="lib.annotator.annotator.Annotator">
+<em class="property">class </em><code class="descclassname">lib.annotator.annotator.</code><code class="descname">Annotator</code><span class="sig-paren">(</span><em>img_w</em>, <em>img_h</em>, <em>model: str</em>, <em>ckpt: str</em>, <em>labels: str</em>, <em>classes: int</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.annotator.annotator.Annotator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="class">
+<dt id="annotator.Annotator.Annotator">
+<em class="property">class </em><code class="descname">Annotator</code><a class="headerlink" href="#annotator.Annotator.Annotator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Class for object detection/annotation in images.</p>
+<dl class="method">
+<dt id="lib.annotator.annotator.Annotator.annotate">
+<code class="descname">annotate</code><span class="sig-paren">(</span><em>img: np</em>, <em>session</em>, <em>detection_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.annotator.annotator.Annotator.annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for annotation action.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>img (np): image in numpy array representation
+session (Session): tensorflow session
+detection_graph: pass</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.annotator.annotator.Annotator.show_img">
+<code class="descname">show_img</code><span class="sig-paren">(</span><em>img</em>, <em>session</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.annotator.annotator.Annotator.show_img" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="lib-annotator-annotator-old-module">
 <h2>lib.annotator.annotator_OLD module<a class="headerlink" href="#lib-annotator-annotator-old-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-lib.annotator.image">
 <span id="lib-annotator-image-module"></span><h2>lib.annotator.image module<a class="headerlink" href="#module-lib.annotator.image" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<span class="target" id="module-image"></span><dl class="class">
 <dt id="lib.annotator.image.ElianaImage">
 <em class="property">class </em><code class="descclassname">lib.annotator.image.</code><code class="descname">ElianaImage</code><span class="sig-paren">(</span><em>img</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.annotator.image.ElianaImage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="class">
+<dt id="image.ElianaImage.ElianaImage">
+<em class="property">class </em><code class="descname">ElianaImage</code><a class="headerlink" href="#image.ElianaImage.ElianaImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Class for Eliana image container.</p>
 </dd></dl>
 
 </div>
