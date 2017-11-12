@@ -1,6 +1,6 @@
-CHANGELOG
+# Eliana Changelog
 
-[0.1.18-pre build 25 #89ce49a](https://github.com/raymelon/Eliana/commit/89ce49a)
+### [0.1.18-pre build 25 (#89ce49a, 11-12-17)](https://github.com/raymelon/Eliana/commit/89ce49a)
 
 [lib/annotator/annotator.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/annotator/annotator.py)
 - Add docstrings on all functions and members.
