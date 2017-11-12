@@ -9,23 +9,24 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 ### I. Setup
 1. Fork the project.
 2. Clone your own/forked copy of the project to your local machine.
-2. Download the conda enviroment.
+3. Install [Anaconda](https://www.anaconda.com/downloads).
+4. Download the conda enviroment.
 
    - [Link 1 (Archived as .tar.xz)](https://mega.nz/#!82gBBCqT!clt5iihZZGYDGOE6utsr207iNviRAFqbI-_TsPFmswQ) at MEGA
    
    - [Link 2](https://drive.google.com/open?id=0B2Gw0zD3SerkVWtsSVlRTUNuWVE) at Google Drive
    
-3. Extract the downloaded env.   
-4. To ensure an updated env, sync the extracted env through Link 2.
-5. Delete `env` on the project folder.
-6. Copy the extracted env to the project folder.
-8. Activate the copied env.
+5. Extract the downloaded env.   
+6. To ensure an updated env, sync the extracted env through Link 2.
+7. Delete `env` on the project folder.
+8. Copy the extracted env to the project folder.
+9. Activate the copied env.
    ```Bash
    source activate ./env/eliana
    ```
-7. Run `unit_test_all.py` and `integrated.py` to make sure all is working fine.
+10. Run `unit_test_all.py` and `integrated.py` to make sure all is working fine.
    ```Bash
-   python -m tests.unit_test.all.py && python -m integrated.py
+   python -m tests.unit_test_all.py && python -m integrated.py
    ```
 
 ### II. Commiting
@@ -52,6 +53,7 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
      | TWEAK | Enhancement of project components for performance |
      | REFACTOR | Enchancement of project components for style |
      | FEATURE | New features |
+     | DOC | Any documentation stuff |
 
 - The project uses [Semantic Versioning 2.0.0](http://semver.org/) for versioning.
 
@@ -59,6 +61,8 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
 - Note that pull requests aren't built automatically, and thus for this type of commit it is advised to use the Format Type 2.
 
+## Changelog
+See [CHANGELOG.md](https://github.com/raymelon/Eliana/blob/0.1-pre/CHANGELOG.md).
 
 
 
