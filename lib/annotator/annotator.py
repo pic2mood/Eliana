@@ -124,8 +124,14 @@ class Annotator:
 
         return (boxes, scores, classes, detections)
 
-    #
     def __crop(self, img: np, coords: tuple):
+        """
+        Helper method for Annotate.annotate(). Crops the image object segment.
+
+        Args:
+            img (np): image in numpy array
+            coords (tuple): anchor points for cropping
+        """
 
         (xminn, xmaxx, yminn, ymaxx) = coords
         img_crop = tf.image.crop_to_bounding_box(
@@ -135,8 +141,13 @@ class Annotator:
         )
         return img_crop
 
-    #
     def show_img(self, img, session):
+        """ Show cropped object from the input image.
+
+            Args:
+                img (np): image in numpy array representation
+                session (Session): tensorflow session
+        """
 
         img_data = session.run(img)
         plt.figure(figsize=self.IMAGE_SIZE)

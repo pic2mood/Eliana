@@ -1,23 +1,31 @@
+"""
+.. test:: annotator_unit_test.py
+    :platform: Linux
+    :synopsis: unit test for annotator module
+
+.. created:: Nov 2, 2017
+.. author:: Raymel Francisco <franciscoraymel@gmail.com>
+"""
+import tensorflow as tf
+from lib.annotator.annotator import Annotator
+from PIL import Image
+from lib.annotator.image import ElianaImage
 
 import os
-import sys
-sys.path.append(
-    os.path.dirname(
-        os.path.realpath(__file__)
-    ) + "/../lib/annotator/"
-)
-
-
-import tensorflow as tf
-from annotator import Annotator
-from PIL import Image
-from image import ElianaImage
 
 CWD_PATH = os.getcwd()
 
 # First test on images
-PATH_TO_TEST_IMAGES_DIR = \
-    '../Eliana/env/eliana/lib/python3.6/site-packages/object_detection/test_images'
+PATH_TO_TEST_IMAGES_DIR = os.path.join(
+    CWD_PATH,
+    'env',
+    'eliana',
+    'lib',
+    'python3.6',
+    'site-packages',
+    'object_detection',
+    'test_images'
+)
 
 TEST_IMAGE_PATHS = [
     os.path.join(
@@ -34,14 +42,28 @@ IMAGE_SIZE = (12, 8)
 # This is the actual model that is used for the object detection.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
 PATH_TO_CKPT = os.path.join(
-    CWD_PATH, 'env', 'eliana', 'lib', 'python3.6', 'site-packages', 'object_detection',
-    MODEL_NAME, 'frozen_inference_graph.pb'
+    CWD_PATH,
+    'env',
+    'eliana',
+    'lib',
+    'python3.6',
+    'site-packages',
+    'object_detection',
+    MODEL_NAME,
+    'frozen_inference_graph.pb'
 )
 
 # List of the strings that is used to add correct label for each box.
 PATH_TO_LABELS = os.path.join(
-    CWD_PATH, 'env', 'eliana', 'lib', 'python3.6', 'site-packages',
-    'object_detection', 'data', 'mscoco_label_map.pbtxt'
+    CWD_PATH,
+    'env',
+    'eliana',
+    'lib',
+    'python3.6',
+    'site-packages',
+    'object_detection',
+    'data',
+    'mscoco_label_map.pbtxt'
 )
 
 NUM_CLASSES = 90
