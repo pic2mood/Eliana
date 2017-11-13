@@ -1,77 +1,142 @@
+"""
+.. test:: annotator_unit_test.py
+    :platform: Linux
+    :synopsis: unit test for annotator module
 
+.. created:: Nov 2, 2017
+.. author:: Raymel Francisco <franciscoraymel@gmail.com>
+"""
 import os
-import sys
-sys.path.append(
-    os.path.dirname(
-        os.path.realpath(__file__)
-    ) + "/../lib/annotator/"
-)
-
+from tests.eliana_test import ElianaUnitTest
 
 import tensorflow as tf
-from annotator import Annotator
+from lib.annotator.annotator import Annotator
 from PIL import Image
-from image import ElianaImage
+from lib.image.eliana_image import ElianaImage
 
-CWD_PATH = os.getcwd()
-
-# First test on images
-PATH_TO_TEST_IMAGES_DIR = \
-    '../Eliana/lib/annotator/object_detection/test_images'
-
-TEST_IMAGE_PATHS = [
-    os.path.join(
-        PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)
-    )
-    for i in range(1, 3)
-]
-
-# Size, in inches, of the output images.
-IMAGE_SIZE = (12, 8)
+import traceback
 
 
-# Path to frozen detection graph.
-# This is the actual model that is used for the object detection.
-MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
-PATH_TO_CKPT = os.path.join(
-    CWD_PATH, 'lib', 'annotator', 'object_detection',
-    MODEL_NAME, 'frozen_inference_graph.pb'
-)
+class AnnotatorUnitTest(ElianaUnitTest):
 
-# List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join(
-    CWD_PATH, 'lib', 'annotator',
-    'object_detection', 'data', 'mscoco_label_map.pbtxt'
-)
+    def __init__(self):
+        ElianaUnitTest.__init__(self)
 
-NUM_CLASSES = 90
+    def __init_test_images(self):
 
-
-detection_graph = tf.Graph()
-
-with detection_graph.as_default():
-    od_graph_def = tf.GraphDef()
-    with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
-        serialized_graph = fid.read()
-        od_graph_def.ParseFromString(serialized_graph)
-        tf.import_graph_def(od_graph_def, name='')
-
-
-with detection_graph.as_default():
-    with tf.Session(graph=detection_graph) as sess:
-        for image_path in TEST_IMAGE_PATHS:
-            image = Image.open(image_path)
-            image_np = ElianaImage(image).img
-
-            (img_w, img_h) = image.size
-
-            annotator = Annotator(
-                img_w,
-                img_h,
-                MODEL_NAME,
-                PATH_TO_CKPT,
-                PATH_TO_LABELS,
-                NUM_CLASSES
+        self.__dir_test_images = os.path.join(
+            self.dir_env_modules,
+            'object_detection',
+            'test_images'
+        )
+        self.__test_images = [
+            os.path.join(
+                self.__dir_test_images, 'image{}.jpg'.format(i)
             )
+            for i in range(1, 3)
+        ]
+        self.__image_size = (12, 8)
 
-            annotator.annotate(image_np, sess, detection_graph)
+    def __init_model(self):
+
+        self.__model = 'ssd_mobilenet_v1_coco_11_06_2017'
+        self.__graph = 'frozen_inference_graph.pb'
+        self.__file_ckpt = os.path.join(
+            self.dir_env_modules,
+            'object_detection',
+            self.__model,
+            self.__graph
+        )
+
+    def __init_label_file(self):
+
+        self.__label = 'mscoco_label_map.pbtxt'
+        self.__file_label = os.path.join(
+            self.dir_env_modules,
+            'object_detection',
+            'data',
+            self.__label
+        )
+
+    def run(self):
+
+        self.eliana_log.steps = 6
+
+        self.eliana_log.log('Starting unit test for Annotator module')
+        print(self.eliana_log.log_ok)
+
+        self.eliana_log.log('Loading test images')
+        self.test(self.__init_test_images)
+
+        #
+        #
+        self.eliana_log.log('Loading model')
+        self.test(self.__init_model)
+
+        #
+        #
+        self.eliana_log.log('Loading labels file')
+        self.test(self.__init_label_file)
+
+        #
+        #
+        self.__num_classes = 90
+
+        #
+        #
+        self.eliana_log.log('Loading detection graph')
+
+        try:
+            detection_graph = tf.Graph()
+        except Exception as e:
+            print(e.message, '\n\n' + self.eliana_log.log_error)
+        else:
+            print(self.eliana_log.log_ok)
+        #
+        #
+        #
+        self.eliana_log.log('Annotating objects')
+        try:
+            with detection_graph.as_default():
+
+                od_graph_def = tf.GraphDef()
+
+                with tf.gfile.GFile(self.__file_ckpt, 'rb') as fid:
+                    serialized_graph = fid.read()
+                    od_graph_def.ParseFromString(serialized_graph)
+                    tf.import_graph_def(od_graph_def, name='')
+
+                with tf.Session(graph=detection_graph) as sess:
+                    for image_path in self.__test_images:
+
+                        img = ElianaImage(image_path)
+
+                        annotator = Annotator(
+                            img,
+                            self.__model,
+                            self.__file_ckpt,
+                            self.__file_label,
+                            self.__num_classes,
+                            sess,
+                            detection_graph
+                        )
+
+                        annotator.annotate()
+
+        except Exception:
+            print(self.eliana_log.log_error, '\n')
+            traceback.print_exc()
+            print(
+                '\n' +
+                str(self.eliana_log.step_counter),
+                'out of',
+                str(self.eliana_log.steps),
+                'steps executed. Exiting...',
+            )
+            exit()
+        else:
+            print(self.eliana_log.log_ok)
+
+
+annotator_unit_test = AnnotatorUnitTest()
+annotator_unit_test.run()
