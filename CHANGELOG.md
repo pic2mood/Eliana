@@ -1,13 +1,20 @@
 # Eliana Changelog
 
-### [0.1.25-pre build 33 (, 11-13-17)]()
 
-[lib/image/eliana_image.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/eliana_test.py)
+
+
+
+### [0.1.25-pre build 33 (#32fcb32, 11-14-17)](https://github.com/raymelon/Eliana/commit/32fcb32a216e67e9e177929daf02f5cdc7f0d7ef)
+
+[lib/annotator/annotator.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/annotator/annotator.py)
+- **[REFACTOR]** Applied the new ElianaImage refactors, plus major refactors on the module itself.
+
+[lib/image/eliana_image.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/image/eliana_image.py)
 - **[REFACTOR]** Renamed to from image.py to eliana_image.py.
 - **[REFACTOR]** Moved to from lib/annotator to lib/image.
 
 [tests/annotator_unit_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/annotator_unit_test.py)
-- **[REFACTOR]** Applied the new ElianaImage refactors, plus major refactors on the module itself.
+- **[REFACTOR]** Applied the new ElianaImage refactors.
 
 
 
