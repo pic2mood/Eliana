@@ -12,7 +12,7 @@ from tests.eliana_test import ElianaUnitTest
 import tensorflow as tf
 from lib.annotator.annotator import Annotator
 from PIL import Image
-from lib.annotator.image import ElianaImage
+from lib.image.eliana_image import ElianaImage
 
 import traceback
 
@@ -57,7 +57,6 @@ class AnnotatorUnitTest(ElianaUnitTest):
             'data',
             self.__label
         )
-
 
     def run(self):
 
@@ -109,21 +108,20 @@ class AnnotatorUnitTest(ElianaUnitTest):
 
                 with tf.Session(graph=detection_graph) as sess:
                     for image_path in self.__test_images:
-                        image = Image.open(image_path)
-                        image_np = ElianaImage(image).img
 
-                        (img_w, img_h) = image.size
+                        img = ElianaImage(image_path)
 
                         annotator = Annotator(
-                            img_w,
-                            img_h,
+                            img,
                             self.__model,
                             self.__file_ckpt,
                             self.__file_label,
-                            self.__num_classes
+                            self.__num_classes,
+                            sess,
+                            detection_graph
                         )
 
-                        annotator.annotate(image_np, sess, detection_graph)
+                        annotator.annotate()
 
         except Exception:
             print(self.eliana_log.log_error, '\n')

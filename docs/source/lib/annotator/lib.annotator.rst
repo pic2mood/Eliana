@@ -20,14 +20,6 @@ lib\.annotator\.annotator\_OLD module
     :undoc-members:
     :show-inheritance:
 
-lib\.annotator\.image module
-----------------------------
-
-.. automodule:: lib.annotator.image
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

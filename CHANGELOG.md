@@ -1,9 +1,18 @@
 # Eliana Changelog
 
+### [0.1.25-pre build 33 (, 11-13-17)]()
+
+[lib/image/eliana_image.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/eliana_test.py)
+- **[REFACTOR]** Renamed to from image.py to eliana_image.py.
+- **[REFACTOR]** Moved to from lib/annotator to lib/image.
+
+[tests/annotator_unit_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/annotator_unit_test.py)
+- **[REFACTOR]** Applied the new ElianaImage refactors, plus major refactors on the module itself.
 
 
 
-### [0.1.24-pre build 32 (, 11-13-17)]
+
+### [0.1.24-pre build 32 (#fe24fbb, 11-13-17)](https://github.com/raymelon/Eliana/commit/fe24fbba60f6838853736d9fdb7618c1efaf6d71)
 
 [tests/eliana_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/eliana_test.py)
 - **[FEATURE]** Added tester function for function calls.
@@ -14,7 +23,7 @@
 
 
 
-### [0.1.23-pre build 31 (#c524714, 11-13-17)](https://github.com/raymelon/Eliana/commit/c524714b034c2776bc1d3014b4ef3ef9f88b4332)
+### [0.1.23-pre build 31 (#0691e5b, 11-13-17)](https://github.com/raymelon/Eliana/commit/0691e5b3a6614b2cca42bf4882c3e1d9571e059a)
 
 [.travis.yml](https://github.com/raymelon/Eliana/blob/0.1-pre/.travis.yml)
 - **[SETUP]** Added install commands.
