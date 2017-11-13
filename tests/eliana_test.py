@@ -52,6 +52,23 @@ class ElianaTest(ABC):
     def run(self):
         pass
 
+    def test(self, func):
+        try:
+            func()
+        except Exception:
+            print(self.eliana_log.log_error, '\n')
+            traceback.print_exc()
+            print(
+                '\n' +
+                str(self.eliana_log.step_counter),
+                'out of',
+                str(self.eliana_log.steps),
+                'steps executed. Exiting...',
+            )
+            exit()
+        else:
+            print(self.eliana_log.log_ok)
+
 
 class ElianaUnitTest(ElianaTest):
     """.. class:: ElianaUnitTest
@@ -80,6 +97,10 @@ class ElianaLog:
 
         self.__steps = 0
         self.__step_counter = 1
+
+    @property
+    def step_counter(self):
+        return self.__step_counter
 
     @property
     def steps(self):

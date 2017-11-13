@@ -14,6 +14,8 @@ from lib.annotator.annotator import Annotator
 from PIL import Image
 from lib.annotator.image import ElianaImage
 
+import traceback
+
 
 class AnnotatorUnitTest(ElianaUnitTest):
 
@@ -56,6 +58,7 @@ class AnnotatorUnitTest(ElianaUnitTest):
             self.__label
         )
 
+
     def run(self):
 
         self.eliana_log.steps = 6
@@ -64,32 +67,17 @@ class AnnotatorUnitTest(ElianaUnitTest):
         print(self.eliana_log.log_ok)
 
         self.eliana_log.log('Loading test images')
-        try:
-            self.__init_test_images()
-        except Exception as e:
-            print(e.message, '\n\n' + self.eliana_log.log_error)
-        else:
-            print(self.eliana_log.log_ok)
+        self.test(self.__init_test_images)
 
         #
         #
         self.eliana_log.log('Loading model')
-        try:
-            self.__init_model()
-        except Exception as e:
-            print(e.message, '\n\n' + self.eliana_log.log_error)
-        else:
-            print(self.eliana_log.log_ok)
+        self.test(self.__init_model)
 
         #
         #
         self.eliana_log.log('Loading labels file')
-        try:
-            self.__init_label_file()
-        except Exception as e:
-            print(e.message, '\n\n' + self.eliana_log.log_error)
-        else:
-            print(self.eliana_log.log_ok)
+        self.test(self.__init_label_file)
 
         #
         #
@@ -98,6 +86,7 @@ class AnnotatorUnitTest(ElianaUnitTest):
         #
         #
         self.eliana_log.log('Loading detection graph')
+
         try:
             detection_graph = tf.Graph()
         except Exception as e:
@@ -136,9 +125,17 @@ class AnnotatorUnitTest(ElianaUnitTest):
 
                         annotator.annotate(image_np, sess, detection_graph)
 
-        except Exception as e:
-            print(e.message, '\n\n' + self.eliana_log.log_error)
-
+        except Exception:
+            print(self.eliana_log.log_error, '\n')
+            traceback.print_exc()
+            print(
+                '\n' +
+                str(self.eliana_log.step_counter),
+                'out of',
+                str(self.eliana_log.steps),
+                'steps executed. Exiting...',
+            )
+            exit()
         else:
             print(self.eliana_log.log_ok)
 

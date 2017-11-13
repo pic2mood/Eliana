@@ -1,6 +1,20 @@
 # Eliana Changelog
 
-### [0.1.23-pre build 31 (, 11-12-17)]
+
+
+
+### [0.1.24-pre build 32 (, 11-13-17)]
+
+[tests/eliana_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/eliana_test.py)
+- **[FEATURE]** Added tester function for function calls.
+
+[tests/annotator_unit_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/annotator_unit_test.py)
+- **[FEATURE]** Applied the new tester function.
+
+
+
+
+### [0.1.23-pre build 31 (#c524714, 11-13-17)](https://github.com/raymelon/Eliana/commit/c524714b034c2776bc1d3014b4ef3ef9f88b4332)
 
 [.travis.yml](https://github.com/raymelon/Eliana/blob/0.1-pre/.travis.yml)
 - **[SETUP]** Added install commands.
@@ -8,7 +22,7 @@
 
 
 
-### [0.1.22-pre build 30 (#af3d244, 11-12-17)](https://github.com/raymelon/Eliana/commit/af3d24421a94f11b9e8e5c98cb3dfe65b38c9b77)
+### [0.1.22-pre build 30 (#af3d244, 11-13-17)](https://github.com/raymelon/Eliana/commit/af3d24421a94f11b9e8e5c98cb3dfe65b38c9b77)
 
 [README.md](https://github.com/raymelon/Eliana/blob/0.1-pre/README.md)
 - **[DOC]** Added [DOC] type of commit and Changelog section.
