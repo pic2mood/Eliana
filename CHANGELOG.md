@@ -3,6 +3,19 @@
 
 
 
+### [0.1.26-pre build 37 (, 11-14-17)]()
+
+[lib/annotator/annotator.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/annotator/annotator.py)
+- **[REFACTOR]** Minor edits in accordance to ElianaImage new features.
+
+[lib/image/eliana_image.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/image/eliana_image.py)
+- **[FEATURE]** Added flexibility on constructor by supporting path, np image and pil image arguments.
+
+[tests/annotator_unit_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/annotator_unit_test.py)
+- **[REFACTOR]** Minor edits in accordance to ElianaImage new features.
+
+
+
 
 ### [0.1.25-pre build 33 (#32fcb32, 11-14-17)](https://github.com/raymelon/Eliana/commit/32fcb32a216e67e9e177929daf02f5cdc7f0d7ef)
 

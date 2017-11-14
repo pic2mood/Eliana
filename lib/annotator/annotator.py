@@ -18,7 +18,7 @@ from matplotlib import pyplot as plt
 from object_detection.utils import label_map_util as lbl
 from object_detection.utils import visualization_utils as vis
 
-from lib.image.eliana_image import ElianaImage as eli
+from lib.image.eliana_image import ElianaImage
 
 
 class Annotator:
@@ -128,12 +128,12 @@ class Annotator:
         )
 
         boxed_img = self.__draw_boxes_and_labels(boxes, classes, scores)
-        eli.show_img(boxed_img, use='plt')
-        #print(boxed_img)
+        boxed_img.show(use='plt')
+        # print(boxed_img)
 
         cropped_images = self.__crop_batch(boxes, scores)
         for img in cropped_images:
-            eli.show_img(img, use='pil')
+            img.show(use='pil')
 
     #
     #
@@ -194,7 +194,7 @@ class Annotator:
             img_crop = self.img.as_pil.crop(
                 (xminn, yminn, xmaxx, ymaxx)
             )
-            return img_crop
+            return ElianaImage(pil=img_crop)
 
         def ___crop_using_tf(coords: tuple):
 
@@ -223,4 +223,4 @@ class Annotator:
             line_thickness=8
         )
 
-        return boxed_img
+        return ElianaImage(np=boxed_img)

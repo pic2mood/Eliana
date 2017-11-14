@@ -11,13 +11,18 @@ from PIL import Image
 
 from matplotlib import pyplot as plt
 
+
 class ElianaImage():
     """.. class:: ElianaImage
 
     Class for Eliana image container.
     """
 
-    def __init__(self, path):
+    # TODO:
+    # Add support to Tensor image.
+    # Add sync update between image types
+
+    def __init__(self, path=None, np=None, pil=None):
 
         """.. method:: ElianaImage(path: str)
 
@@ -27,8 +32,31 @@ class ElianaImage():
             path (str): Image path.
         """
 
-        self.__img_pil = Image.open(path)
+        if path is not None:
+            self.__init_from_path(path)
 
+        elif np is not None:
+            self.__img_numpy = np
+            self.__init_from_np()
+
+        elif pil is not None:
+            self.__img_pil = pil
+            self.__init_from_pil()
+        else:
+            raise ValueError('No argument supplied.')
+
+    def __init_from_path(self, path):
+
+        self.__img_pil = Image.open(path)
+        self.__init_from_pil()
+
+
+    def __init_from_np(self):
+        # TODO:
+        # Convert np to pil
+        pass
+
+    def __init_from_pil(self):
         (self.__w, self.__h) = self.__img_pil.size
 
         self.__img_numpy = self.__load_image_into_numpy_array(self.__img_pil)
@@ -65,22 +93,25 @@ class ElianaImage():
 
         return img
 
-    @staticmethod
-    def show_img(img, use='pil'):
+    def show(self, use='pil'):
         """ Shows image.
 
             Args:
-                img (np): image in numpy array representation
+                use (str):
+
+                Use 'pil' to use Pillow Image's show().
+
+                Use 'plt' for matplotlib pyplot's imshow() and show().
         """
 
         def __show_using_plt():
 
             plt.figure(figsize=(12, 9))
-            plt.imshow(img)
+            plt.imshow(self.__img_numpy)
             plt.show()
 
         def __show_using_pil():
-            img.show()
+            self.__img_pil.show()
 
         #
         #

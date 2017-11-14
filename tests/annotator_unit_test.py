@@ -109,7 +109,7 @@ class AnnotatorUnitTest(ElianaUnitTest):
                 with tf.Session(graph=detection_graph) as sess:
                     for image_path in self.__test_images:
 
-                        img = ElianaImage(image_path)
+                        img = ElianaImage(path=image_path)
 
                         annotator = Annotator(
                             img,
