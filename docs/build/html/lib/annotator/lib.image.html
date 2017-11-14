@@ -47,7 +47,7 @@
 <span id="lib-image-eliana-image-module"></span><h2>lib.image.eliana_image module<a class="headerlink" href="#module-lib.image.eliana_image" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-eliana_image"></span><dl class="class">
 <dt id="lib.image.eliana_image.ElianaImage">
-<em class="property">class </em><code class="descclassname">lib.image.eliana_image.</code><code class="descname">ElianaImage</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.image.eliana_image.ElianaImage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">lib.image.eliana_image.</code><code class="descname">ElianaImage</code><span class="sig-paren">(</span><em>path=None</em>, <em>np=None</em>, <em>pil=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.image.eliana_image.ElianaImage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="class">
 <dt id="eliana_image.ElianaImage.ElianaImage">
@@ -75,14 +75,13 @@
 <code class="descname">height</code><a class="headerlink" href="#lib.image.eliana_image.ElianaImage.height" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
-<dt id="lib.image.eliana_image.ElianaImage.show_img">
-<em class="property">static </em><code class="descname">show_img</code><span class="sig-paren">(</span><em>img</em>, <em>use='pil'</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.image.eliana_image.ElianaImage.show_img" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="lib.image.eliana_image.ElianaImage.show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>use='pil'</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.image.eliana_image.ElianaImage.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows image.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><p class="first">img (np): image in numpy array representation</p>
-<p>use (str):</p>
+<dd><p class="first">use (str):</p>
 <p>Use ‘pil’ to use Pillow Image’s show().</p>
 <p class="last">Use ‘plt’ for matplotlib pyplot’s imshow() and show().</p>
 </dd>

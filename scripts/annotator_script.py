@@ -1,4 +1,6 @@
 
+# annotator implementation in script mode
+
 import os
 import cv2
 import time

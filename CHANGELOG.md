@@ -3,7 +3,7 @@
 
 
 
-### [0.1.26-pre build 37 (, 11-14-17)]()
+### [0.1.26-pre build 37 (#e50a917, 11-14-17)](https://github.com/raymelon/Eliana/commit/e50a91719acfb7fc83c204654054bfdc8946cd9e)
 
 [lib/annotator/annotator.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/annotator/annotator.py)
 - **[REFACTOR]** Minor edits in accordance to ElianaImage new features.
