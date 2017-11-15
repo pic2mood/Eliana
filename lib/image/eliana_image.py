@@ -50,7 +50,6 @@ class ElianaImage():
         self.__img_pil = Image.open(path)
         self.__init_from_pil()
 
-
     def __init_from_np(self):
         # TODO:
         # Convert np to pil
