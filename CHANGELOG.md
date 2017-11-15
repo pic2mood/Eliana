@@ -2,6 +2,16 @@
 
 
 
+### [0.1.28-pre build 39 (#390f6a9, 11-15-17)](https://github.com/raymelon/Eliana/commit/390f6a95bf50bf41908bcd063c1b31e3400816f8)
+
+[lib/color/color.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/color/color.py)
+- **[FEATURE]** Initial color module implementation.
+
+[tests/color_unit_test.py](https://github.com/raymelon/Eliana/blob/0.1-pre/tests/color_unit_test.py)
+- **[FEATURE]** Initial unit test for the new color module.
+
+
+
 
 ### [0.1.26-pre build 37 (#e50a917, 11-14-17)](https://github.com/raymelon/Eliana/commit/e50a91719acfb7fc83c204654054bfdc8946cd9e)
 

@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     lib.annotator
+    lib.color
     lib.image
 
 Module contents
