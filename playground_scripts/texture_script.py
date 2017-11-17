@@ -7,9 +7,10 @@ import numpy as np
 #import skimage
 from skimage.feature import greycomatrix, greycoprops
 
-#from lib.image.eliana_image import ElianaImage
+# from lib.image.eliana_image import ElianaImage
 
-from lib.image.eliana_image import ElianaImage
+import imp
+eliana_image = imp.load_source('eliana_image', './eliana/lib/eliana_image.py')
 
 dir_working = os.getcwd()
 
@@ -29,10 +30,17 @@ __dir_test_image = os.path.join(
     'image1.jpg'
 )
 
-img = ElianaImage(__dir_test_image).as_numpy
-result = greycomatrix(img, [1, 2], [0], 4,
-                        normed=True, symmetric=True)
+img = eliana_image.ElianaImage(__dir_test_image).as_numpy
+
+print(img)
+
+img = img.transpose(2, 0, 1).reshape(-1, img.shape[1])
+
+print(img)
+
+result = greycomatrix(img, [1], [0], normed=True, symmetric=True)
+# result = greycomatrix(img, [1, 2], [0], 4, normed=True, symmetric=True)
 
 result = np.round(result, 3)
-contrast  = greycoprops(result, 'contrast')
-print(contrast)
+contrast = greycoprops(result, 'contrast')
+print('GLCM contrast:', contrast)
