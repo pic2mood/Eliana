@@ -2,6 +2,12 @@
 
 
 
+### [0.1.30-pre build 41 (, 11-17-17)]()
+[scripts/texture_script.py](https://github.com/raymelon/Eliana/blob/0.1-pre/scripts/texture_script.py)
+- **[FEATURE]** Initial texture module script.
+
+
+
 ### [0.1.28-pre build 39 (#390f6a9, 11-15-17)](https://github.com/raymelon/Eliana/commit/390f6a95bf50bf41908bcd063c1b31e3400816f8)
 
 [lib/color/color.py](https://github.com/raymelon/Eliana/blob/0.1-pre/lib/color/color.py)
