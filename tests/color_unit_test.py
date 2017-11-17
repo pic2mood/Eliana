@@ -10,8 +10,8 @@ import os
 from tests.eliana_test import ElianaUnitTest
 
 import tensorflow as tf
-from lib.color.color import Color
-from lib.image.eliana_image import ElianaImage
+from eliana.lib.color import Color
+from eliana.lib.eliana_image import ElianaImage
 
 import traceback
 

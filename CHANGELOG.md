@@ -1,8 +1,12 @@
 # Eliana Changelog
 
+### [0.1.31-pre build 42 (, 11-17-17)]()
+[REPO](https://github.com/raymelon/Eliana/blob/0.1-pre/)
+- **[REFACTOR]** Made the repository's directory structure compatible for Python packaging.
+- **[DOCS]** Rebuilt docs for new directory structure.
 
 
-### [0.1.30-pre build 41 (, 11-17-17)]()
+### [0.1.30-pre build 41 (#6db832c, 11-17-17)](https://github.com/raymelon/Eliana/commit/6db832ce0cd278e2513b04987e279375d2f0ef2d)
 [scripts/texture_script.py](https://github.com/raymelon/Eliana/blob/0.1-pre/scripts/texture_script.py)
 - **[FEATURE]** Initial texture module script.
 

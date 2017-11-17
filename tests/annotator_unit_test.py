@@ -10,9 +10,8 @@ import os
 from tests.eliana_test import ElianaUnitTest
 
 import tensorflow as tf
-from lib.annotator.annotator import Annotator
-from PIL import Image
-from lib.image.eliana_image import ElianaImage
+from eliana.lib.annotator import Annotator
+from eliana.lib.eliana_image import ElianaImage
 
 import traceback
 
