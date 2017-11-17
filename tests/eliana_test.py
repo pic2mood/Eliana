@@ -90,6 +90,9 @@ class ElianaIntegratedtTest(ElianaTest):
 
 class ElianaLog:
 
+    # TODO:
+    # Use logger class in here.
+
     def __init__(self):
         self.__log_ok = self.__status_formatter('OK')
         self.__log_error = self.__status_formatter('ERROR')
