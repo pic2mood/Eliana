@@ -5,7 +5,6 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Nov 19, 2017
 """
-
 import numpy as np
 
 # from PIL import Image
