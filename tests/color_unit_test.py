@@ -3,7 +3,7 @@
     :platform: Linux
     :synopsis: unit test for color module
 
-.. created:: Nov 2, 2017
+.. created:: Nov 15, 2017
 .. author:: Raymel Francisco <franciscoraymel@gmail.com>
 """
 import os
