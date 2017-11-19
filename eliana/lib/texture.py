@@ -5,11 +5,11 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Nov 19, 2017
 """
-import os
+
 import numpy as np
 
-from PIL import Image
-from eliana.lib.eliana_image import ElianaImage
+# from PIL import Image
+# from eliana.lib.eliana_image import ElianaImage
 
 from skimage.feature import greycomatrix, greycoprops
 
