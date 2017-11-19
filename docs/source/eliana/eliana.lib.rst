@@ -28,6 +28,14 @@ eliana\.lib\.eliana\_image module
     :undoc-members:
     :show-inheritance:
 
+eliana\.lib\.texture module
+---------------------------
+
+.. automodule:: eliana.lib.texture
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
