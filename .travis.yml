@@ -1,8 +1,11 @@
 language: python
+
 python:
+  
   - "3.6"
 
 install:
+
   - wget http://repo.continuum.io/miniconda/Anaconda3-4.4.0-Linux-x86_64.sh -O ~/anaconda.sh
   - bash ~/anaconda.sh -b -p $HOME/anaconda
   - export PATH="$HOME/anaconda/bin:$PATH"
@@ -16,4 +19,5 @@ install:
   - sudo chmod 755 /usr/bin/rclone
 
 script:
+
   - "/tests/integrated.py"
