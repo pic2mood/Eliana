@@ -1,6 +1,5 @@
 """
 .. module:: annotator
-    :platform: Linux
     :synopsis: main module for object detection/annotation in images
 
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>

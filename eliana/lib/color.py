@@ -1,6 +1,5 @@
 """
 .. module:: color
-    :platform: Linux
     :synopsis: main module for color processing in images
 
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>

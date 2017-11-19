@@ -1,3 +1,5 @@
 env
 *.pyc
-__pycache__/
+tests/__pycache__/
+eliana/__pycache__/
+eliana/lib/__pycache__/

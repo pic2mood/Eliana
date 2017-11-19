@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# fish_activate_env
+
+cd '~/Documents/PUP Files/8th Sem/Eliana'
+source activate ./env/eliana
+
+fish
