@@ -45,9 +45,10 @@ class TextureUnitTest(ElianaUnitTest):
     def __batch_get_texture(self):
 
         # for img in self.__images:
+        #   texture = Texture(img)
+
         for path in self.__test_images:
 
-            # texture = Texture(img)
             texture = Texture(path)
 
             img_gray = texture.img_gray
