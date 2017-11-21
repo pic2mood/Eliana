@@ -3,4 +3,4 @@ env
 tests/__pycache__/
 eliana/__pycache__/
 eliana/lib/__pycache__/
-training/test_images/
+training/data/test_images/
