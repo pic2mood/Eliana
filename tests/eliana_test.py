@@ -8,6 +8,7 @@
 
 import os
 from abc import ABC, abstractmethod
+import sys
 
 
 class ElianaTest(ABC):
@@ -17,6 +18,8 @@ class ElianaTest(ABC):
     """
     def __init__(self):
         self.dir_working = os.getcwd()
+
+        print(sys.version, '\n')
 
         self.__dir_env_modules = os.path.join(
             self.dir_working,
@@ -29,6 +32,10 @@ class ElianaTest(ABC):
         self.__dir_local_modules = os.path.join(
             self.dir_working,
             'lib'
+        )
+        self.training_data = os.path.join(
+            self.dir_working,
+            'training'
         )
         self.eliana_log = ElianaLog()
 

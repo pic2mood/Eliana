@@ -24,13 +24,13 @@ class AnnotatorUnitTest(ElianaUnitTest):
     def __init_test_images(self):
 
         self.__dir_test_images = os.path.join(
-            self.dir_env_modules,
-            'object_detection',
+            self.training_data,
+            'data',
             'test_images'
         )
         self.__test_images = [
             os.path.join(
-                self.__dir_test_images, 'image{}.jpg'.format(i)
+                self.__dir_test_images, 'img{}.jpg'.format(i)
             )
             for i in range(1, 3)
         ]
@@ -41,8 +41,8 @@ class AnnotatorUnitTest(ElianaUnitTest):
         self.__model = 'ssd_mobilenet_v1_coco_11_06_2017'
         self.__graph = 'frozen_inference_graph.pb'
         self.__file_ckpt = os.path.join(
-            self.dir_env_modules,
-            'object_detection',
+            self.training_data,
+            'models',
             self.__model,
             self.__graph
         )
@@ -51,8 +51,7 @@ class AnnotatorUnitTest(ElianaUnitTest):
 
         self.__label = 'mscoco_label_map.pbtxt'
         self.__file_label = os.path.join(
-            self.dir_env_modules,
-            'object_detection',
+            self.training_data,
             'data',
             self.__label
         )
