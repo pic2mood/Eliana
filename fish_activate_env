@@ -2,7 +2,7 @@
 
 # fish_activate_env
 
-cd '~/Documents/PUP Files/8th Sem/Eliana'
-source activate ./env/eliana
+cd ~/Documents/PUP\ Files/8th\ Sem/Eliana
+source ~/Documents/PUP\ Files/8th\ Sem/Eliana/env/eliana/bin/activate
 
 fish
