@@ -19,7 +19,7 @@ class ElianaTest(ABC):
     def __init__(self):
         self.dir_working = os.getcwd()
 
-        print(sys.version, '\n')
+        print(sys.version, end='\n')
 
         self.__dir_env_modules = os.path.join(
             self.dir_working,
