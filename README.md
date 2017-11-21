@@ -12,9 +12,9 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 3. Install [Anaconda](https://www.anaconda.com/downloads).
 4. Download the conda enviroment.
 
-   - [Link 1 (Archived as .tar.xz)](https://mega.nz/#!82gBBCqT!clt5iihZZGYDGOE6utsr207iNviRAFqbI-_TsPFmswQ) at MEGA
-   
-   - [Link 2](https://drive.google.com/open?id=0B2Gw0zD3SerkVWtsSVlRTUNuWVE) at Google Drive
+   - [Packed](https://mega.nz/#!82gBBCqT!clt5iihZZGYDGOE6utsr207iNviRAFqbI-_TsPFmswQ)
+   - [Main](https://mega.nz/#F!Yn4WzY6I!3o2klQ-LfVwkTt61yVA9Gw)
+   - [Mirror](https://drive.google.com/open?id=0B2Gw0zD3SerkVWtsSVlRTUNuWVE)
    
 5. Extract the downloaded env.   
 6. To ensure an updated env, sync the extracted env through Link 2.
