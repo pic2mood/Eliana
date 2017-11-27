@@ -3,7 +3,7 @@
     :synopsis: batch loader for images
 
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
-.. created:: Nov 24, 2017
+.. created:: Nov 27, 2017
 """
 
 # from PIL import Image
