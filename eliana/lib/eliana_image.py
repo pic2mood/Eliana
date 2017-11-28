@@ -53,6 +53,7 @@ class ElianaImage():
     def __init_from_np(self):
         # TODO:
         # Convert np to pil
+        self.__img_pil = Image.fromarray(np.uint8(self.__img_numpy))
         pass
 
     def __init_from_pil(self):
