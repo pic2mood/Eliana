@@ -107,7 +107,7 @@ class ElianaImage():
 
             plt.figure(figsize=(12, 9))
             plt.imshow(self.__img_numpy)
-            plt.show()
+            plt.pause(0.05)
 
         def __show_using_pil():
             self.__img_pil.show()
