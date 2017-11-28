@@ -82,6 +82,7 @@ class ElianaImage():
         Updates PIL version of ElianaImage when changes occur on numpy version.
 
         """
+
         self.__init_from_np()
         return self.__img_pil
 
@@ -90,6 +91,7 @@ class ElianaImage():
         Updates numpy version of ElianaImage when changes occur on PIL version.
 
         """
+
         self.__init_from_pil()
         return self.__img_numpy
 
