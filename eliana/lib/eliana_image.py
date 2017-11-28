@@ -51,14 +51,10 @@ class ElianaImage():
         self.__init_from_pil()
 
     def __init_from_np(self):
-        # TODO:
-        # Convert np to pil
         self.__img_pil = Image.fromarray(np.uint8(self.__img_numpy))
-        pass
 
     def __init_from_pil(self):
         (self.__w, self.__h) = self.__img_pil.size
-
         self.__img_numpy = self.__load_image_into_numpy_array(self.__img_pil)
 
     @property
@@ -80,6 +76,22 @@ class ElianaImage():
     @property
     def as_pil(self):
         return self.__img_pil
+
+    def update_pil(self):
+        """
+        Updates PIL version of ElianaImage when changes occur on numpy version.
+
+        """
+        self.__init_from_np()
+        return self.__img_pil
+
+    def update_np(self):
+        """
+        Updates numpy version of ElianaImage when changes occur on PIL version.
+
+        """
+        self.__init_from_pil()
+        return self.__img_numpy
 
     def __load_image_into_numpy_array(self, img):
 
