@@ -1,3 +1,5 @@
+eliana.sublime-project
+eliana.sublime-workspace
 env
 *.pyc
 tests/__pycache__/
