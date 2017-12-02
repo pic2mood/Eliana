@@ -22,7 +22,7 @@ class ElianaImage():
     # Add support to Tensor image.
     # Add sync update between image types
 
-    def __init__(self, path=None, np=None, pil=None):
+    def __init__(self, path: str=None, np: np=None, pil: Image=None):
 
         """.. method:: ElianaImage(path: str)
 
