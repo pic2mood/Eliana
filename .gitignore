@@ -1,5 +1,8 @@
+eliana.sublime-project
+eliana.sublime-workspace
 env
 *.pyc
 tests/__pycache__/
 eliana/__pycache__/
 eliana/lib/__pycache__/
+training/data/test_images/

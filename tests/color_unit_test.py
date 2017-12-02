@@ -58,9 +58,14 @@ class ColorUnitTest(ElianaUnitTest):
             img_rgb = Color.to_rgb(img_hsv)
             self.__rgb_converts.append(img_rgb)
 
+    def __batch_colorfulness(self):
+
+        for img in self.__orig_images:
+            print('\nColorfulness:', Color.colorfulness(img))
+
     def run(self):
 
-        self.eliana_log.steps = 4
+        self.eliana_log.steps = 5
 
         self.eliana_log.log('Starting unit test for Color module')
         print(self.eliana_log.log_ok)
@@ -75,6 +80,10 @@ class ColorUnitTest(ElianaUnitTest):
         #
         self.eliana_log.log('Image conversion from HSV to RGB')
         self.test(self.__batch_convert_to_rgb)
+        #
+        #
+        self.eliana_log.log('Image colorfulness test')
+        self.test(self.__batch_colorfulness)
 
 
 color_unit_test = ColorUnitTest()

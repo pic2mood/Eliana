@@ -22,7 +22,7 @@ class ElianaImage():
     # Add support to Tensor image.
     # Add sync update between image types
 
-    def __init__(self, path=None, np=None, pil=None):
+    def __init__(self, path: str=None, np: np=None, pil: Image=None):
 
         """.. method:: ElianaImage(path: str)
 
@@ -51,13 +51,10 @@ class ElianaImage():
         self.__init_from_pil()
 
     def __init_from_np(self):
-        # TODO:
-        # Convert np to pil
-        pass
+        self.__img_pil = Image.fromarray(np.uint8(self.__img_numpy))
 
     def __init_from_pil(self):
         (self.__w, self.__h) = self.__img_pil.size
-
         self.__img_numpy = self.__load_image_into_numpy_array(self.__img_pil)
 
     @property
@@ -79,6 +76,24 @@ class ElianaImage():
     @property
     def as_pil(self):
         return self.__img_pil
+
+    def update_pil(self):
+        """
+        Updates PIL version of ElianaImage when changes occur on numpy version.
+
+        """
+
+        self.__init_from_np()
+        return self.__img_pil
+
+    def update_np(self):
+        """
+        Updates numpy version of ElianaImage when changes occur on PIL version.
+
+        """
+
+        self.__init_from_pil()
+        return self.__img_numpy
 
     def __load_image_into_numpy_array(self, img):
 
@@ -107,7 +122,7 @@ class ElianaImage():
 
             plt.figure(figsize=(12, 9))
             plt.imshow(self.__img_numpy)
-            plt.show()
+            plt.pause(0.05)
 
         def __show_using_pil():
             self.__img_pil.show()
