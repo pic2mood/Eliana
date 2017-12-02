@@ -72,15 +72,46 @@ error = 0.5 * tf.reduce_sum(
     tf.subtract(output_activation, outputs)
 )
 
-learning_rate = 0.005
+learning_rate = 0.05
 step = tf.train.GradientDescentOptimizer(learning_rate).minimize(error)
 
 # 4. build the network
 session.run(tf.initialize_all_variables())
 
 # 5. train
-training_size = 300
-training_inputs = 
-training_output = 
+training_size = 400
+training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
+training_outputs = [[0.1], [0.2]] * training_size
 
+epochs = 2000
 
+for epoch in range(epochs):
+    _, error_rate = session.run(
+        [step, error],
+        feed_dict={
+            inputs: np.array(training_inputs),
+            outputs: np.array(training_outputs)
+        }
+
+    )
+
+    print('epoch:', str(epoch), '| error:', str((error_rate * 100)) + '%')
+
+# 6. test
+
+print(
+    session.run(
+        output_activation,
+        feed_dict={
+            inputs: np.array([[0.0996, 0.49184]])
+        }
+    )
+)
+print(
+    session.run(
+        output_activation,
+        feed_dict={
+            inputs: np.array([[0.2742, 0.36230]])
+        }
+    )
+)
