@@ -34,13 +34,13 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
    1. Format Type 1 (for repo handlers)
        
        ```
-       [<TYPE OF COMMIT>] v<MAJOR>.<MINOR>.<PATCH> build <TRAVIS-BUILD>`
+       [<TYPE OF COMMIT>] v<MAJOR>.<MINOR>.<PATCH> build <TRAVIS-BUILD> (#<ISSUE>) <COMMIT MESSAGE>`
        ```
 
    2. Format Type 2 (for pull requests)
    
       ```
-      [<TYPE OF COMMIT>]
+      [<TYPE OF COMMIT>] (#<ISSUE>) <COMMIT MESSAGE>
       ```
 
 - The types of commits are as follows:
