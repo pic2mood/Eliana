@@ -79,6 +79,7 @@ step = tf.train.GradientDescentOptimizer(learning_rate).minimize(error)
 session.run(tf.initialize_all_variables())
 
 # 5. train
+# Original colorfulnes values: 49.184, 36.230
 training_size = 400
 training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
 training_outputs = [[0.1], [0.2]] * training_size
