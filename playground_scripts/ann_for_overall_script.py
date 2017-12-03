@@ -1,5 +1,7 @@
 
-# neural network implementation in script mode
+# neural network without annotated objects
+# for overall image
+# implementation in script mode
 
 import numpy as np
 import tensorflow as tf
@@ -20,7 +22,7 @@ outputs = tf.placeholder(tf.float32, shape=[None, 1])
 
 # 2 hidden neurons
 
-hidden_neurons = 2
+hidden_neurons = 3
 
 # 2. initialize neural network component values
 # input layer
@@ -30,12 +32,12 @@ input_biases = tf.Variable(tf.zeros([hidden_neurons]))
 
 # hidden layer
 
-hidden_weights = tf.Variable(tf.truncated_normal([hidden_neurons, 2]))
-hidden_biases = tf.Variable(tf.zeros([2]))
+hidden_weights = tf.Variable(tf.truncated_normal([hidden_neurons, 3]))
+hidden_biases = tf.Variable(tf.zeros([3]))
 
 # output layer
 
-output_weights = tf.Variable(tf.truncated_normal([2, 1]))
+output_weights = tf.Variable(tf.truncated_normal([3, 1]))
 output_biases = tf.Variable(tf.zeros([1]))
 
 # 3. setup neural network functions
@@ -72,15 +74,47 @@ error = 0.5 * tf.reduce_sum(
     tf.subtract(output_activation, outputs)
 )
 
-learning_rate = 0.005
+learning_rate = 0.05
 step = tf.train.GradientDescentOptimizer(learning_rate).minimize(error)
 
 # 4. build the network
 session.run(tf.initialize_all_variables())
 
 # 5. train
-training_size = 300
-training_inputs = 
-training_output = 
+# Original colorfulnes values: 49.184, 36.230
+training_size = 400
+training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
+training_outputs = [[0.1], [0.2]] * training_size
 
+epochs = 2000
 
+for epoch in range(epochs):
+    _, error_rate = session.run(
+        [step, error],
+        feed_dict={
+            inputs: np.array(training_inputs),
+            outputs: np.array(training_outputs)
+        }
+
+    )
+
+    print('epoch:', str(epoch), '| error:', str((error_rate * 100)) + '%')
+
+# 6. test
+
+print(
+    session.run(
+        output_activation,
+        feed_dict={
+            inputs: np.array([[0.0996, 0.49184]])
+        }
+    )
+)
+print(
+    session.run(
+        output_activation,
+        feed_dict={
+            inputs: np.array([[0.2742, 0.36230]])
+        }
+    )
+)
