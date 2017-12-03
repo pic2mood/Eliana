@@ -53,3 +53,7 @@ class Texture:
     def get_texture_value(self):
 
         return greycoprops(self.greycomatrix_result, 'contrast')
+
+    def get_texture_mean(self):
+
+        return np.mean(self.get_texture_value())

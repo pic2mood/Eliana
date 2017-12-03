@@ -51,14 +51,16 @@ class TextureUnitTest(ElianaUnitTest):
 
             texture = Texture(path)
 
-            img_gray = texture.img_gray
+            # img_gray = texture.img_gray
 
-            print('\nShowing converted grayscale image...')
-            Image.fromarray(img_gray).show()
+            # print('\nShowing converted grayscale image...')
+            # Image.fromarray(img_gray).show()
 
             texture_value = texture.get_texture_value()
+            texture_mean = texture.get_texture_mean()
 
-            print('GLCM contrast:\n', texture_value, '\n')
+            print('\nGLCM contrast:\n', texture_value,
+                  '\nGLCM contrast mean:', texture_mean)
 
     def run(self):
 
