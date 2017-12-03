@@ -138,3 +138,4 @@ class AnnotatorUnitTest(ElianaUnitTest):
 
 annotator_unit_test = AnnotatorUnitTest()
 annotator_unit_test.run()
+input('Press any key to exit...')

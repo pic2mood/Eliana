@@ -65,6 +65,7 @@ class Annotator:
         self.category_index = lbl.create_category_index(
             self.categories
         )
+        self.cropped_images = []
 
     def annotate(self):
         """annotate()
@@ -130,9 +131,32 @@ class Annotator:
         boxed_img.show(use='plt')
         # print(boxed_img)
 
-        cropped_images = self.__crop_batch(boxes, scores)
-        for img in cropped_images:
-            img.show(use='pil')
+        self.cropped_images = self.__crop_batch(boxes, scores)
+        # for img in self.cropped_images:
+        #     img.show(use='pil')
+
+        # print(classes)
+        # print(scores)
+        # print(detections)
+
+        # print(np.squeeze(boxes))
+        # print(np.squeeze(classes).astype(np.int32))
+        # print(np.squeeze(scores))
+        # print(self.category_index)
+
+        print()
+
+        scores = np.squeeze(scores)
+        classes = np.squeeze(classes)
+
+        for i in range(scores.size):
+            if scores[i] > 0.5:
+                print(
+                    i, scores[i], classes[i],
+                    self.category_index[classes[i]]
+                )
+
+        # input("Press...")
 
     #
     #
@@ -219,7 +243,9 @@ class Annotator:
             np.squeeze(scores),
             self.category_index,
             use_normalized_coordinates=True,
-            line_thickness=8
+            line_thickness=8,
+            min_score_thresh=0.5
         )
 
         return ElianaImage(np=boxed_img)
+
