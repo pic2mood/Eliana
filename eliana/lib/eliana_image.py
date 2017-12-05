@@ -89,24 +89,6 @@ class ElianaImage:
     def objects(self):
         return self.__objects
 
-    def update_pil(self):
-        """
-        Updates PIL version of ElianaImage when changes occur on numpy version.
-
-        """
-
-        self.__init_from_np()
-        return self.__img_pil
-
-    def update_np(self):
-        """
-        Updates numpy version of ElianaImage when changes occur on PIL version.
-
-        """
-
-        self.__init_from_pil()
-        return self.__img_numpy
-
     def __load_image_into_numpy_array(self, img):
 
         # img = np.array(
