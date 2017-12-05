@@ -12,39 +12,7 @@ from PIL import Image
 from matplotlib import pyplot as plt
 
 
-# class ElianaBaseImage():
-
-#     @property
-#     def width(self):
-#         return self.__w
-
-#     @property
-#     def height(self):
-#         return self.__h
-
-#     @property
-#     def as_list(self):
-#         return self.__img_list
-
-#     @property
-#     def as_numpy(self):
-#         return self.__img_numpy
-
-#     @property
-#     def as_pil(self):
-#         return self.__img_pil
-
-#     @property
-#     def colorfulness(self):
-#         return self.__colorfulness
-
-#     @property
-#     def texture(self):
-#         return self.__texture
-
-
-# class ElianaImage(ElianaBaseImage):
-class ElianaImage():
+class ElianaImage:
     """.. class:: ElianaImage
 
     Class for Eliana image container.
@@ -192,7 +160,11 @@ class ElianaImage():
             )
 
 
-# class ElianaObjectImage(ElianaImage):
+class ElianaObjectImage(ElianaImage):
 
-#     def __init__(self):
-#         pass
+    def __init__(self, parent: ElianaImage):
+
+        self.annotation = ''
+        self.parent = parent
+
+        super().__init__(pil=parent.as_pil)
