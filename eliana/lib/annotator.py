@@ -67,6 +67,13 @@ class Annotator:
         )
         self.cropped_images = []
 
+    def __reshape_np_image(self, img: ElianaImage):
+        return np.array(img.as_pil).reshape(
+            (img.height, img.width, 3)
+        ).astype(
+            np.uint8
+        )
+
     def annotate(self):
         """annotate()
 
@@ -76,7 +83,15 @@ class Annotator:
         def __annotate_init_params():
 
             dg = self.detection_graph
-            img_expanded: np = np.expand_dims(self.img.as_numpy, axis=0)
+            # img_expanded: np = np.expand_dims(
+            #     self.img.as_numpy,
+            #     axis=0
+            # )
+            img_expanded: np = np.expand_dims(
+                self.__reshape_np_image(self.img),
+                axis=0
+            )
+
             img_tensor = dg.get_tensor_by_name('image_tensor:0')
 
             boxes: np = dg.get_tensor_by_name('detection_boxes:0')
@@ -223,7 +238,8 @@ class Annotator:
 
             (xminn, xmaxx, yminn, ymaxx) = coords
             img_crop = tf.image.crop_to_bounding_box(
-                self.img.as_numpy, yminn, xminn,
+                self.__reshape_np_image(self.img), yminn, xminn,
+                # self.img.as_numpy, yminn, xminn,
                 ymaxx - yminn,
                 xmaxx - xminn
             )
@@ -235,7 +251,9 @@ class Annotator:
 
     def __draw_boxes_and_labels(self, boxes, classes, scores):
 
-        boxed_img = self.img.as_numpy
+        # boxed_img = self.img.as_numpy
+        boxed_img = self.__reshape_np_image(self.img)
+
         vis.visualize_boxes_and_labels_on_image_array(
             boxed_img,
             np.squeeze(boxes),
@@ -248,4 +266,3 @@ class Annotator:
         )
 
         return ElianaImage(np=boxed_img)
-

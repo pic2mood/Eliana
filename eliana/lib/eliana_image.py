@@ -43,7 +43,8 @@ from matplotlib import pyplot as plt
 #         return self.__texture
 
 
-class ElianaImage(ElianaBaseImage):
+# class ElianaImage(ElianaBaseImage):
+class ElianaImage():
     """.. class:: ElianaImage
 
     Class for Eliana image container.
@@ -140,10 +141,16 @@ class ElianaImage(ElianaBaseImage):
 
     def __load_image_into_numpy_array(self, img):
 
+        # img = np.array(
+        #     img.getdata()
+        # ).reshape(
+        #     (self.__h, self.__w, 3)
+        # ).astype(
+        #     np.uint8
+        # )
+
         img = np.array(
             img.getdata()
-        ).reshape(
-            (self.__h, self.__w, 3)
         ).astype(
             np.uint8
         )
