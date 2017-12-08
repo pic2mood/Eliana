@@ -10,8 +10,6 @@ import os
 from tests.eliana_test import ElianaUnitTest
 from eliana.lib.image_batch_loader import ImageBatchLoader
 
-import traceback
-
 
 class ImageBatchLoaderUnitTest(ElianaUnitTest):
 

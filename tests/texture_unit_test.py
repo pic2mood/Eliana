@@ -9,11 +9,7 @@
 import os
 from tests.eliana_test import ElianaUnitTest
 
-from PIL import Image
 from eliana.lib.texture import Texture
-from eliana.lib.eliana_image import ElianaImage
-
-import traceback
 
 
 class TextureUnitTest(ElianaUnitTest):

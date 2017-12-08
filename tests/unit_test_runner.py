@@ -14,6 +14,7 @@ from tests.texture_unit_test import TextureUnitTest
 
 # unittest.TextTestRunner(unittest.TestLoader().discover('./tests', pattern='*unit_test.py'))
 
+
 class TesterSub(unittest.TestCase):
 
     def test_batch_loader(self):

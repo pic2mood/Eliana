@@ -7,9 +7,12 @@
 """
 
 import os
-from abc import ABC, abstractmethod
 import sys
+print(sys.version, end='\n')
+
+from abc import ABC, abstractmethod
 import unittest
+import traceback
 
 
 class ElianaTest(ABC):
@@ -20,7 +23,7 @@ class ElianaTest(ABC):
     def __init__(self):
         self.dir_working = os.getcwd()
 
-        print(sys.version, end='\n')
+        # print(sys.version, end='\n')
 
         self.__dir_env_modules = os.path.join(
             self.dir_working,

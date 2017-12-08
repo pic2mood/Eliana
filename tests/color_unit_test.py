@@ -9,11 +9,8 @@
 import os
 from tests.eliana_test import ElianaUnitTest
 
-import tensorflow as tf
 from eliana.lib.color import Color
 from eliana.lib.eliana_image import ElianaImage
-
-import traceback
 
 
 class ColorUnitTest(ElianaUnitTest):
