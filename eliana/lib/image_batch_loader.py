@@ -22,10 +22,10 @@ class ImageBatchLoader:
         self.__imgs = []
         self.dir_glob = glob(os.path.join(self.dir, '*.jpg'))
 
-        for img_path in self.dir_glob[:limit]:
+        for img_path in self.dir_glob[-limit:]:
 
             img = ElianaImage(img_path)
-            self.__imgs.append((img_path, img))
+            self.__imgs.append(img)
 
     @property
     def images(self):

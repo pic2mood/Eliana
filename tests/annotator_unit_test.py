@@ -8,11 +8,10 @@
 """
 import os
 from tests.eliana_test import ElianaUnitTest
-from tests.image_batch_loader import ImageBatchLoader
 
 import tensorflow as tf
 from eliana.lib.annotator import Annotator
-from eliana.lib.eliana_image import ElianaImage
+from eliana.lib.image_batch_loader import ImageBatchLoader
 
 import traceback
 
@@ -29,13 +28,17 @@ class AnnotatorUnitTest(ElianaUnitTest):
             'data',
             'test_images'
         )
-        self.__test_images = [
-            os.path.join(
-                self.__dir_test_images, 'img{}.jpg'.format(i)
-            )
-            for i in range(1, 3)
-        ]
-        self.__image_size = (12, 8)
+        # self.__test_images = [
+        #     os.path.join(
+        #         self.__dir_test_images, 'img{}.jpg'.format(i)
+        #     )
+        #     for i in range(1, 3)
+        # ]
+        # self.__image_size = (12, 8)
+
+        self.__test_images = ImageBatchLoader(
+            self.__dir_test_images, limit=2
+        ).images
 
     def __init_model(self):
 
@@ -106,9 +109,7 @@ class AnnotatorUnitTest(ElianaUnitTest):
                     tf.import_graph_def(od_graph_def, name='')
 
                 with tf.Session(graph=detection_graph) as sess:
-                    for image_path in self.__test_images:
-
-                        img = ElianaImage(path=image_path)
+                    for img in self.__test_images:
 
                         annotator = Annotator(
                             img,

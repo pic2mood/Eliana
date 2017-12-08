@@ -30,8 +30,8 @@ class ImageBatchLoaderUnitTest(ElianaUnitTest):
 
     def __print_some_of_test_images(self):
 
-        for (path, img) in self.__images:
-            print(path, img, sep='\n', end='\n\n')
+        for img in self.__images:
+            print(img.path, img, sep='\n', end='\n\n')
 
     def run(self):
 
