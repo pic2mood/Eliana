@@ -1,3 +1,4 @@
 #!/bin/bash
 
-python -m sphinx.apidoc -f -o source/eliana ../eliana/
+#python -m sphinx.apidoc -f -o source/eliana ../eliana/
+python -m sphinx.apidoc -f -o docs/source/eliana eliana/

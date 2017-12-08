@@ -7,8 +7,12 @@
 """
 
 import os
-from abc import ABC, abstractmethod
 import sys
+print(sys.version, end='\n')
+
+from abc import ABC, abstractmethod
+import unittest
+import traceback
 
 
 class ElianaTest(ABC):
@@ -19,7 +23,7 @@ class ElianaTest(ABC):
     def __init__(self):
         self.dir_working = os.getcwd()
 
-        print(sys.version, end='\n')
+        # print(sys.version, end='\n')
 
         self.__dir_env_modules = os.path.join(
             self.dir_working,
@@ -133,7 +137,7 @@ class ElianaLog:
         return self.__log_warning
 
     def __status_formatter(self, log_string) -> str:
-        return ' [' + log_string + ']'
+        return ' [' + log_string + ']\n'
 
     def log(self, log_string):
         print(
@@ -145,7 +149,13 @@ class ElianaLog:
             ')',
             '...',
 
-            end='',
+            end='\n',
             sep=''
         )
         self.__step_counter += 1
+
+
+class Tester(unittest.TestCase):
+    @abstractmethod
+    def test_run(self):
+        pass

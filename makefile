@@ -1,5 +1,11 @@
 #!/bin/bash
 
-python -m unittest tests.annotator_unit_test
-python -m unittest tests.color_unit_test
-python -m unittest tests.texture_unit_test
+test:
+	python -m unittest tests.unit_test_runner
+
+doc:
+	bash docs/build-docs
+	bash docs/make-html
+
+# run:
+	# run integrated test

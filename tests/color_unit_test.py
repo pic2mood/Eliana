@@ -9,11 +9,8 @@
 import os
 from tests.eliana_test import ElianaUnitTest
 
-import tensorflow as tf
 from eliana.lib.color import Color
-from eliana.lib.eliana_image import ElianaImage
-
-import traceback
+from eliana.lib.image_batch_loader import ImageBatchLoader
 
 
 class ColorUnitTest(ElianaUnitTest):
@@ -28,25 +25,23 @@ class ColorUnitTest(ElianaUnitTest):
             'object_detection',
             'test_images'
         )
-        self.__test_images = [
-            os.path.join(
-                self.__dir_test_images, 'image{}.jpg'.format(i)
-            )
-            for i in range(1, 3)
-        ]
-        self.__image_size = (12, 8)
+        # self.__test_images = [
+        #     os.path.join(
+        #         self.__dir_test_images, 'image{}.jpg'.format(i)
+        #     )
+        #     for i in range(1, 3)
+        # ]
+        # self.__image_size = (12, 8)
 
-        self.__orig_images = []
-
-        for img_path in self.__test_images:
-            img_rgb = ElianaImage(path=img_path)
-            self.__orig_images.append(img_rgb)
+        self.__test_images = ImageBatchLoader(
+            self.__dir_test_images, limit=2
+        ).images
 
     def __batch_convert_to_hsv(self):
 
         self.__hsv_converts = []
 
-        for img_rgb in self.__orig_images:
+        for img_rgb in self.__test_images:
             img_hsv = Color.to_hsv(img_rgb)
             self.__hsv_converts.append(img_hsv)
 
@@ -60,7 +55,7 @@ class ColorUnitTest(ElianaUnitTest):
 
     def __batch_colorfulness(self):
 
-        for img in self.__orig_images:
+        for img in self.__test_images:
             print('\nColorfulness:', Color.colorfulness(img))
 
     def run(self):
@@ -86,5 +81,5 @@ class ColorUnitTest(ElianaUnitTest):
         self.test(self.__batch_colorfulness)
 
 
-color_unit_test = ColorUnitTest()
-color_unit_test.run()
+if __name__ == '__main__':
+    ColorUnitTest().run()

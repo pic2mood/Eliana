@@ -8,12 +8,10 @@
 """
 import os
 from tests.eliana_test import ElianaUnitTest
+# from tests.unit_test_runner import TesterSub
 
-from PIL import Image
 from eliana.lib.texture import Texture
-from eliana.lib.eliana_image import ElianaImage
-
-import traceback
+from eliana.lib.image_batch_loader import ImageBatchLoader
 
 
 class TextureUnitTest(ElianaUnitTest):
@@ -28,13 +26,17 @@ class TextureUnitTest(ElianaUnitTest):
             'object_detection',
             'test_images'
         )
-        self.__test_images = [
-            os.path.join(
-                self.__dir_test_images, 'image{}.jpg'.format(i)
-            )
-            for i in range(1, 3)
-        ]
-        self.__image_size = (12, 8)
+        # self.__test_images = [
+        #     os.path.join(
+        #         self.__dir_test_images, 'image{}.jpg'.format(i)
+        #     )
+        #     for i in range(1, 3)
+        # ]
+        # self.__image_size = (12, 8)
+
+        self.__test_images = ImageBatchLoader(
+            self.__dir_test_images, limit=2
+        ).images
 
         self.__images = []
 
@@ -47,9 +49,10 @@ class TextureUnitTest(ElianaUnitTest):
         # for img in self.__images:
         #   texture = Texture(img)
 
-        for path in self.__test_images:
+        for img in self.__test_images:
 
-            texture = Texture(path)
+            # texture = Texture(path)
+            texture = Texture(img)
 
             # img_gray = texture.img_gray
 
@@ -77,5 +80,5 @@ class TextureUnitTest(ElianaUnitTest):
         self.test(self.__batch_get_texture)
 
 
-texture_unit_test = TextureUnitTest()
-texture_unit_test.run()
+if __name__ == '__main__':
+    TextureUnitTest().run()

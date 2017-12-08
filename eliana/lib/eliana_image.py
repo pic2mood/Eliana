@@ -12,7 +12,7 @@ from PIL import Image
 from matplotlib import pyplot as plt
 
 
-class ElianaImage():
+class ElianaImage:
     """.. class:: ElianaImage
 
     Class for Eliana image container.
@@ -33,6 +33,7 @@ class ElianaImage():
         """
 
         if path is not None:
+            self.__path = path
             self.__init_from_path(path)
 
         elif np is not None:
@@ -58,6 +59,10 @@ class ElianaImage():
         self.__img_numpy = self.__load_image_into_numpy_array(self.__img_pil)
 
     @property
+    def path(self):
+        return self.__path
+
+    @property
     def width(self):
         return self.__w
 
@@ -77,30 +82,30 @@ class ElianaImage():
     def as_pil(self):
         return self.__img_pil
 
-    def update_pil(self):
-        """
-        Updates PIL version of ElianaImage when changes occur on numpy version.
+    @property
+    def colorfulness(self):
+        return self.__colorfulness
 
-        """
+    @property
+    def texture(self):
+        return self.__texture
 
-        self.__init_from_np()
-        return self.__img_pil
-
-    def update_np(self):
-        """
-        Updates numpy version of ElianaImage when changes occur on PIL version.
-
-        """
-
-        self.__init_from_pil()
-        return self.__img_numpy
+    @property
+    def objects(self):
+        return self.__objects
 
     def __load_image_into_numpy_array(self, img):
 
+        # img = np.array(
+        #     img.getdata()
+        # ).reshape(
+        #     (self.__h, self.__w, 3)
+        # ).astype(
+        #     np.uint8
+        # )
+
         img = np.array(
             img.getdata()
-        ).reshape(
-            (self.__h, self.__w, 3)
         ).astype(
             np.uint8
         )
@@ -140,3 +145,13 @@ class ElianaImage():
                 '"{}" is invalid argument. Use "pil" or "plt" only.'
                 .format(use)
             )
+
+
+class ElianaObjectImage(ElianaImage):
+
+    def __init__(self, parent: ElianaImage):
+
+        self.annotation = ''
+        self.parent = parent
+
+        super().__init__(pil=parent.as_pil)
