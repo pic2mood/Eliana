@@ -10,6 +10,7 @@ import os
 from tests.eliana_test import ElianaUnitTest
 
 from eliana.lib.texture import Texture
+from eliana.lib.eliana_image import ElianaImage
 
 
 class TextureUnitTest(ElianaUnitTest):
@@ -45,7 +46,8 @@ class TextureUnitTest(ElianaUnitTest):
 
         for path in self.__test_images:
 
-            texture = Texture(path)
+            # texture = Texture(path)
+            texture = Texture(ElianaImage(path=path))
 
             # img_gray = texture.img_gray
 

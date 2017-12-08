@@ -33,6 +33,7 @@ class ElianaImage:
         """
 
         if path is not None:
+            self.__path = path
             self.__init_from_path(path)
 
         elif np is not None:
@@ -56,6 +57,10 @@ class ElianaImage:
     def __init_from_pil(self):
         (self.__w, self.__h) = self.__img_pil.size
         self.__img_numpy = self.__load_image_into_numpy_array(self.__img_pil)
+
+    @property
+    def path(self):
+        return self.__path
 
     @property
     def width(self):
