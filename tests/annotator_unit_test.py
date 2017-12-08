@@ -8,6 +8,7 @@
 """
 import os
 from tests.eliana_test import ElianaUnitTest
+from tests.image_batch_loader import ImageBatchLoader
 
 import tensorflow as tf
 from eliana.lib.annotator import Annotator
