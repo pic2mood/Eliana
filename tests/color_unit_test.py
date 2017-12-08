@@ -84,7 +84,3 @@ class ColorUnitTest(ElianaUnitTest):
         #
         self.eliana_log.log('Image colorfulness test')
         self.test(self.__batch_colorfulness)
-
-
-color_unit_test = ColorUnitTest()
-color_unit_test.run()

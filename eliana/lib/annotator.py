@@ -143,7 +143,7 @@ class Annotator:
         )
 
         boxed_img = self.__draw_boxes_and_labels(boxes, classes, scores)
-        boxed_img.show(use='plt')
+        # boxed_img.show(use='plt')
         # print(boxed_img)
 
         self.cropped_images = self.__crop_batch(boxes, scores)

@@ -75,7 +75,3 @@ class TextureUnitTest(ElianaUnitTest):
         #
         self.eliana_log.log('Getting texture data')
         self.test(self.__batch_get_texture)
-
-
-texture_unit_test = TextureUnitTest()
-texture_unit_test.run()

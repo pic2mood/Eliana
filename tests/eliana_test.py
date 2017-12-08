@@ -9,6 +9,7 @@
 import os
 from abc import ABC, abstractmethod
 import sys
+import unittest
 
 
 class ElianaTest(ABC):
@@ -149,3 +150,9 @@ class ElianaLog:
             sep=''
         )
         self.__step_counter += 1
+
+
+class Tester(unittest.TestCase):
+    @abstractmethod
+    def test_run(self):
+        pass

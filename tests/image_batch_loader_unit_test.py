@@ -1,7 +1,7 @@
 """
 .. test:: image_batch_loader_unit_test.py
     :platform: Linux
-    :synopsis: unit test for texture module
+    :synopsis: unit test for image batch loader module
 
 .. created:: Dec 8, 2017
 .. author:: Raymel Francisco <franciscoraymel@gmail.com>
@@ -44,7 +44,3 @@ class ImageBatchLoaderUnitTest(ElianaUnitTest):
 
         self.eliana_log.log('Printing test images data')
         self.test(self.__print_some_of_test_images)
-
-
-image_batch_loader_unit_test = ImageBatchLoaderUnitTest()
-image_batch_loader_unit_test.run()

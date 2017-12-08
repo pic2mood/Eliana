@@ -134,8 +134,3 @@ class AnnotatorUnitTest(ElianaUnitTest):
             exit()
         else:
             print(self.eliana_log.log_ok)
-
-
-annotator_unit_test = AnnotatorUnitTest()
-annotator_unit_test.run()
-input('Press any key to exit...')
