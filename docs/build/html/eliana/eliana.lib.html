@@ -1,13 +1,16 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>eliana.lib package &#8212; Eliana 0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -30,7 +33,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
+  <body role="document">
   
 
     <div class="document">
@@ -43,26 +46,8 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-eliana.lib.annotator">
-<span id="eliana-lib-annotator-module"></span><h2>eliana.lib.annotator module<a class="headerlink" href="#module-eliana.lib.annotator" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-annotator"></span><dl class="class">
-<dt id="eliana.lib.annotator.Annotator">
-<em class="property">class </em><code class="descclassname">eliana.lib.annotator.</code><code class="descname">Annotator</code><span class="sig-paren">(</span><em>img</em>, <em>model: str</em>, <em>ckpt: str</em>, <em>labels: str</em>, <em>classes: int</em>, <em>session</em>, <em>detection_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.annotator.Annotator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="class">
-<dt id="annotator.Annotator.Annotator">
-<em class="property">class </em><code class="descname">Annotator</code><a class="headerlink" href="#annotator.Annotator.Annotator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>Class for object detection/annotation in images.</p>
-<dl class="method">
-<dt id="eliana.lib.annotator.Annotator.annotate">
-<code class="descname">annotate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.annotator.Annotator.annotate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for annotation action.</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="eliana-lib-annotator-module">
+<h2>eliana.lib.annotator module<a class="headerlink" href="#eliana-lib-annotator-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-eliana.lib.color">
 <span id="eliana-lib-color-module"></span><h2>eliana.lib.color module<a class="headerlink" href="#module-eliana.lib.color" title="Permalink to this headline">¶</a></h2>
@@ -70,6 +55,11 @@
 <dt id="eliana.lib.color.Color">
 <em class="property">class </em><code class="descclassname">eliana.lib.color.</code><code class="descname">Color</code><a class="headerlink" href="#eliana.lib.color.Color" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="eliana.lib.color.Color.colorfulness">
+<em class="property">static </em><code class="descname">colorfulness</code><span class="sig-paren">(</span><em>img: eliana.lib.eliana_image.ElianaImage</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.color.Color.colorfulness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="staticmethod">
 <dt id="eliana.lib.color.Color.to_hsv">
 <em class="property">static </em><code class="descname">to_hsv</code><span class="sig-paren">(</span><em>img: eliana.lib.eliana_image.ElianaImage</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.color.Color.to_hsv" title="Permalink to this definition">¶</a></dt>
@@ -83,11 +73,20 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-eliana.lib.eliana_image">
-<span id="eliana-lib-eliana-image-module"></span><h2>eliana.lib.eliana_image module<a class="headerlink" href="#module-eliana.lib.eliana_image" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-eliana_image"></span><dl class="class">
+<div class="section" id="module-eliana.lib.eliana">
+<span id="eliana-lib-eliana-module"></span><h2>eliana.lib.eliana module<a class="headerlink" href="#module-eliana.lib.eliana" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-eliana"></span><dl class="class">
+<dt id="eliana.lib.eliana.Eliana">
+<em class="property">class </em><code class="descclassname">eliana.lib.eliana.</code><code class="descname">Eliana</code><a class="headerlink" href="#eliana.lib.eliana.Eliana" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="eliana-lib-eliana-image-module">
+<h2>eliana.lib.eliana_image module<a class="headerlink" href="#eliana-lib-eliana-image-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-eliana.lib.eliana_image"></span><span class="target" id="module-eliana_image"></span><dl class="class">
 <dt id="eliana.lib.eliana_image.ElianaImage">
-<em class="property">class </em><code class="descclassname">eliana.lib.eliana_image.</code><code class="descname">ElianaImage</code><span class="sig-paren">(</span><em>path=None</em>, <em>np=None</em>, <em>pil=None</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">eliana.lib.eliana_image.</code><code class="descname">ElianaImage</code><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="class">
 <dt id="eliana_image.ElianaImage.ElianaImage">
@@ -111,8 +110,18 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="eliana.lib.eliana_image.ElianaImage.colorfulness">
+<code class="descname">colorfulness</code><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage.colorfulness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="eliana.lib.eliana_image.ElianaImage.height">
 <code class="descname">height</code><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="eliana.lib.eliana_image.ElianaImage.objects">
+<code class="descname">objects</code><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -122,15 +131,40 @@
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">use (str):</p>
-<p>Use ‘pil’ to use Pillow Image’s show().</p>
-<p class="last">Use ‘plt’ for matplotlib pyplot’s imshow() and show().</p>
+<p>Use &#8216;pil&#8217; to use Pillow Image&#8217;s show().</p>
+<p class="last">Use &#8216;plt&#8217; for matplotlib pyplot&#8217;s imshow() and show().</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="eliana.lib.eliana_image.ElianaImage.texture">
+<code class="descname">texture</code><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage.texture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="eliana.lib.eliana_image.ElianaImage.width">
 <code class="descname">width</code><a class="headerlink" href="#eliana.lib.eliana_image.ElianaImage.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="eliana.lib.eliana_image.ElianaObjectImage">
+<em class="property">class </em><code class="descclassname">eliana.lib.eliana_image.</code><code class="descname">ElianaObjectImage</code><span class="sig-paren">(</span><em>parent: eliana.lib.eliana_image.ElianaImage</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.eliana_image.ElianaObjectImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eliana.lib.eliana_image.ElianaImage" title="eliana.lib.eliana_image.ElianaImage"><code class="xref py py-class docutils literal"><span class="pre">eliana.lib.eliana_image.ElianaImage</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-eliana.lib.image_batch_loader">
+<span id="eliana-lib-image-batch-loader-module"></span><h2>eliana.lib.image_batch_loader module<a class="headerlink" href="#module-eliana.lib.image_batch_loader" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-image_batch_loader"></span><dl class="class">
+<dt id="eliana.lib.image_batch_loader.ImageBatchLoader">
+<em class="property">class </em><code class="descclassname">eliana.lib.image_batch_loader.</code><code class="descname">ImageBatchLoader</code><span class="sig-paren">(</span><em>dir_</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.image_batch_loader.ImageBatchLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="eliana.lib.image_batch_loader.ImageBatchLoader.images">
+<code class="descname">images</code><a class="headerlink" href="#eliana.lib.image_batch_loader.ImageBatchLoader.images" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -142,6 +176,11 @@
 <dt id="eliana.lib.texture.Texture">
 <em class="property">class </em><code class="descclassname">eliana.lib.texture.</code><code class="descname">Texture</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="eliana.lib.texture.Texture.get_texture_mean">
+<code class="descname">get_texture_mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.texture.Texture.get_texture_mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="eliana.lib.texture.Texture.get_texture_value">
 <code class="descname">get_texture_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#eliana.lib.texture.Texture.get_texture_value" title="Permalink to this definition">¶</a></dt>
@@ -197,7 +236,7 @@
       &copy;2017, Raymel Francisco, John Paul Magturo.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
