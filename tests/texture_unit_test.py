@@ -8,6 +8,7 @@
 """
 import os
 from tests.eliana_test import ElianaUnitTest
+# from tests.unit_test_runner import TesterSub
 
 from eliana.lib.texture import Texture
 from eliana.lib.eliana_image import ElianaImage
@@ -73,3 +74,7 @@ class TextureUnitTest(ElianaUnitTest):
         #
         self.eliana_log.log('Getting texture data')
         self.test(self.__batch_get_texture)
+
+
+if __name__ == '__main__':
+    TextureUnitTest().run()

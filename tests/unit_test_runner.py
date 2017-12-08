@@ -7,6 +7,7 @@
 .. author:: Raymel Francisco <franciscoraymel@gmail.com>
 """
 import unittest
+from tests.eliana_test import Tester
 from tests.image_batch_loader_unit_test import ImageBatchLoaderUnitTest
 from tests.annotator_unit_test import AnnotatorUnitTest
 from tests.color_unit_test import ColorUnitTest
@@ -15,7 +16,7 @@ from tests.texture_unit_test import TextureUnitTest
 # unittest.TextTestRunner(unittest.TestLoader().discover('./tests', pattern='*unit_test.py'))
 
 
-class TesterSub(unittest.TestCase):
+class TesterSub(Tester):
 
     def test_batch_loader(self):
         ImageBatchLoaderUnitTest().run()

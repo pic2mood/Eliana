@@ -42,3 +42,7 @@ class ImageBatchLoaderUnitTest(ElianaUnitTest):
 
         self.eliana_log.log('Printing test images data')
         self.test(self.__print_some_of_test_images)
+
+
+if __name__ == '__main__':
+    ImageBatchLoaderUnitTest().run()

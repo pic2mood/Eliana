@@ -134,3 +134,7 @@ class AnnotatorUnitTest(ElianaUnitTest):
             exit()
         else:
             print(self.eliana_log.log_ok)
+
+
+if __name__ == '__main__':
+    AnnotatorUnitTest().run()
