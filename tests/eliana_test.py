@@ -133,7 +133,7 @@ class ElianaLog:
         return self.__log_warning
 
     def __status_formatter(self, log_string) -> str:
-        return ' [' + log_string + ']'
+        return ' [' + log_string + ']\n'
 
     def log(self, log_string):
         print(
@@ -145,7 +145,7 @@ class ElianaLog:
             ')',
             '...',
 
-            end='',
+            end='\n',
             sep=''
         )
         self.__step_counter += 1

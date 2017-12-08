@@ -6,7 +6,6 @@
 .. created:: Nov 27, 2017
 """
 
-# from PIL import Image
 from eliana.lib.eliana_image import ElianaImage
 import os
 from glob import glob
@@ -14,36 +13,20 @@ from glob import glob
 
 class ImageBatchLoader:
 
-    def __init__(self, _dir):
+    def __init__(self, dir_):
 
-        self.dir = _dir
+        self.dir = dir_
 
-        print(self.dir)
+        print('Test images dir:', self.dir)
 
-        self.img_paths = []
-        self.imgs = []
+        self.__imgs = []
+        self.dir_glob = glob(os.path.join(self.dir, '*.jpg'))
 
-        dir_glob = glob(os.path.join(self.dir, '*.jpg'))
+        for img_path in self.dir_glob:
 
-        for img in dir_glob:
+            img = ElianaImage(img_path)
+            self.__imgs.append((img_path, img))
 
-            print(img)
-            self.img_paths.append(img)
-
-            el_img = ElianaImage(img)
-            print(el_img)
-            self.imgs.append(el_img)
-
-    def __init_images(self):
-        pass
-
-
-dir_working = os.getcwd()
-training_dir = os.path.join(
-    dir_working,
-    'training',
-    'data',
-    'test_images'
-)
-
-ImageBatchLoader(training_dir)
+    @property
+    def images(self):
+        return self.__imgs
