@@ -1,0 +1,2 @@
+model_checkpoint_path: "eliana_ann_overall"
+all_model_checkpoint_paths: "eliana_ann_overall"
