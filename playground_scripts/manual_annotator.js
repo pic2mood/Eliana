@@ -37,6 +37,7 @@ var loader = function(emotion) {
 
 	console.log(textbox.value);
 
+
 	textbox.value += '\n' + filenames[ctr] + '|' + emotion;
 	ctr++;
 }
