@@ -2,7 +2,7 @@
 var dir = '../training/data/test_images/';
 var images = [];
 var filenames = [];
-var ctr = 0;
+var ctr = 1;
 
 $.ajax({
 	url: dir,
@@ -13,12 +13,15 @@ $.ajax({
 		$(data).find('a:contains("jpg")').each(function() {
 			
 			var filename = this.href.replace(window.location, '');
-			filename = filename.replace('http://127.0.0.1:8000/playground_scripts/', '');
+			filename = filename.replace('playground_scripts/', dir);
 			
-			//$('body').append('<img src="' + dir + filename + '">');
-			images.push('<img src="' + dir + filename + '">');
+			//$('body').append('<img src="' + filename + '">');
+			images.push('<img src="' + filename + '">');
 			console.log(filename);
 			filenames.push(filename);
+
+			if (filenames.length == 1)
+				$('#img').html('<img src="' + filenames[0] + '">');
 		});
 	}
 });
@@ -33,6 +36,7 @@ var loader = function(emotion) {
 	$('strong').html(filenames[ctr]);
 
 	console.log(textbox.value);
+
 
 	textbox.value += '\n' + filenames[ctr] + '|' + emotion;
 	ctr++;

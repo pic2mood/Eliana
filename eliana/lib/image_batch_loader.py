@@ -17,7 +17,7 @@ class ImageBatchLoader:
 
         self.dir = dir_
 
-        print('Test images dir:', self.dir)
+        # print('Test images dir:', self.dir)
 
         self.__imgs = []
         self.dir_glob = glob(os.path.join(self.dir, '*.jpg'))

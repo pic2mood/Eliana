@@ -22,8 +22,8 @@ class TextureUnitTest(ElianaUnitTest):
     def __init_test_images(self):
 
         self.__dir_test_images = os.path.join(
-            self.dir_env_modules,
-            'object_detection',
+            self.training_data,
+            'data',
             'test_images'
         )
         # self.__test_images = [
