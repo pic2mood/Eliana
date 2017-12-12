@@ -9,65 +9,140 @@ from eliana.lib.eliana_image import ElianaImage
 import numpy as np
 import tensorflow as tf
 
+from abc import ABC, abstractmethod
+
+
+class ANNComponent(ABC):
+    @abstractmethod
+    def init(self):
+        pass
+
+
+class Neuron(ANNComponent):
+
+    def __init__(self, shape=[]):
+
+        input_count, output_count = shape
+
+        self.input = self.init(input_count)
+        self.output = self.init(output_count)
+
+    def init(self, count):
+        return tf.placeholder(
+            tf.float32, shape=[None, count]
+        )
+
+
+class Weight(ANNComponent):
+
+    def __init__(self, shape=[]):
+        i, h, o = shape
+        self.input = self.init([i, h])
+        self.hidden = self.init([h, h])
+        self.output = self.init([h, o])
+
+    def init(self, weight):
+        return tf.Variable(tf.truncated_normal(weight))
+
+
+class Bias(ANNComponent):
+
+    def __init__(self, shape=[]):
+        h, o = shape
+        self.input = self.init(h)
+        self.hidden = self.init(h)
+        self.output = self.init(o)
+
+    def init(self, bias):
+        return tf.Variable(tf.zeros(bias))
+
+
+class Activation(ANNComponent):
+
+    def __init__(self, inputs, weights, bias):
+
+        self.input = self.init(inputs, weights.input, bias.input)
+        self.hidden = self.init(self.input, weights.hidden, bias.hidden)
+        self.output = self.init(self.hidden, weights.output, bias.output)
+
+    def init(self, source, weight, bias):
+        return tf.nn.sigmoid(
+            tf.matmul(
+                source,
+                weight
+            ) +
+            bias
+        )
+
+
+class Optimizer(ANNComponent):
+
+    def __init__(self, activation, neurons, error, learning_rate):
+        self.optimizer = self.init(activation, neurons, error, learning_rate)
+
+    def init(self, activation, neurons, error, learning_rate):
+        error = error * tf.reduce_sum(
+            tf.subtract(activation.output, neurons.output) *
+            tf.subtract(activation.output, neurons.output)
+        )
+
+        optimizer = tf.train.GradientDescentOptimizer(
+            learning_rate
+        ).minimize(
+            error
+        )
+
+        return error, optimizer
+
 
 class ANN:
 
-    def __init__(self, model):
+    def __init__(
+        self,
+        shape=[2, 3, 1],
+        model=''
+    ):
 
         self.__model = model
         self.__session = tf.InteractiveSession()
 
-        self.__init_ann()
+        self.__init_ann(shape)
         self.__session.run(tf.initialize_all_variables())
         self.__saver = tf.train.Saver()
 
-    def __init_ann(self):
+    def __init_ann(self, shape=[]):
 
-        self.inputs = tf.placeholder(tf.float32, shape=[None, 2])
-        self.outputs = tf.placeholder(tf.float32, shape=[None, 1])
+        input_count, hidden_count, output_count = shape
 
-        hidden_neurons = 3
-
-        input_weights = tf.Variable(tf.truncated_normal([2, hidden_neurons]))
-        input_biases = tf.Variable(tf.zeros([hidden_neurons]))
-
-        hidden_weights = tf.Variable(tf.truncated_normal([hidden_neurons, 3]))
-        hidden_biases = tf.Variable(tf.zeros([3]))
-
-        output_weights = tf.Variable(tf.truncated_normal([3, 1]))
-        output_biases = tf.Variable(tf.zeros([1]))
-
-        input_activation = tf.nn.sigmoid(
-            tf.matmul(
-                self.inputs,
-                input_weights
-            ) +
-            input_biases
+        self.__neurons = Neuron(
+            shape=[
+                input_count, output_count
+            ]
         )
-
-        hidden_activation = tf.nn.sigmoid(
-            tf.matmul(
-                input_activation,
-                hidden_weights
-            ) +
-            hidden_biases
+        weights = Weight(
+            shape=[
+                input_count,
+                hidden_count,
+                output_count
+            ]
         )
-
-        self.output_activation = tf.nn.sigmoid(
-            tf.matmul(
-                hidden_activation,
-                output_weights
-            ) +
-            output_biases
+        bias = Bias(
+            shape=[
+                hidden_count,
+                output_count
+            ]
         )
-
-        self.error = 0.5 * tf.reduce_sum(
-            tf.subtract(self.output_activation, self.outputs) *
-            tf.subtract(self.output_activation, self.outputs)
+        self.__activation = Activation(
+            self.__neurons.input,
+            weights,
+            bias
         )
-
-        learning_rate = 0.05
-        self.step = tf.train.GradientDescentOptimizer(learning_rate).minimize(self.error)
+        self.__error, self.__step = Optimizer(
+            self.__activation,
+            self.__neurons,
+            error=0.5,
+            learning_rate=0.05
+        ).optimizer
 
     def train(self, epochs=2000, training_size=400):
 
@@ -76,10 +151,10 @@ class ANN:
 
         for epoch in range(epochs):
             _, error_rate = self.__session.run(
-                [self.step, self.error],
+                [self.__step, self.__error],
                 feed_dict={
-                    self.inputs: np.array(training_inputs),
-                    self.outputs: np.array(training_outputs)
+                    self.__neurons.input: np.array(training_inputs),
+                    self.__neurons.output: np.array(training_outputs)
                 }
 
             )
@@ -88,17 +163,17 @@ class ANN:
 
         # print(
         #     self.__session.run(
-        #         self.output_activation,
+        #         self.__output_activation,
         #         feed_dict={
-        #             self.inputs: np.array([[0.0996, 0.49184]])
+        #             self.__inputs: np.array([[0.0996, 0.49184]])
         #         }
         #     )
         # )
         # print(
         #     self.__session.run(
-        #         self.output_activation,
+        #         self.__output_activation,
         #         feed_dict={
-        #             self.inputs: np.array([[0.2742, 0.36230]])
+        #             self.__inputs: np.array([[0.2742, 0.36230]])
         #         }
         #     )
         # )
@@ -111,9 +186,10 @@ class ANN:
         self.__saver.restore(self.__session, self.__model)
 
         result = self.__session.run(
-            self.output_activation,
+            self.__activation.output,
             feed_dict={
-                self.inputs: np.array([[img.texture, img.colorfulness]])
+                # self.__neurons.input: np.array([[img.texture, img.colorfulness]])
+                self.__neurons.input: np.array([[0.2742, 0.36230]])
             }
         )
 
