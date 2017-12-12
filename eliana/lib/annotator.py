@@ -164,12 +164,20 @@ class Annotator:
         scores = np.squeeze(scores)
         classes = np.squeeze(classes)
 
+        result = []
+
         for i in range(scores.size):
             if scores[i] > 0.5:
-                print(
-                    i, scores[i], classes[i],
-                    self.category_index[classes[i]]
+                # print(
+                #     scores[i],
+                #     self.category_index[classes[i]]
+                # )
+                category = self.category_index[classes[i]]
+                result.append(
+                    (scores[i], category['id'], category['name'])
                 )
+
+        return result
 
         # input("Press...")
 

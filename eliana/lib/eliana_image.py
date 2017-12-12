@@ -86,13 +86,25 @@ class ElianaImage:
     def colorfulness(self):
         return self.__colorfulness
 
+    @colorfulness.setter
+    def colorfulness(self, colorfulness):
+        self.__colorfulness = colorfulness
+
     @property
     def texture(self):
         return self.__texture
 
+    @texture.setter
+    def texture(self, texture):
+        self.__texture = texture
+
     @property
     def objects(self):
         return self.__objects
+
+    @objects.setter
+    def objects(self, objects):
+        self.__objects = objects
 
     def __load_image_into_numpy_array(self, img):
 

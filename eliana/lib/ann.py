@@ -196,17 +196,17 @@ class ANN:
         print('ANN result:', result)
 
 
-import os
+# import os
 
-model_path = os.path.join(
-    os.getcwd(),
-    'training',
-    'models',
-    'eliana_ann_overall',
-    'eliana_ann_overall'
-)
+# model_path = os.path.join(
+#     os.getcwd(),
+#     'training',
+#     'models',
+#     'eliana_ann_overall',
+#     'eliana_ann_overall'
+# )
 
-a = ANN(model=model_path)
-a.train()
-a.save()
-a.run(None)
+# a = ANN(model=model_path)
+# a.train()
+# a.save()
+# a.run(None)
