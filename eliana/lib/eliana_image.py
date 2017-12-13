@@ -12,55 +12,50 @@ from PIL import Image
 from matplotlib import pyplot as plt
 
 
-class ElianaImage:
-    """.. class:: ElianaImage
+class ElianaImageBase:
 
-    Class for Eliana image container.
-    """
+    def _init_from_np(self, img: np):
 
-    # TODO:
-    # Add support to Tensor image.
-    # Add sync update between image types
-
-    def __init__(self, path: str=None, np: np=None, pil: Image=None):
-
-        """.. method:: ElianaImage(path: str)
-
-        ElianaImage class constructor.
-
-        Args:
-            path (str): Image path.
-        """
-
-        if path is not None:
-            self.__path = path
-            self.__init_from_path(path)
-
-        elif np is not None:
-            self.__img_numpy = np
-            self.__init_from_np()
-
-        elif pil is not None:
-            self.__img_pil = pil
-            self.__init_from_pil()
-        else:
-            raise ValueError('No argument supplied.')
-
-    def __init_from_path(self, path):
-
-        self.__img_pil = Image.open(path)
-        self.__init_from_pil()
-
-    def __init_from_np(self):
-        self.__img_pil = Image.fromarray(np.uint8(self.__img_numpy))
-
-    def __init_from_pil(self):
+        self.__img_numpy = img
+        self.__img_pil = Image.fromarray(
+            np.uint8(self.__img_numpy)
+        )
         (self.__w, self.__h) = self.__img_pil.size
-        self.__img_numpy = self.__load_image_into_numpy_array(self.__img_pil)
 
-    @property
-    def path(self):
-        return self.__path
+    def _init_from_pil(self, img: Image):
+
+        self.__img_pil = img
+        (self.__w, self.__h) = self.__img_pil.size
+
+        self.__img_numpy = np.array(
+            self.__img_pil.getdata()
+        ).astype(
+            np.uint8
+        )
+
+    def show(self, use='pil'):
+        """ Shows image.
+
+            Args:
+                use (str):
+
+                Use 'pil' to use Pillow Image's show().
+
+                Use 'plt' for matplotlib pyplot's imshow() and show().
+        """
+        if use == 'pil':
+            self.__img_pil.show()
+
+        elif use == 'plt':
+            plt.figure(figsize=(12, 9))
+            plt.imshow(self.__img_numpy)
+            plt.pause(0.05)
+
+        else:
+            raise ValueError(
+                '"{}" is invalid argument. Use "pil" or "plt" only.'
+                .format(use)
+            )
 
     @property
     def width(self):
@@ -69,10 +64,6 @@ class ElianaImage:
     @property
     def height(self):
         return self.__h
-
-    @property
-    def as_list(self):
-        return self.__img_list
 
     @property
     def as_numpy(self):
@@ -98,6 +89,53 @@ class ElianaImage:
     def texture(self, texture):
         self.__texture = texture
 
+
+class ElianaImage(ElianaImageBase):
+    """.. class:: ElianaImage
+
+    Class for Eliana image container.
+    """
+
+    # TODO:
+    # Add support to Tensor image.
+    # Add sync update between image types
+
+    def __init__(self, path: str=None, np: np=None, pil: Image=None):
+
+        """.. method:: ElianaImage(path: str)
+
+        ElianaImage class constructor.
+
+        Args:
+            path (str): Image path.
+        """
+
+        if path is not None:
+            self.__path = path
+            self.__init_from_path(path)
+
+        elif np is not None:
+            super()._init_from_np(np)
+
+        elif pil is not None:
+            super()._init_from_pil(pil)
+        else:
+            raise ValueError('No argument supplied.')
+
+        self.__objects = []
+
+    def __init_from_path(self, path):
+
+        super()._init_from_pil(Image.open(path))
+
+    @property
+    def path(self):
+        return self.__path
+
+    # @property
+    # def as_list(self):
+    #     return self.__img_list
+
     @property
     def objects(self):
         return self.__objects
@@ -106,64 +144,26 @@ class ElianaImage:
     def objects(self, objects):
         self.__objects = objects
 
-    def __load_image_into_numpy_array(self, img):
 
-        # img = np.array(
-        #     img.getdata()
-        # ).reshape(
-        #     (self.__h, self.__w, 3)
-        # ).astype(
-        #     np.uint8
-        # )
+class ElianaImageObject(ElianaImageBase):
 
-        img = np.array(
-            img.getdata()
-        ).astype(
-            np.uint8
-        )
+    def __init__(
+            self,
+            parent: ElianaImage=None,
+            cropped: Image=None,
+            annotation: str=None,
+            tag_id: int=0
+    ):
+        self.__parent = parent
+        self.__annotation = annotation
+        self.__tag_id = tag_id
 
-        return img
+        super()._init_from_pil(cropped)
 
-    def show(self, use='pil'):
-        """ Shows image.
+    @property
+    def annotation(self):
+        return self.__annotation
 
-            Args:
-                use (str):
-
-                Use 'pil' to use Pillow Image's show().
-
-                Use 'plt' for matplotlib pyplot's imshow() and show().
-        """
-
-        def __show_using_plt():
-
-            plt.figure(figsize=(12, 9))
-            plt.imshow(self.__img_numpy)
-            plt.pause(0.05)
-
-        def __show_using_pil():
-            self.__img_pil.show()
-
-        #
-        #
-        if use == 'pil':
-            __show_using_pil()
-
-        elif use == 'plt':
-            __show_using_plt()
-
-        else:
-            raise ValueError(
-                '"{}" is invalid argument. Use "pil" or "plt" only.'
-                .format(use)
-            )
-
-
-class ElianaObjectImage(ElianaImage):
-
-    def __init__(self, parent: ElianaImage):
-
-        self.annotation = ''
-        self.parent = parent
-
-        super().__init__(pil=parent.as_pil)
+    @property
+    def tag_id(self):
+        return self.__tag_id

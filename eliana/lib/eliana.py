@@ -6,7 +6,7 @@
 .. created:: Nov 24, 2017
 """
 
-from eliana.lib.eliana_image import ElianaImage
+from eliana.lib.eliana_image import ElianaImage, ElianaImageObject
 from eliana.lib.image_batch_loader import ImageBatchLoader
 from eliana.lib.annotator import Annotator
 from eliana.lib.color import Color
@@ -42,7 +42,17 @@ class Eliana:
             detection_graph
         )
 
-        self.img.objects = annotator.annotate()
+        result = annotator.annotate()
+        for set_ in result:
+
+            _, cropped, tag_id, annotation = set_
+
+            self.img.objects.append(ElianaImageObject(
+                parent=self.img,
+                cropped=cropped,
+                annotation=annotation,
+                tag_id=tag_id
+            ))
 
     def color(self):
         self.img.colorfulness = Color.colorfulness(self.img)
@@ -61,18 +71,19 @@ class Eliana:
 
         # print('Objects:', self.img.objects)
         print('Objects')
-        for score, id_, name in self.img.objects:
+        for object_ in self.img.objects:
             print(
-                "{0:.2f}".format(score * 100),
-                '% ',
-                name,
+                #"{0:.2f}".format(score * 100),
+                #'% ',
+                object_.annotation,
                 '\nOriginal: ',
-                id_,
+                object_.tag_id,
                 '\tInterpolated: ',
-                self.interpolate(id_),
+                self.interpolate(object_.tag_id),
                 sep='',
                 end='\n\n'
             )
+            object_.show(use='pil')
 
         print(
             'Colorfulness',
