@@ -60,21 +60,15 @@ class Eliana:
     def texture(self):
         self.img.texture = Texture(self.img).get_texture_mean()
 
-    def interpolate(self, value):
-        return value * 0.001
+    def interpolate(self, value, place=0.01):
+        return round(value * place, 5)
 
-    def run(self):
-
-        self.annotate()
-        self.color()
-        self.texture()
-
-        # print('Objects:', self.img.objects)
+    def print_inputs(self):
         print('Objects')
         for object_ in self.img.objects:
             print(
-                #"{0:.2f}".format(score * 100),
-                #'% ',
+                # "{0:.2f}".format(score * 100),
+                # '% ',
                 object_.annotation,
                 '\nOriginal: ',
                 object_.tag_id,
@@ -83,7 +77,7 @@ class Eliana:
                 sep='',
                 end='\n\n'
             )
-            object_.show(use='pil')
+            # object_.show(use='pil')
 
         print(
             'Colorfulness',
@@ -98,8 +92,48 @@ class Eliana:
             '\nOriginal:',
             self.img.texture,
             '\nInterpolated:',
-            self.interpolate(self.img.texture)
+            self.interpolate(self.img.texture, place=0.1)
         )
+
+    def ann(self):
+
+        model_path = os.path.join(
+            os.getcwd(),
+            'training',
+            'models',
+            'eliana_ann_overall',
+            'eliana_ann_overall'
+        )
+        # overall
+        a = ANN(model=model_path)
+        a.train()
+        a.save()
+
+        img = self.img
+        img.colorfulness = self.interpolate(self.img.colorfulness)
+        img.texture = self.interpolate(self.img.texture, place=0.1)
+        a.run(img=self.img)
+
+        # objects
+        # a = ANN(model=model_path)
+
+        # for object_ in self.img.objects:
+
+        #     # a.train(training_data)
+        #     # a.save()
+        #     object_.colorfulness = Color.colorfulness(object_)
+        #     object_.texture = Texture(object_).get_texture_mean()
+        #     a.run(img=object_)
+
+    def run(self):
+
+        self.annotate()
+        self.color()
+        self.texture()
+
+        self.print_inputs()
+
+        self.ann()
 
 
 Eliana().run()

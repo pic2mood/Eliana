@@ -144,10 +144,13 @@ class ANN:
             learning_rate=0.05
         ).optimizer
 
-    def train(self, epochs=2000, training_size=400):
+    def train(self, epochs=2000, training_size=400, training_data=[]):
 
-        training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
+        training_inputs = [[0.0996, 0.4918], [0.2959, 0.36231]] * training_size
         training_outputs = [[0.1], [0.2]] * training_size
+
+        # training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
+        # training_outputs = [[0.1], [0.2]] * training_size
 
         for epoch in range(epochs):
             _, error_rate = self.__session.run(
@@ -188,8 +191,8 @@ class ANN:
         result = self.__session.run(
             self.__activation.output,
             feed_dict={
-                # self.__neurons.input: np.array([[img.texture, img.colorfulness]])
-                self.__neurons.input: np.array([[0.2742, 0.36230]])
+                self.__neurons.input: np.array([[img.texture, img.colorfulness]])
+                # self.__neurons.input: np.array([[0.2742, 0.36230]])
             }
         )
 
