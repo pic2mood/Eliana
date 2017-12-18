@@ -22,7 +22,7 @@ class Eliana:
 
     def __init__(self):
         self.data_loader = DataLoader()
-        self.img = self.data_loader.images()[0]
+        self.images = self.data_loader.images()
 
     def annotate(self):
         (model,
@@ -106,7 +106,7 @@ class Eliana:
         )
         # overall
         a = ANN(model=model_path)
-        a.train()
+        # a.train()
         a.save()
 
         img = self.img
@@ -125,15 +125,81 @@ class Eliana:
         #     object_.texture = Texture(object_).get_texture_mean()
         #     a.run(img=object_)
 
+    def train(self):
+
+        self.training_data = ()
+        training_input = []
+        training_output = []
+
+        emotions = []
+
+        with open(self.data_loader.training(), 'r') as ma:
+            for entry in ma:
+                entry = entry.strip()
+                if entry != '':
+                    name, emotion = *entry.split('|'),
+                    name = name.split('/')[-1]
+                    # print(emotion, name)
+                    emotions.append(emotion)
+
+        emotions_map = {
+            'happiness': 0.1,
+            'anger': 0.2,
+            'surprise': 0.3,
+            'disgust': 0.4,
+            'sadness': 0.5,
+            'fear': 0.6
+        }
+
+
+        for i, img in enumerate(self.data_loader.images()):
+
+            self.img = img
+            self.annotate()
+            self.color()
+            self.texture()
+
+            training_input.append(
+                [
+                    self.interpolate(img.colorfulness),
+                    self.interpolate(self.img.texture, place=0.1)
+                ]
+            )
+            training_output.append(
+                [emotions_map[emotions[i]]]
+            )
+
+        self.training_data = training_input, training_output
+
+        model_path = os.path.join(
+            os.getcwd(),
+            'training',
+            'models',
+            'eliana_ann_overall',
+            'eliana_ann_overall'
+        )
+
+        a = ANN(model=model_path)
+        a.train(training_data=self.training_data)
+
+
     def run(self):
 
-        self.annotate()
-        self.color()
-        self.texture()
+        for img in self.images:
 
-        self.print_inputs()
+            self.img = img
 
-        self.ann()
+            self.annotate()
+            self.color()
+            self.texture()
+
+            # self.print_inputs()
+
+            self.ann()
 
 
-Eliana().run()
+e = Eliana()
+e.train()
+e.run()
+#e.train()
+

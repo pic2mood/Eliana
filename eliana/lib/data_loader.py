@@ -41,9 +41,15 @@ class DataLoader:
             'test_images'
         )
 
+    def training(self):
+        return os.path.join(
+            self.__dir_images,
+            'manual_annotator.txt'
+        )
+
     def images(self):
         return ImageBatchLoader(
-            self.__dir_images, limit=1
+            self.__dir_images, limit=3
         ).images
 
     def annotator(self):

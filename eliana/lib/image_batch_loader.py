@@ -17,15 +17,17 @@ class ImageBatchLoader:
 
         self.dir = dir_
 
-        # print('Test images dir:', self.dir)
+        print('Test images dir:', self.dir)
 
         self.__imgs = []
-        self.dir_glob = glob(os.path.join(self.dir, '*.jpg'))
+        self.dir_glob = sorted(glob(os.path.join(self.dir, '*.jpg')))
 
-        for img_path in self.dir_glob[-limit:]:
+        for img_path in self.dir_glob[:limit]:
 
             img = ElianaImage(img_path)
             self.__imgs.append(img)
+
+            # print(img_path)
 
     @property
     def images(self):
