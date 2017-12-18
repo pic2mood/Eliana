@@ -45,3 +45,38 @@ class Color:
 
         return std_root + (0.3 * mean_root)
 
+    @staticmethod
+    def scaled_colorfulness(colorfulness: float):
+        """
+        Based on the scale:
+
+        Not colorful - 0
+        Slightly colorful - 15
+        Moderately colorful - 33
+        Averagely colorful - 45
+        Quite colorful - 59
+        Highly colorful - 82
+        Extremely colorful - 109 
+
+        """
+
+        if colorfulness < 15:
+            return 0.1
+
+        elif colorfulness >= 15:
+            return 0.2
+
+        elif colorfulness >= 33:
+            return 0.3
+
+        elif colorfulness >= 45:
+            return 0.4
+
+        elif colorfulness >= 59:
+            return 0.5
+
+        elif colorfulness >= 82:
+            return 0.6
+
+        elif colorfulness >= 109:
+            return 0.7

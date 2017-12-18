@@ -152,6 +152,8 @@ class ANN:
         # training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
         # training_outputs = [[0.1], [0.2]] * training_size
 
+        print(training_data)
+
         training_inputs, training_outputs = training_data
 
         for epoch in range(epochs):
@@ -164,7 +166,7 @@ class ANN:
 
             )
 
-            print('epoch:', str(epoch), '| error:', str((error_rate * 100)) + '%')
+            # print('epoch:', str(epoch), '| error:', str((error_rate * 100)) + '%')
 
         # print(
         #     self.__session.run(
@@ -199,6 +201,8 @@ class ANN:
         )
 
         print('Image:', img.path)
+        print('Colorfulness:', img.colorfulness)
+        print('Texture:', img.texture)
         print('ANN result:', result)
 
 

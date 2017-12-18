@@ -55,13 +55,18 @@ class Eliana:
             ))
 
     def color(self):
-        self.img.colorfulness = Color.colorfulness(self.img)
+        self.img.colorfulness = Color.scaled_colorfulness(
+            Color.colorfulness(self.img)
+        )
 
     def texture(self):
         self.img.texture = Texture(self.img).get_texture_mean()
 
     def interpolate(self, value, place=0.01):
-        return round(value * place, 5)
+        # return round(value * place, 5)
+        return float(format(value * place, '.5f'))
+        # return value * place
+        # return value
 
     def print_inputs(self):
         print('Objects')
