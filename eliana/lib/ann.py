@@ -107,7 +107,8 @@ class ANN:
         self.__session = tf.InteractiveSession()
 
         self.__init_ann(shape)
-        self.__session.run(tf.initialize_all_variables())
+        #self.__session.run(tf.initialize_all_variables())
+        self.__session.run(tf.global_variables_initializer())
         self.__saver = tf.train.Saver()
 
     def __init_ann(self, shape=[]):
