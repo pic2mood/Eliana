@@ -23,6 +23,7 @@ class Eliana:
     def __init__(self):
         self.data_loader = DataLoader()
         self.images = self.data_loader.images()
+        self.annotator_params = self.data_loader.annotator()
 
     def annotate(self):
         (model,
@@ -30,7 +31,7 @@ class Eliana:
             file_label,
             num_classes,
             sess,
-            detection_graph) = self.data_loader.annotator()
+            detection_graph) = self.annotator_params
 
         annotator = Annotator(
             self.img,
@@ -158,6 +159,8 @@ class Eliana:
 
 
         for i, img in enumerate(self.data_loader.images()):
+
+            print(i, img.path)
 
             self.img = img
             self.annotate()
