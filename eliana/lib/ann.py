@@ -145,7 +145,7 @@ class ANN:
             learning_rate=0.05
         ).optimizer
 
-    def train(self, epochs=2000, training_size=400, training_data=[]):
+    def train(self, epochs=10000, training_size=400, training_data=[]):
 
         # training_inputs = [[0.0996, 0.4918], [0.2959, 0.36231]] * training_size
         # training_outputs = [[0.1], [0.2]] * training_size
@@ -157,6 +157,12 @@ class ANN:
 
         training_inputs, training_outputs = training_data
 
+        training_inputs *= training_size
+        training_outputs *= training_size
+
+        # training_inputs = [[0.002, 0.083], [0.001, 0.023]] * training_size
+        # training_outputs = [[0.1], [0.2]] * training_size
+
         for epoch in range(epochs):
             _, error_rate = self.__session.run(
                 [self.__step, self.__error],
@@ -167,7 +173,7 @@ class ANN:
 
             )
 
-            # print('epoch:', str(epoch), '| error:', str((error_rate * 100)) + '%')
+            print('epoch:', str(epoch), '| error:', str((error_rate * 100)) + '%')
 
         # print(
         #     self.__session.run(
@@ -187,6 +193,7 @@ class ANN:
         # )
 
     def save(self):
+        tf.reset_default_graph()
         self.__saver.save(self.__session, self.__model)
 
     def run(self, img: ElianaImage):
@@ -196,8 +203,9 @@ class ANN:
         result = self.__session.run(
             self.__activation.output,
             feed_dict={
-                self.__neurons.input: np.array([[img.texture, img.colorfulness]])
-                # self.__neurons.input: np.array([[0.2742, 0.36230]])
+                self.__neurons.input: np.array([[img.colorfulness, img.texture]])
+                # self.__neurons.input: np.array([[img.texture, img.colorfulness]])
+                # self.__neurons.input: np.array([[0.2959, 0.36231]])
             }
         )
 
@@ -205,6 +213,8 @@ class ANN:
         print('Colorfulness:', img.colorfulness)
         print('Texture:', img.texture)
         print('ANN result:', result)
+
+        tf.reset_default_graph()
 
 
 # import os

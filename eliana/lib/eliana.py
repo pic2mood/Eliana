@@ -59,13 +59,14 @@ class Eliana:
         self.img.colorfulness = Color.scaled_colorfulness(
             Color.colorfulness(self.img)
         )
+        # self.img.colorfulness = Color.colorfulness(self.img)
 
     def texture(self):
         self.img.texture = Texture(self.img).get_texture_mean()
 
     def interpolate(self, value, place=0.01):
         # return round(value * place, 5)
-        return float(format(value * place, '.5f'))
+        return float(format(value * place, '.3f'))
         # return value * place
         # return value
 
@@ -113,7 +114,7 @@ class Eliana:
         # overall
         a = ANN(model=model_path)
         # a.train()
-        a.save()
+        # a.save()
 
         img = self.img
         img.colorfulness = self.interpolate(self.img.colorfulness)
@@ -157,7 +158,6 @@ class Eliana:
             'fear': 0.6
         }
 
-
         for i, img in enumerate(self.data_loader.images()):
 
             print(i, img.path)
@@ -173,6 +173,10 @@ class Eliana:
                     self.interpolate(self.img.texture, place=0.1)
                 ]
             )
+
+            print(emotions[i])
+            print([emotions_map[emotions[i]]])
+
             training_output.append(
                 [emotions_map[emotions[i]]]
             )
@@ -189,13 +193,15 @@ class Eliana:
 
         a = ANN(model=model_path)
         a.train(training_data=self.training_data)
-
+        a.save()
 
     def run(self):
 
         for img in self.images:
 
             self.img = img
+
+            print(img.path)
 
             self.annotate()
             self.color()
@@ -207,7 +213,5 @@ class Eliana:
 
 
 e = Eliana()
-e.train()
-e.run()
 #e.train()
-
+e.run()

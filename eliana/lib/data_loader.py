@@ -49,7 +49,7 @@ class DataLoader:
 
     def images(self):
         return ImageBatchLoader(
-            self.__dir_images, limit=None
+            self.__dir_images, limit=2
         ).images
 
     def annotator(self):

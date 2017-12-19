@@ -32,12 +32,12 @@ input_biases = tf.Variable(tf.zeros([hidden_neurons]))
 
 # hidden layer
 
-hidden_weights = tf.Variable(tf.truncated_normal([hidden_neurons, 3]))
-hidden_biases = tf.Variable(tf.zeros([3]))
+hidden_weights = tf.Variable(tf.truncated_normal([hidden_neurons, hidden_neurons]))
+hidden_biases = tf.Variable(tf.zeros([hidden_neurons]))
 
 # output layer
 
-output_weights = tf.Variable(tf.truncated_normal([3, 1]))
+output_weights = tf.Variable(tf.truncated_normal([hidden_neurons, 1]))
 output_biases = tf.Variable(tf.zeros([1]))
 
 # 3. setup neural network functions
@@ -74,6 +74,7 @@ error = 0.5 * tf.reduce_sum(
     tf.subtract(output_activation, outputs)
 )
 
+# learning_rate = 0.05
 learning_rate = 0.05
 step = tf.train.GradientDescentOptimizer(learning_rate).minimize(error)
 
@@ -82,11 +83,17 @@ session.run(tf.initialize_all_variables())
 
 # 5. train
 # Original colorfulnes values: 49.184, 36.230
+# training_size = 400
 training_size = 400
-training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
+
+# training_inputs = [[0.0996, 0.49184], [0.2742, 0.36230]] * training_size
+# training_outputs = [[0.1], [0.2]] * training_size
+
+training_inputs = [[0.002, 0.083], [0.001, 0.023]] * training_size
 training_outputs = [[0.1], [0.2]] * training_size
 
-epochs = 2000
+# epochs = 2000
+epochs = 10000
 
 for epoch in range(epochs):
     _, error_rate = session.run(
@@ -106,7 +113,8 @@ print(
     session.run(
         output_activation,
         feed_dict={
-            inputs: np.array([[0.0996, 0.49184]])
+            # inputs: np.array([[0.0996, 0.49184]])
+            inputs: np.array([[0.002, 0.083]])
         }
     )
 )
@@ -114,7 +122,8 @@ print(
     session.run(
         output_activation,
         feed_dict={
-            inputs: np.array([[0.2742, 0.36230]])
+            # inputs: np.array([[0.2742, 0.36230]])
+            inputs: np.array([[0.001, 0.023]])
         }
     )
 )
