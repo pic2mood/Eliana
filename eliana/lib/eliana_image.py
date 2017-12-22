@@ -40,8 +40,6 @@ class ElianaImageBase:
             np.uint8
         )
 
-        img.show()
-
     def show(self, use='pil'):
         """ Shows image.
 
