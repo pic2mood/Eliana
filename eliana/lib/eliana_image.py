@@ -24,14 +24,23 @@ class ElianaImageBase:
 
     def _init_from_pil(self, img: Image):
 
+        # resize image
+        w_base = 300
+        w_percent = (w_base / float(img.size[0]))
+        h = int((float(img.size[1]) * float(w_percent)))
+        img = img.resize((w_base, h), Image.ANTIALIAS)
+
         self.__img_pil = img
         (self.__w, self.__h) = self.__img_pil.size
 
+        # reshape image
         self.__img_numpy = np.array(
             self.__img_pil.getdata()
         ).astype(
             np.uint8
         )
+
+        img.show()
 
     def show(self, use='pil'):
         """ Shows image.
