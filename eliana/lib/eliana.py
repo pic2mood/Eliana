@@ -11,11 +11,15 @@ from eliana.lib.image_batch_loader import ImageBatchLoader
 from eliana.lib.annotator import Annotator
 from eliana.lib.color import Color
 from eliana.lib.texture import Texture
-from eliana.lib.ann import ANN
+from eliana.lib.mlp import MLP
 from eliana.lib.data_loader import DataLoader
 
 import os
 import tensorflow as tf
+
+from sklearn.neural_network import MLPClassifier
+from sklearn.externals import joblib
+import numpy as np
 
 
 class Eliana:
@@ -177,23 +181,62 @@ class Eliana:
             print(emotions[i])
             print([emotions_map[emotions[i]]])
 
+            # training_output.append(
+            #     [emotions_map[emotions[i]]]
+            # )
+
             training_output.append(
-                [emotions_map[emotions[i]]]
+                emotions_map[emotions[i]] / 0.1
             )
 
         self.training_data = training_input, training_output
+
+        # model_path = os.path.join(
+        #     os.getcwd(),
+        #     'training',
+        #     'models',
+        #     'eliana_ann_overall',
+        #     'eliana_ann_overall'
+        # )
+
+        # a = ANN(model=model_path)
+        # a.train(training_data=self.training_data)
+        # a.save()
+
+        # training_input = np.array(training_input)
+        # training_output = np.array(training_output)
+
+        # training_output = vd.column_or_1d(training_output, warn=True)
+
+        print(training_input)
+        print(training_output)
 
         model_path = os.path.join(
             os.getcwd(),
             'training',
             'models',
             'eliana_ann_overall',
-            'eliana_ann_overall'
+            'eliana_ann_overall.pkl'
         )
 
-        a = ANN(model=model_path)
-        a.train(training_data=self.training_data)
-        a.save()
+        mlp = MLP()
+        # mlp.load_model(path=model_path)
+        mlp.load_model(path=None)
+        mlp.train(training_input, training_output)
+        # mlp.save_model(path=model_path)
+
+        for img in self.images:
+            print(img.path)
+
+            img.colorfulness = Color.scaled_colorfulness(
+                Color.colorfulness(img)
+            )
+            img.colorfulness = self.interpolate(img.colorfulness)
+
+            img.texture = Texture(img).get_texture_mean()
+            img.texture = self.interpolate(img.texture, place=0.1)
+
+            print(mlp.run(input_=[img.colorfulness, img.texture]))
 
     def run(self):
 
@@ -213,5 +256,5 @@ class Eliana:
 
 
 e = Eliana()
-#e.train()
-e.run()
+e.train()
+# e.run()
