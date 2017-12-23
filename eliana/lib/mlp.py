@@ -23,18 +23,18 @@ class MLP:
             self.model = MLPClassifier(
                 solver='lbfgs',
                 hidden_layer_sizes=(15,),
-                random_state=1
-                # max_iter=1,
+                random_state=1,
+                max_iter=500
                 # warm_start=True
             )
         else:
             self.model = joblib.load(path)
 
     def save_model(self, path):
-        joblib.dump(path)
+        joblib.dump(self.model, path)
 
     def train(self, input_, output):
-        self.model.fit(input_, output)
+        print('Fit:', self.model.fit(input_, output))
         return self.model.score(input_, output)
 
     def run(self, input_):

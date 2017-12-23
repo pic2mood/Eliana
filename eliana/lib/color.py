@@ -5,34 +5,15 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Nov 15, 2017
 """
-from PIL import Image
-from eliana.lib.eliana_image import ElianaImage
 import numpy as np
 
 
 class Color:
 
     @staticmethod
-    def to_hsv(img: ElianaImage):
-        return ElianaImage(pil=img.as_pil.convert('HSV'))
+    def colorfulness(img: np):
 
-    @staticmethod
-    def to_rgb(img: ElianaImage):
-        return ElianaImage(pil=img.as_pil.convert('RGB'))
-
-    @staticmethod
-    def colorfulness(img: ElianaImage):
-
-        r, g, b = img.as_pil.split()
-        # r = ElianaImage(np=r).as_numpy
-        # g = ElianaImage(np=g).as_numpy
-        # b = ElianaImage(np=b).as_numpy
-
-        r = np.array(r.getdata())
-        g = np.array(g.getdata())
-        b = np.array(b.getdata())
-
-        # print(r.__class__)
+        r, g, b = img[:, :, 2], img[:, :, 1], img[:, :, 1]
 
         rg = np.absolute(r - g)
         yb = np.absolute(0.5 * (r + g) - b)
@@ -60,22 +41,24 @@ class Color:
 
         """
 
+        colorfulness = int(colorfulness)
+
         if colorfulness < 15:
             return 0.1
 
-        elif colorfulness >= 15:
+        elif colorfulness in range(15, 33):
             return 0.2
 
-        elif colorfulness >= 33:
+        elif colorfulness in range(33, 45):
             return 0.3
 
-        elif colorfulness >= 45:
+        elif colorfulness in range(45, 59):
             return 0.4
 
-        elif colorfulness >= 59:
+        elif colorfulness in range(59, 82):
             return 0.5
 
-        elif colorfulness >= 82:
+        elif colorfulness in range(82, 109):
             return 0.6
 
         elif colorfulness >= 109:

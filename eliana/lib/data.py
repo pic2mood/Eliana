@@ -1,6 +1,6 @@
 """
-.. module:: data loader
-    :synopsis: loads necessary data
+.. module:: data
+    :synopsis: data stuff
 
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Dec 12, 2017
@@ -10,6 +10,7 @@ from eliana.lib.image_batch_loader import ImageBatchLoader
 
 import os
 import tensorflow as tf
+import pandas as pd
 
 
 class DataLoader:

@@ -59,82 +59,8 @@ class Eliana:
                 tag_id=tag_id
             ))
 
-    def color(self):
-        self.img.colorfulness = Color.scaled_colorfulness(
-            Color.colorfulness(self.img)
-        )
-        # self.img.colorfulness = Color.colorfulness(self.img)
-
-    def texture(self):
-        self.img.texture = Texture(self.img).get_texture_mean()
-
     def interpolate(self, value, place=0.01):
-        # return round(value * place, 5)
         return float(format(value * place, '.3f'))
-        # return value * place
-        # return value
-
-    def print_inputs(self):
-        print('Objects')
-        for object_ in self.img.objects:
-            print(
-                # "{0:.2f}".format(score * 100),
-                # '% ',
-                object_.annotation,
-                '\nOriginal: ',
-                object_.tag_id,
-                '\tInterpolated: ',
-                self.interpolate(object_.tag_id),
-                sep='',
-                end='\n\n'
-            )
-            # object_.show(use='pil')
-
-        print(
-            'Colorfulness',
-            '\nOriginal:',
-            self.img.colorfulness,
-            '\nInterpolated:',
-            self.interpolate(self.img.colorfulness),
-            end='\n\n'
-        )
-        print(
-            'Texture or GLCM Contrast',
-            '\nOriginal:',
-            self.img.texture,
-            '\nInterpolated:',
-            self.interpolate(self.img.texture, place=0.1)
-        )
-
-    def ann(self):
-
-        model_path = os.path.join(
-            os.getcwd(),
-            'training',
-            'models',
-            'eliana_ann_overall',
-            'eliana_ann_overall'
-        )
-        # overall
-        a = ANN(model=model_path)
-        # a.train()
-        # a.save()
-
-        img = self.img
-        img.colorfulness = self.interpolate(self.img.colorfulness)
-        img.texture = self.interpolate(self.img.texture, place=0.1)
-        a.run(img=self.img)
-
-        # objects
-        # a = ANN(model=model_path)
-
-        # for object_ in self.img.objects:
-
-        #     # a.train(training_data)
-        #     # a.save()
-        #     object_.colorfulness = Color.colorfulness(object_)
-        #     object_.texture = Texture(object_).get_texture_mean()
-        #     a.run(img=object_)
 
     def train(self):
 
@@ -181,32 +107,11 @@ class Eliana:
             print(emotions[i])
             print([emotions_map[emotions[i]]])
 
-            # training_output.append(
-            #     [emotions_map[emotions[i]]]
-            # )
-
             training_output.append(
                 emotions_map[emotions[i]] / 0.1
             )
 
         self.training_data = training_input, training_output
-
-        # model_path = os.path.join(
-        #     os.getcwd(),
-        #     'training',
-        #     'models',
-        #     'eliana_ann_overall',
-        #     'eliana_ann_overall'
-        # )
-
-        # a = ANN(model=model_path)
-        # a.train(training_data=self.training_data)
-        # a.save()
-
-        # training_input = np.array(training_input)
-        # training_output = np.array(training_output)
-
-        # training_output = vd.column_or_1d(training_output, warn=True)
 
         print(training_input)
         print(training_output)
@@ -237,22 +142,6 @@ class Eliana:
             img.texture = self.interpolate(img.texture, place=0.1)
 
             print(mlp.run(input_=[img.colorfulness, img.texture]))
-
-    def run(self):
-
-        for img in self.images:
-
-            self.img = img
-
-            print(img.path)
-
-            self.annotate()
-            self.color()
-            self.texture()
-
-            # self.print_inputs()
-
-            self.ann()
 
 
 e = Eliana()

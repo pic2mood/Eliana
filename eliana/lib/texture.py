@@ -14,25 +14,26 @@ from skimage import io
 
 class Texture:
 
-    def __init__(self, img: ElianaImage):
-        self.img = img
+    # def __init__(self, img: ElianaImage):
+    #     self.img = img
 
     # def __init__(self, path):
     #     self.path = path
 
-        self.__convert_img_to_gray()
-        self.__greycomatrix()
-        self.__round_greycomatrix_result()
+        # self.__convert_img_to_gray()
+        # self.__greycomatrix()
+        # self.__round_greycomatrix_result()
 
-    def __convert_img_to_gray(self):
+    def texture(img):
+        img_gray = np.average(
+            img,
+            weights=[0.299, 0.587, 0.114],
+            axis=2
+        ).astype(np.uint8)
 
-        self.img_gray = np.array(self.img.as_pil.convert('L'))
+        greycomatrix_ = greycomatrix(
 
-    def __greycomatrix(self):
-
-        self.greycomatrix_result = greycomatrix(
-
-            self.img_gray,
+            img_gray,
 
             distances=[1, 2],
             angles=[0],
@@ -40,17 +41,41 @@ class Texture:
             normed=True,
             symmetric=True
         )
+        greycomatrix_ = np.round(greycomatrix_, 3)
 
-    def __round_greycomatrix_result(self):
+        texture = greycoprops(greycomatrix_, 'contrast')
+        texture = np.mean(texture)
 
-        self.greycomatrix_result = np.round(
-            self.greycomatrix_result, 3
-        )
+        return texture
 
-    def get_texture_value(self):
 
-        return greycoprops(self.greycomatrix_result, 'contrast')
+    # def __convert_img_to_gray(self):
 
-    def get_texture_mean(self):
+    #     self.img_gray = np.array(self.img.as_pil.convert('L'))
 
-        return np.mean(self.get_texture_value())
+    # def __greycomatrix(self):
+
+    #     self.greycomatrix_result = greycomatrix(
+
+    #         self.img_gray,
+
+    #         distances=[1, 2],
+    #         angles=[0],
+    #         levels=256,
+    #         normed=True,
+    #         symmetric=True
+    #     )
+
+    # def __round_greycomatrix_result(self):
+
+    #     self.greycomatrix_result = np.round(
+    #         self.greycomatrix_result, 3
+    #     )
+
+    # def get_texture_value(self):
+
+    #     return greycoprops(self.greycomatrix_result, 'contrast')
+
+    # def get_texture_mean(self):
+
+    #     return np.mean(self.get_texture_value())

@@ -6,29 +6,32 @@
 .. created:: Nov 27, 2017
 """
 
-from eliana.lib.eliana_image import ElianaImage
 import os
 from glob import glob
+from skimage import io
+
+from scipy.misc import imresize
+
+from PIL import Image
 
 
 class ImageBatchLoader:
 
-    def __init__(self, dir_, limit=None):
+    def images(dir_, limit=None):
 
-        self.dir = dir_
+        print('Test images dir:', dir_)
 
-        print('Test images dir:', self.dir)
+        dir_glob = sorted(glob(os.path.join(dir_, '*.jpg')))
 
-        self.__imgs = []
-        self.dir_glob = sorted(glob(os.path.join(self.dir, '*.jpg')))
+        for img_path in dir_glob[:limit]:
 
-        for img_path in self.dir_glob[:limit]:
+            img = io.imread(img_path)
 
-            img = ElianaImage(img_path)
-            self.__imgs.append(img)
+            w_base = 300
+            w_percent = (w_base / float(img.shape[0]))
+            h = int((float(img.shape[1]) * float(w_percent)))
+            img = imresize(img, (w_base, h))
 
-            # print(img_path)
+            # Image.fromarray(img).show()
 
-    @property
-    def images(self):
-        return self.__imgs
+            yield img, img_path
