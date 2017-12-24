@@ -7,7 +7,7 @@
 """
 import os
 import pandas as pd
-import tensorflow as tf
+from PIL import Image
 from eliana.lib.annotator import Annotator
 from eliana.lib.color import Color
 from eliana.lib.texture import Texture
@@ -65,23 +65,21 @@ class TrainingData:
         }
 
         # prepare object annotator
-        # model = 'ssd_mobilenet_v1_coco_11_06_2017'
-        # graph = 'frozen_inference_graph.pb'
-        # file_ckpt = os.path.join(
-        #     os.getcwd(),
-        #     'training',
-        #     'models',
-        #     model,
-        #     graph
-        # )
-        # label = 'mscoco_label_map.pbtxt'
-        # file_label = os.path.join(
-        #     os.getcwd(),
-        #     'training',
-        #     'data',
-        #     label
-        # )
-        # num_classes = 90
+
+        model = 'ssd_mobilenet_v1_coco_11_06_2017'
+        file_ckpt = os.path.join(
+            os.getcwd(),
+            'training',
+            'models',
+            model,
+            'frozen_inference_graph.pb'
+        )
+        file_label = os.path.join(
+            os.getcwd(),
+            'training',
+            'data',
+            'mscoco_label_map.pbtxt'
+        )
         # detection_graph = tf.Graph()
 
         # with detection_graph.as_default():
@@ -94,8 +92,12 @@ class TrainingData:
 
         #     sess = tf.Session(graph=detection_graph)
 
-        # raw images
-        # raw_images = ImageBatchLoader(dir_images, limit=None).images
+        annotator = Annotator(
+            model=model,
+            ckpt=file_ckpt,
+            labels=file_label,
+            classes=90
+        )
 
         # data building
         data = []
@@ -103,15 +105,11 @@ class TrainingData:
             ImageBatchLoader.images(dir_images, limit=None)
         ):
 
-            # objects = Annotator(
-            #     img,
-            #     model,
-            #     file_ckpt,
-            #     file_label,
-            #     num_classes,
-            #     sess,
-            #     detection_graph
-            # ).annotate()
+            objects = annotator.annotate(img)
+
+            # print(objects)
+            for o in objects:
+                Image.fromarray(o[1]).show()
 
             color = Color.colorfulness(img)
             color = Color.scaled_colorfulness(color)
@@ -126,7 +124,8 @@ class TrainingData:
                     color,
                     texture,
                     emotions[i],
-                    emotions_map[emotions[i]]
+                    emotions_map[emotions[i]],
+                    objects
                 ]
             )
 
@@ -137,7 +136,8 @@ class TrainingData:
                 'Color',
                 'Texture',
                 'Emotion',
-                'Emotion Value'
+                'Emotion Value',
+                'Objects'
             ]
         )
         print('Dataset:\n', df)

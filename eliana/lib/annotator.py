@@ -28,13 +28,10 @@ class Annotator:
 
     def __init__(
             self,
-            img,
             model: str,
             ckpt: str,
             labels: str,
-            classes: int,
-            session,
-            detection_graph):
+            classes: int):
 
         """Annotator class constructor.
 
@@ -44,15 +41,27 @@ class Annotator:
             detection_graph: pass
         """
 
-        self.img = img
+        self.ckpt = ckpt
+        self.detection_graph = tf.Graph()
+
+        with self.detection_graph.as_default():
+
+            graph_def = tf.GraphDef()
+            fid = tf.gfile.GFile(self.ckpt, 'rb')
+            graph_serialized = fid.read()
+            graph_def.ParseFromString(graph_serialized)
+            tf.import_graph_def(graph_def, name='')
+
+            self.session = tf.Session(graph=self.detection_graph)
+
+        # self.img = img
 
         self.model = model
-        self.ckpt = ckpt
         self.labels = labels
         self.classes = classes
 
-        self.session = session
-        self.detection_graph = detection_graph
+        # self.session = session
+        # self.detection_graph = detection_graph
 
         self.label_map = lbl.load_labelmap(labels)
 
@@ -65,20 +74,29 @@ class Annotator:
         self.category_index = lbl.create_category_index(
             self.categories
         )
-        self.cropped_images = []
 
-    def __reshape_np_image(self, img: ElianaImage):
-        return np.array(img.as_pil).reshape(
-            (img.height, img.width, 3)
+    # def __reshape_np_image(self, img: ElianaImage):
+    #     return np.array(img.as_pil).reshape(
+    #         (img.height, img.width, 3)
+    #     ).astype(
+    #         np.uint8
+    #     )
+
+    def __reshape_np_image(self, img):
+        return img.reshape(
+            (img.shape[0], img.shape[1], 3)
         ).astype(
             np.uint8
         )
 
-    def annotate(self):
+    def annotate(self, img):
         """annotate()
 
         Method for annotation action.
         """
+
+        self.img = img
+        self.cropped_images = []
 
         def __annotate_init_params():
 
@@ -230,10 +248,10 @@ class Annotator:
             ymax: float = boxes[0, i, 2]
             xmax: float = boxes[0, i, 3]
 
-            xminn = int(xmin * self.img.width)
-            xmaxx = int(xmax * self.img.width)
-            yminn = int(ymin * self.img.height)
-            ymaxx = int(ymax * self.img.height)
+            xminn = int(xmin * self.img.shape[1])
+            xmaxx = int(xmax * self.img.shape[1])
+            yminn = int(ymin * self.img.shape[0])
+            ymaxx = int(ymax * self.img.shape[0])
 
             return (xminn, xmaxx, yminn, ymaxx)
 
@@ -275,9 +293,10 @@ class Annotator:
         def ___crop_using_pil(coords: tuple):
 
             (xminn, xmaxx, yminn, ymaxx) = coords
-            img_crop = self.img.as_pil.crop(
-                (xminn, yminn, xmaxx, ymaxx)
-            )
+            # img_crop = self.img.as_pil.crop(
+            #     (xminn, yminn, xmaxx, ymaxx)
+            # )
+            img_crop = self.img[yminn:ymaxx, xminn:xmaxx]
             #return ElianaImage(pil=img_crop)
             return img_crop
 
