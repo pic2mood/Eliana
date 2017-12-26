@@ -13,7 +13,7 @@ class Color:
     @staticmethod
     def colorfulness(img: np):
 
-        r, g, b = img[:, :, 2], img[:, :, 1], img[:, :, 1]
+        r, g, b = img[:, :, 2], img[:, :, 1], img[:, :, 0]
 
         rg = np.absolute(r - g)
         yb = np.absolute(0.5 * (r + g) - b)

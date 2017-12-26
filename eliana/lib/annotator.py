@@ -17,8 +17,6 @@ from matplotlib import pyplot as plt
 from object_detection.utils import label_map_util as lbl
 from object_detection.utils import visualization_utils as vis
 
-from eliana.lib.eliana_image import ElianaImage
-
 
 class Annotator:
     """.. class:: Annotator
@@ -331,4 +329,4 @@ class Annotator:
             min_score_thresh=0.5
         )
 
-        return ElianaImage(np=boxed_img)
+        return boxed_img
