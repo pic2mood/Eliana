@@ -25,8 +25,7 @@ class Eliana:
 
     def run_overall(self, img):
 
-        color = Color.colorfulness(img)
-        color = Color.scaled_colorfulness(color)
+        color = Color.scaled_colorfulness(img)
         color = interpolate(color)
 
         texture = Texture.texture(img)

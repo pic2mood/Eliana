@@ -11,15 +11,7 @@ import traceback
 
 from eliana.imports import *
 
-
-dir_images = os.path.join(
-    os.getcwd(),
-    'training',
-    'data',
-    'test_images'
-)
-
-img = image_batch_loader(dir_=dir_images, limit=1)
+img = image_batch_loader(dir_=trainer['test_images'], limit=1)
 
 
 class UnitTest(unittest.TestCase):
@@ -46,8 +38,7 @@ class UnitTest(unittest.TestCase):
 
         logger.info('Testing Color module...')
         try:
-            color = Color.colorfulness(img)
-            color = Color.scaled_colorfulness(color)
+            color = Color.scaled_colorfulness(img)
             color = interpolate(color)
 
         except Exception as e:

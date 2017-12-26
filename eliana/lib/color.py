@@ -11,7 +11,7 @@ import numpy as np
 class Color:
 
     @staticmethod
-    def colorfulness(img: np):
+    def raw_colorfulness(img: np):
 
         r, g, b = img[:, :, 2], img[:, :, 1], img[:, :, 0]
 
@@ -27,7 +27,7 @@ class Color:
         return std_root + (0.3 * mean_root)
 
     @staticmethod
-    def scaled_colorfulness(colorfulness: float):
+    def scaled_colorfulness(img: np):
         """
         Based on the scale:
 
@@ -41,7 +41,7 @@ class Color:
 
         """
 
-        colorfulness = int(colorfulness)
+        colorfulness = int(Color.raw_colorfulness(img))
 
         if colorfulness < 15:
             return 0.1

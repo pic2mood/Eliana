@@ -83,25 +83,11 @@ def build_training_data(dir_images, dataset):
     }
 
     # prepare object annotator
-    model = 'ssd_mobilenet_v1_coco_11_06_2017'
-    file_ckpt = os.path.join(
-        os.getcwd(),
-        'training',
-        'models',
-        model,
-        'frozen_inference_graph.pb'
-    )
-    file_label = os.path.join(
-        os.getcwd(),
-        'training',
-        'data',
-        'mscoco_label_map.pbtxt'
-    )
     annotator = Annotator(
-        model=model,
-        ckpt=file_ckpt,
-        labels=file_label,
-        classes=90
+        model=annotator_params['model'],
+        ckpt=annotator_params['ckpt'],
+        labels=annotator_params['labels'],
+        classes=annotator_params['classes']
     )
 
     # data building
@@ -116,8 +102,7 @@ def build_training_data(dir_images, dataset):
         # for o in objects:
         #     show(o[1])
 
-        color = Color.colorfulness(img)
-        color = Color.scaled_colorfulness(color)
+        color = Color.scaled_colorfulness(img)
         color = interpolate(color)
 
         texture = Texture.texture(img)
