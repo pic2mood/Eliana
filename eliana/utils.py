@@ -5,17 +5,13 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Dec 26, 2017
 """
-import os
 import pandas as pd
 from PIL import Image
 from glob import glob
 from skimage import io
 from scipy.misc import imresize
 
-from eliana.lib.mlp import MLP
-from eliana.lib.annotator import Annotator
-from eliana.lib.color import Color
-from eliana.lib.texture import Texture
+from eliana.imports import *
 
 
 def image_batch_loader(dir_, limit=None):

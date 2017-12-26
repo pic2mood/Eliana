@@ -5,14 +5,7 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Nov 24, 2017
 """
-import os
-
-from eliana.lib.annotator import Annotator
-from eliana.lib.color import Color
-from eliana.lib.texture import Texture
-from eliana.lib.mlp import MLP
-
-from eliana.utils import interpolate
+from eliana.imports import *
 
 
 class Eliana:

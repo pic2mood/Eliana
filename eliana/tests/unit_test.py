@@ -6,16 +6,10 @@
 .. created:: Dec 8, 2017
 .. author:: Raymel Francisco <franciscoraymel@gmail.com>
 """
-import os
 import unittest
+import traceback
 
-from eliana import logger
-
-from eliana.lib.annotator import Annotator
-from eliana.lib.color import Color
-from eliana.lib.texture import Texture
-
-from eliana.utils import (image_batch_loader, interpolate)
+from eliana.imports import *
 
 
 dir_images = os.path.join(
@@ -34,30 +28,16 @@ class UnitTest(unittest.TestCase):
 
         logger.info('Testing Annotator module...')
         try:
-            model = 'ssd_mobilenet_v1_coco_11_06_2017'
-            file_ckpt = os.path.join(
-                os.getcwd(),
-                'training',
-                'models',
-                model,
-                'frozen_inference_graph.pb'
-            )
-            file_label = os.path.join(
-                os.getcwd(),
-                'training',
-                'data',
-                'mscoco_label_map.pbtxt'
-            )
             annotator = Annotator(
-                model=model,
-                ckpt=file_ckpt,
-                labels=file_label,
-                classes=90
+                model=annotator_params['model'],
+                ckpt=annotator_params['ckpt'],
+                labels=annotator_params['labels'],
+                classes=annotator_params['classes']
             )
             annotator.annotate(img)
 
         except Exception as e:
-            logger.debug(str(e))
+            logger.error(traceback.format_exc())
 
         finally:
             logger.info('DONE.')
@@ -71,7 +51,7 @@ class UnitTest(unittest.TestCase):
             color = interpolate(color)
 
         except Exception as e:
-            logger.debug(str(e))
+            logger.error(traceback.format_exc())
 
         finally:
             logger.info('DONE.')
@@ -84,7 +64,7 @@ class UnitTest(unittest.TestCase):
             texture = interpolate(texture, place=0.1)
 
         except Exception as e:
-            logger.debug(str(e))
+            logger.error(traceback.format_exc())
 
         finally:
             logger.info('DONE.')
