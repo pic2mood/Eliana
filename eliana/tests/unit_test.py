@@ -8,25 +8,14 @@
 """
 import os
 import unittest
-import logging
+
+from eliana import logger
 
 from eliana.lib.annotator import Annotator
 from eliana.lib.color import Color
 from eliana.lib.texture import Texture
 
 from eliana.utils import (image_batch_loader, interpolate)
-
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    '\n[%(asctime)s] %(name)s: %(levelname)s: %(message)s'
-)
-handler.setFormatter(formatter)
-
-logger.addHandler(handler)
 
 
 dir_images = os.path.join(
