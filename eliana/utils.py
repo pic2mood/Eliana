@@ -117,8 +117,8 @@ def build_training_data(dir_images, dataset):
         objects = annotator.annotate(img)
 
         # print(objects)
-        for o in objects:
-            show(o[1])
+        # for o in objects:
+        #     show(o[1])
 
         color = Color.colorfulness(img)
         color = Color.scaled_colorfulness(color)

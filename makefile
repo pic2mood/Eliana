@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test:
-	python -m unittest eliana.tests.unit_test_runner
+	python -m unittest eliana.tests.unit_test
 
 doc:
 	bash docs/build-docs
