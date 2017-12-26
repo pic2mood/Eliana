@@ -41,6 +41,5 @@ class Eliana:
 
         self.mlp.run(input_=[color, texture])
 
-
     def run_object(self, objects):
         pass
