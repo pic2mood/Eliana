@@ -8,7 +8,7 @@
 import numpy as np
 
 from skimage.feature import greycomatrix, greycoprops
-from skimage import io
+from skimage import io, color
 
 
 class Texture:
@@ -19,6 +19,7 @@ class Texture:
             weights=[0.299, 0.587, 0.114],
             axis=2
         ).astype(np.uint8)
+        # img_gray = color.rgb2gray(img).astype(np.uint8)
 
         greycomatrix_ = greycomatrix(
 

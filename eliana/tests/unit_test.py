@@ -7,7 +7,6 @@
 .. author:: Raymel Francisco <franciscoraymel@gmail.com>
 """
 import unittest
-import traceback
 
 from eliana.imports import *
 
@@ -16,49 +15,28 @@ img = image_batch_loader(dir_=trainer['test_images'], limit=1)
 
 class UnitTest(unittest.TestCase):
 
+    @log('Testing Annotator module...', verbose=True)
     def test_annotator(self):
 
-        logger.info('Testing Annotator module...')
-        try:
-            annotator = Annotator(
-                model=annotator_params['model'],
-                ckpt=annotator_params['ckpt'],
-                labels=annotator_params['labels'],
-                classes=annotator_params['classes']
-            )
-            annotator.annotate(img)
+        annotator = Annotator(
+            model=annotator_params['model'],
+            ckpt=annotator_params['ckpt'],
+            labels=annotator_params['labels'],
+            classes=annotator_params['classes']
+        )
+        annotator.annotate(img)
 
-        except Exception as e:
-            logger.error(traceback.format_exc())
-
-        finally:
-            logger.info('DONE.')
-
+    @log('Testing Color module...', verbose=True)
     def test_color(self):
 
-        logger.info('Testing Color module...')
-        try:
-            color = Color.scaled_colorfulness(img)
-            color = interpolate(color)
+        color = Color.scaled_colorfulness(img)
+        color = interpolate(color)
 
-        except Exception as e:
-            logger.error(traceback.format_exc())
-
-        finally:
-            logger.info('DONE.')
-
+    @log('Testing Texture module...', verbose=True)
     def test_texture(self):
 
-        logger.info('Testing Texture module...')
-        try:
-            texture = Texture.texture(img)
-            texture = interpolate(texture, place=0.1)
-
-        except Exception as e:
-            logger.error(traceback.format_exc())
-
-        finally:
-            logger.info('DONE.')
+        texture = Texture.texture(img)
+        texture = interpolate(texture, place=0.1)
 
 
 if __name__ == '__main__':

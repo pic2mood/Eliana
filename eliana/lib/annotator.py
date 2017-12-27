@@ -82,7 +82,7 @@ class Annotator:
 
     def __reshape_np_image(self, img):
         return img.reshape(
-            (img.shape[0], img.shape[1], 3)
+            (img.shape[0], img.shape[1], -1)
         ).astype(
             np.uint8
         )

@@ -8,21 +8,24 @@
 import pandas as pd
 from PIL import Image
 from glob import glob
-from skimage import io
+from skimage import io, color
 from scipy.misc import imresize
 
 from eliana.imports import *
 
 
+# @log('Loading images...')
 def image_batch_loader(dir_, limit=None):
 
-    print('Test images dir:', dir_)
+    logger_.info('Test images dir: ' + dir_)
 
     dir_glob = sorted(glob(os.path.join(dir_, '*.jpg')))
 
     for img_path in dir_glob[:limit]:
 
         img = io.imread(img_path)
+        #if color.is_gray(img):
+        img = color.gray2rgb(img)
 
         w_base = 300
         w_percent = (w_base / float(img.shape[0]))
@@ -40,6 +43,7 @@ def show(img):
     Image.fromarray(img).show()
 
 
+@log('Initializing training...')
 def train(model, dataset):
 
     df = pd.read_pickle(dataset)
@@ -50,28 +54,28 @@ def train(model, dataset):
     inputs = df[['Color', 'Texture']]
     outputs = df[['Emotion Value']].as_matrix().ravel()
 
-    print('Trainer:', mlp.train(inputs, outputs))
-
+    # logger_.info('Training fitness: ' + str(mlp.train(inputs, outputs)))
+    mlp.train(inputs, outputs)
     mlp.save_model(path=model)
 
 
-def build_training_data(dir_images, dataset):
+def build_training_data(dir_images, dataset, tag, append=False):
 
     # manual emotion tags
-    emotions = []
+    # emotions = []
 
-    dir_et = os.path.join(dir_images, 'manual_annotator.txt')
+    # dir_et = os.path.join(dir_images, tags)
 
-    with open(dir_et, 'r') as et:
-        for entry in et:
+    # with open(dir_et, 'r') as et:
+    #     for entry in et:
 
-            entry = entry.strip()
+    #         entry = entry.strip()
 
-            if entry != '':
-                name, emotion = tuple(entry.split('|'))
-                name = name.split('/')[-1]
+    #         if entry != '':
+    #             name, emotion = tuple(entry.split('|'))
+    #             name = name.split('/')[-1]
 
-                emotions.append(emotion)
+    #             emotions.append(emotion)
 
     emotions_map = {
         'happiness': 1,
@@ -93,9 +97,10 @@ def build_training_data(dir_images, dataset):
     # data building
     data = []
     for i, (img, img_path) in enumerate(
-        image_batch_loader(dir_images, limit=None)
+        image_batch_loader(dir_=dir_images, limit=None)
     ):
 
+        # print(img_path)
         objects = annotator.annotate(img)
 
         # print(objects)
@@ -113,22 +118,41 @@ def build_training_data(dir_images, dataset):
                 img_path.split('/')[-1],
                 color,
                 texture,
-                emotions[i],
-                emotions_map[emotions[i]],
+                tag,
+                emotions_map[tag],
                 objects
             ]
         )
 
-    df = pd.DataFrame(
-        data,
-        columns=[
-            'Image',
-            'Color',
-            'Texture',
-            'Emotion',
-            'Emotion Value',
-            'Objects'
-        ]
-    )
-    print('Dataset:\n', df)
+    if append:
+        df = pd.read_pickle(dataset)
+        df2 = pd.DataFrame(
+            data,
+            columns=[
+                'Image',
+                'Color',
+                'Texture',
+                'Emotion',
+                'Emotion Value',
+                'Objects'
+            ]
+        )
+        df = df.append(df2, ignore_index=True)
+        # df.append(data)
+        # df = pd.concat(df, df2)
+        # logger_.debug('Dataset2:\n' + str(df2))
+        # logger_.debug('Dataset:\n' + str(df))
+    else:
+        df = pd.DataFrame(
+            data,
+            columns=[
+                'Image',
+                'Color',
+                'Texture',
+                'Emotion',
+                'Emotion Value',
+                'Objects'
+            ]
+        )
+    logger_.debug('Dataset:\n' + str(df))
     df.to_pickle(dataset)

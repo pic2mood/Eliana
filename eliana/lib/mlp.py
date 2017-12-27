@@ -32,7 +32,8 @@ class MLP:
 
     def train(self, input_, output):
         print('Fit:', self.model.fit(input_, output))
-        return self.model.score(input_, output)
+        # return self.model.score(input_, output)
+        print('Score:', self.model.score(input_, output))
 
     def run(self, input_):
         return self.model.predict([input_])
