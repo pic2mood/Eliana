@@ -75,7 +75,7 @@ trainer = {
         os.getcwd(),
         'training',
         'data',
-        'eliana_ann_overall_happiness_sadness_dataset.pkl'
+        'eliana_ann_overall_3_class_dataset.pkl'
     ),
     'test_images': os.path.join(
         os.getcwd(),
@@ -87,6 +87,6 @@ trainer = {
         'training',
         'models',
         'eliana_ann_overall',
-        'eliana_ann_overall_happiness_sadness.pkl'
+        'eliana_ann_overall_3_class.pkl'
     )
 }

@@ -40,11 +40,12 @@ def train_emotion(emotion, append):
 
 train_emotion('happiness', False)
 train_emotion('sadness', True)
+train_emotion('fear', True)
 
-mlp = MLP()
-mlp.load_model(path=trainer['model'])
+# mlp = MLP()
+# mlp.load_model(path=trainer['model'])
 
-input_ = [0.001, 0.009]
-output = [[5]]
-print('\n------\nScore:', mlp.model.score([input_], output))
-print('Run:', mlp.run(input_=input_))
+# input_ = [0.001, 0.009]
+# output = [[5]]
+# print('\n------\nScore:', mlp.model.score([input_], output))
+# print('Run:', mlp.run(input_=input_))

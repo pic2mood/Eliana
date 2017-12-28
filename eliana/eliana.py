@@ -62,5 +62,5 @@ for i, (img, img_path) in enumerate(
 
     to_montage.append(img)
 
-montage = build_montages(to_montage, (180, 180), (5, 3))[0]
+montage = build_montages(to_montage, (180, 180), (6, 6))[0]
 show(montage)
