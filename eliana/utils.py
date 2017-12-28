@@ -14,6 +14,19 @@ from scipy.misc import imresize
 from eliana.imports import *
 
 
+def image_single_loader(img_path):
+    img = io.imread(img_path)
+    img = color.gray2rgb(img)
+
+    w_base = 300
+    w_percent = (w_base / float(img.shape[0]))
+    h = int((float(img.shape[1]) * float(w_percent)))
+
+    img = imresize(img, (w_base, h))
+
+    return img
+
+
 # @log('Loading images...')
 def image_batch_loader(dir_, limit=None):
 
@@ -23,15 +36,7 @@ def image_batch_loader(dir_, limit=None):
 
     for img_path in dir_glob[:limit]:
 
-        img = io.imread(img_path)
-        #if color.is_gray(img):
-        img = color.gray2rgb(img)
-
-        w_base = 300
-        w_percent = (w_base / float(img.shape[0]))
-        h = int((float(img.shape[1]) * float(w_percent)))
-        img = imresize(img, (w_base, h))
-
+        img = image_single_loader(img_path)
         yield img, img_path
 
 
@@ -60,31 +65,6 @@ def train(model, dataset):
 
 
 def build_training_data(dir_images, dataset, tag, append=False):
-
-    # manual emotion tags
-    # emotions = []
-
-    # dir_et = os.path.join(dir_images, tags)
-
-    # with open(dir_et, 'r') as et:
-    #     for entry in et:
-
-    #         entry = entry.strip()
-
-    #         if entry != '':
-    #             name, emotion = tuple(entry.split('|'))
-    #             name = name.split('/')[-1]
-
-    #             emotions.append(emotion)
-
-    emotions_map = {
-        'happiness': 1,
-        'anger': 2,
-        'surprise': 3,
-        'disgust': 4,
-        'sadness': 5,
-        'fear': 6
-    }
 
     # prepare object annotator
     annotator = Annotator(
@@ -138,10 +118,6 @@ def build_training_data(dir_images, dataset, tag, append=False):
             ]
         )
         df = df.append(df2, ignore_index=True)
-        # df.append(data)
-        # df = pd.concat(df, df2)
-        # logger_.debug('Dataset2:\n' + str(df2))
-        # logger_.debug('Dataset:\n' + str(df))
     else:
         df = pd.DataFrame(
             data,

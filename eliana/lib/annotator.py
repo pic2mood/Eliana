@@ -14,8 +14,8 @@ import numpy as np
 import tensorflow as tf
 from matplotlib import pyplot as plt
 
-from object_detection.utils import label_map_util as lbl
-from object_detection.utils import visualization_utils as vis
+from eliana.api.object_detection.utils import label_map_util as lbl
+from eliana.api.object_detection.utils import visualization_utils as vis
 
 
 class Annotator:

@@ -7,18 +7,13 @@
 """
 from eliana.imports import *
 
+import cv2
+from imutils import build_montages
+
 
 class Eliana:
 
-    def __init__(self):
-
-        model_path = os.path.join(
-            os.getcwd(),
-            'training',
-            'models',
-            'eliana_ann_overall',
-            'eliana_ann_overall.pkl'
-        )
+    def __init__(self, model_path):
 
         self.mlp = MLP()
         self.mlp.load_model(path=model_path)
@@ -31,7 +26,41 @@ class Eliana:
         texture = Texture.texture(img)
         texture = interpolate(texture, place=0.1)
 
-        self.mlp.run(input_=[color, texture])
+        return self.mlp.run(input_=[color, texture])
 
     def run_object(self, objects):
         pass
+
+
+enna = Eliana(trainer['model'])
+
+dir_images = os.path.join(
+    os.getcwd(),
+    trainer['test_images'],
+    'test'
+)
+
+to_montage = []
+
+for i, (img, img_path) in enumerate(
+    image_batch_loader(dir_=dir_images, limit=None)
+):
+    print(img_path)
+
+    result = enna.run_overall(img)
+
+    print('Run:', result)
+    cv2.putText(
+        img,
+        emotions_list[result[0]],
+        (40, 40),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1.4,
+        (0, 255, 0),
+        3
+    )
+
+    to_montage.append(img)
+
+montage = build_montages(to_montage, (180, 180), (5, 3))[0]
+show(montage)

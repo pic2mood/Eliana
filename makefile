@@ -7,8 +7,9 @@ doc:
 	bash docs/build-docs
 	bash docs/make-html
 
-# run:
+run:
 	# run integrated test
+	python -m eliana.eliana
 
 train:
 	python -m eliana.trainer

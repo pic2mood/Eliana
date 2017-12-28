@@ -30,6 +30,25 @@ def log(message, verbose=True):
     return decorator
 
 
+emotions_map = {
+    'happiness': 1,
+    'anger': 2,
+    'surprise': 3,
+    'disgust': 4,
+    'sadness': 5,
+    'fear': 6
+}
+
+emotions_list = [
+    '',
+    'happiness',
+    'anger',
+    'surprise',
+    'disgust',
+    'sadness',
+    'fear'
+]
+
 verbose = True
 
 annotator_params = {
