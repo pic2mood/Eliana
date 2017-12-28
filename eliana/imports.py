@@ -1,6 +1,7 @@
 
 import os
 
+from eliana.lib.palette import Palette
 from eliana.lib.mlp import MLP
 from eliana.lib.annotator import Annotator
 from eliana.lib.color import Color

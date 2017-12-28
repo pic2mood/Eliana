@@ -9,6 +9,7 @@ from eliana.imports import *
 
 import cv2
 from imutils import build_montages
+from skimage import io
 
 
 class Eliana:
@@ -20,13 +21,25 @@ class Eliana:
 
     def run_overall(self, img):
 
+        palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
+
+        palette_1 = interpolate(palette_1, place=0.000000001)
+        palette_2 = interpolate(palette_2, place=0.000000001)
+        palette_3 = interpolate(palette_3, place=0.000000001)
+
         color = Color.scaled_colorfulness(img)
         color = interpolate(color)
 
         texture = Texture.texture(img)
         texture = interpolate(texture, place=0.1)
 
-        return self.mlp.run(input_=[color, texture])
+        return self.mlp.run(input_=[
+            palette_1,
+            palette_2,
+            palette_3,
+            color,
+            texture]
+        )
 
     def run_object(self, objects):
         pass

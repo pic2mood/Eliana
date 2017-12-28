@@ -56,7 +56,7 @@ def train(model, dataset):
     mlp = MLP()
     mlp.load_model(path=None)
 
-    inputs = df[['Color', 'Texture']]
+    inputs = df[['Palette 1', 'Palette 2', 'Palette 3', 'Color', 'Texture']]
     outputs = df[['Emotion Value']].as_matrix().ravel()
 
     # logger_.info('Training fitness: ' + str(mlp.train(inputs, outputs)))
@@ -87,6 +87,12 @@ def build_training_data(dir_images, dataset, tag, append=False):
         # for o in objects:
         #     show(o[1])
 
+        palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
+
+        palette_1 = interpolate(palette_1, place=0.000000001)
+        palette_2 = interpolate(palette_2, place=0.000000001)
+        palette_3 = interpolate(palette_3, place=0.000000001)
+
         color = Color.scaled_colorfulness(img)
         color = interpolate(color)
 
@@ -96,6 +102,9 @@ def build_training_data(dir_images, dataset, tag, append=False):
         data.append(
             [
                 img_path.split('/')[-1],
+                palette_1,
+                palette_2,
+                palette_3,
                 color,
                 texture,
                 tag,
@@ -110,6 +119,9 @@ def build_training_data(dir_images, dataset, tag, append=False):
             data,
             columns=[
                 'Image',
+                'Palette 1',
+                'Palette 2',
+                'Palette 3',
                 'Color',
                 'Texture',
                 'Emotion',
@@ -123,6 +135,9 @@ def build_training_data(dir_images, dataset, tag, append=False):
             data,
             columns=[
                 'Image',
+                'Palette 1',
+                'Palette 2',
+                'Palette 3',
                 'Color',
                 'Texture',
                 'Emotion',

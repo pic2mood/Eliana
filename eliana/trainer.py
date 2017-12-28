@@ -33,7 +33,7 @@ def train_emotion(emotion, append):
 
     df = pd.read_pickle(trainer['dataset'])
     # print('Dataset:\n', df)
-    df = df[['Color', 'Texture']].as_matrix()
+    df = df[['Palette 1', 'Palette 2', 'Palette 3', 'Color', 'Texture']].as_matrix()
     for data in df:
         print('Run:', mlp.run(input_=data))
 
