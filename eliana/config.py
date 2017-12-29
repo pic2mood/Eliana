@@ -70,7 +70,7 @@ annotator_params = {
 }
 
 
-trainer = {
+trainer_overall = {
     'dataset': os.path.join(
         os.getcwd(),
         'training',
@@ -88,5 +88,16 @@ trainer = {
         'models',
         'eliana_ann_overall',
         'eliana_ann_overall_3_class_3_feature.pkl'
-    )
+    ),
+    'columns': [
+        'Image Path',
+        'Palette 1',
+        'Palette 2',
+        'Palette 3',
+        'Color',
+        'Texture',
+        'Emotion Tag',
+        'Emotion Value',
+        'Objects'
+    ]
 }

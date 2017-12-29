@@ -13,27 +13,29 @@ from eliana.imports import *
 def train_emotion(emotion, append):
 
     dir_images = os.path.join(
-        trainer['test_images'],
+        trainer_overall['test_images'],
         emotion
     )
 
     build_training_data(
         dir_images=dir_images,
-        dataset=trainer['dataset'],
+        dataset=trainer_overall['dataset'],
         tag=emotion,
-        append=append
+        append=append,
+        columns=trainer_overall['columns']
     )
     train(
-        model=trainer['model'],
-        dataset=trainer['dataset']
+        model=trainer_overall['model'],
+        dataset=trainer_overall['dataset'],
+        inputs=trainer_overall['columns'][1:6]
     )
 
     mlp = MLP()
-    mlp.load_model(path=trainer['model'])
+    mlp.load_model(path=trainer_overall['model'])
 
-    df = pd.read_pickle(trainer['dataset'])
+    df = pd.read_pickle(trainer_overall['dataset'])
     # print('Dataset:\n', df)
-    df = df[['Palette 1', 'Palette 2', 'Palette 3', 'Color', 'Texture']].as_matrix()
+    df = df[trainer_overall['columns'][1:6]].as_matrix()
     for data in df:
         print('Run:', mlp.run(input_=data))
 

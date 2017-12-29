@@ -49,14 +49,14 @@ def show(img):
 
 
 @log('Initializing training...')
-def train(model, dataset):
+def train(model, dataset, inputs):
 
     df = pd.read_pickle(dataset)
 
     mlp = MLP()
     mlp.load_model(path=None)
 
-    inputs = df[['Palette 1', 'Palette 2', 'Palette 3', 'Color', 'Texture']]
+    inputs = df[inputs]
     outputs = df[['Emotion Value']].as_matrix().ravel()
 
     # logger_.info('Training fitness: ' + str(mlp.train(inputs, outputs)))
@@ -64,7 +64,7 @@ def train(model, dataset):
     mlp.save_model(path=model)
 
 
-def build_training_data(dir_images, dataset, tag, append=False):
+def build_training_data(dir_images, dataset, tag, columns, append=False):
 
     # prepare object annotator
     annotator = Annotator(
@@ -80,7 +80,7 @@ def build_training_data(dir_images, dataset, tag, append=False):
         image_batch_loader(dir_=dir_images, limit=None)
     ):
 
-        # print(img_path)
+        print(img_path)
         objects = annotator.annotate(img)
 
         # print(objects)
@@ -117,33 +117,13 @@ def build_training_data(dir_images, dataset, tag, append=False):
         df = pd.read_pickle(dataset)
         df2 = pd.DataFrame(
             data,
-            columns=[
-                'Image',
-                'Palette 1',
-                'Palette 2',
-                'Palette 3',
-                'Color',
-                'Texture',
-                'Emotion',
-                'Emotion Value',
-                'Objects'
-            ]
+            columns=columns
         )
         df = df.append(df2, ignore_index=True)
     else:
         df = pd.DataFrame(
             data,
-            columns=[
-                'Image',
-                'Palette 1',
-                'Palette 2',
-                'Palette 3',
-                'Color',
-                'Texture',
-                'Emotion',
-                'Emotion Value',
-                'Objects'
-            ]
+            columns=columns
         )
     logger_.debug('Dataset:\n' + str(df))
     df.to_pickle(dataset)

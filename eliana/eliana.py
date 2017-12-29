@@ -45,11 +45,11 @@ class Eliana:
         pass
 
 
-enna = Eliana(trainer['model'])
+enna = Eliana(trainer_overall['model'])
 
 dir_images = os.path.join(
     os.getcwd(),
-    trainer['test_images'],
+    trainer_overall['test_images'],
     'test'
 )
 
