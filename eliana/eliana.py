@@ -42,14 +42,37 @@ class Eliana:
         )
 
     def run_object(self, objects):
-        pass
+
+        objects = annotator.annotate(img)
+        objects.sort(key=lambda obj: obj[1].shape[0] * obj[1].shape[1])
+
+        palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
+
+        palette_1 = interpolate(palette_1, place=0.000000001)
+        palette_2 = interpolate(palette_2, place=0.000000001)
+        palette_3 = interpolate(palette_3, place=0.000000001)
+
+        color = Color.scaled_colorfulness(img)
+        color = interpolate(color)
+
+        texture = Texture.texture(img)
+        texture = interpolate(texture, place=0.1)
+
+        return self.mlp.run(input_=[
+            palette_1,
+            palette_2,
+            palette_3,
+            color,
+            objects[0],
+            texture]
+        )
 
 
-enna = Eliana(trainer_overall['model'])
+enna = Eliana(trainer_w_oia['model'])
 
 dir_images = os.path.join(
     os.getcwd(),
-    trainer_overall['test_images'],
+    trainer_w_oia['test_images'],
     'test'
 )
 

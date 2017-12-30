@@ -101,3 +101,36 @@ trainer_overall = {
         'Objects'
     ]
 }
+
+
+trainer_w_oia = {
+    'dataset': os.path.join(
+        os.getcwd(),
+        'training',
+        'data',
+        'eliana_ann_oia_3c_palette_dataset.pkl'
+    ),
+    'test_images': os.path.join(
+        os.getcwd(),
+        'training',
+        'data'
+    ),
+    'model': os.path.join(
+        os.getcwd(),
+        'training',
+        'models',
+        'eliana_ann_oia',
+        'eliana_ann_oia_3c_palette.pkl'
+    ),
+    'columns': [
+        'Image Path',
+        'Palette 1',
+        'Palette 2',
+        'Palette 3',
+        'Color',
+        'Texture',
+        'Top Object',
+        'Emotion Tag',
+        'Emotion Value'
+    ]
+}

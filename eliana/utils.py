@@ -10,6 +10,7 @@ from PIL import Image
 from glob import glob
 from skimage import io, color
 from scipy.misc import imresize
+import numpy as np
 
 from eliana.imports import *
 
@@ -64,7 +65,14 @@ def train(model, dataset, inputs):
     mlp.save_model(path=model)
 
 
-def build_training_data(dir_images, dataset, tag, columns, append=False):
+def build_training_data(
+    dir_images,
+    dataset,
+    tag,
+    columns,
+    append=False,
+    mode='oia'
+):
 
     # prepare object annotator
     annotator = Annotator(
@@ -82,10 +90,11 @@ def build_training_data(dir_images, dataset, tag, columns, append=False):
 
         print(img_path)
         objects = annotator.annotate(img)
+        objects.sort(key=lambda obj: obj[1].shape[0] * obj[1].shape[1])
 
         # print(objects)
-        # for o in objects:
-        #     show(o[1])
+        # for obj in objects:
+        #     show(obj[1])
 
         palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
 
@@ -99,19 +108,34 @@ def build_training_data(dir_images, dataset, tag, columns, append=False):
         texture = Texture.texture(img)
         texture = interpolate(texture, place=0.1)
 
-        data.append(
-            [
-                img_path.split('/')[-1],
-                palette_1,
-                palette_2,
-                palette_3,
-                color,
-                texture,
-                tag,
-                emotions_map[tag],
-                objects
-            ]
-        )
+        if mode == 'overall':
+            data.append(
+                [
+                    img_path.split('/')[-1],
+                    palette_1,
+                    palette_2,
+                    palette_3,
+                    color,
+                    texture,
+                    tag,
+                    emotions_map[tag],
+                    objects
+                ]
+            )
+        elif mode == 'oia':
+            data.append(
+                [
+                    img_path.split('/')[-1],
+                    palette_1,
+                    palette_2,
+                    palette_3,
+                    color,
+                    texture,
+                    0. if not objects else objects[0][2],
+                    tag,
+                    emotions_map[tag]
+                ]
+            )
 
     if append:
         df = pd.read_pickle(dataset)

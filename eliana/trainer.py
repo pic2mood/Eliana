@@ -10,39 +10,61 @@ import pandas as pd
 from eliana.imports import *
 
 
-def train_emotion(emotion, append):
+def train_emotion(emotion, append, trainer_, mode):
 
     dir_images = os.path.join(
-        trainer_overall['test_images'],
+        trainer_['test_images'],
         emotion
     )
 
     build_training_data(
         dir_images=dir_images,
-        dataset=trainer_overall['dataset'],
+        dataset=trainer_['dataset'],
         tag=emotion,
         append=append,
-        columns=trainer_overall['columns']
+        columns=trainer_['columns'],
+        mode=mode
     )
+    if mode == 'overall':
+        inputs = trainer_['columns'][1:6]
+    elif mode == 'oia':
+        inputs = trainer_['columns'][1:7]
+
     train(
-        model=trainer_overall['model'],
-        dataset=trainer_overall['dataset'],
-        inputs=trainer_overall['columns'][1:6]
+        model=trainer_['model'],
+        dataset=trainer_['dataset'],
+        inputs=inputs
     )
 
     mlp = MLP()
-    mlp.load_model(path=trainer_overall['model'])
+    mlp.load_model(path=trainer_['model'])
 
-    df = pd.read_pickle(trainer_overall['dataset'])
+    df = pd.read_pickle(trainer_['dataset'])
     # print('Dataset:\n', df)
-    df = df[trainer_overall['columns'][1:6]].as_matrix()
+    df = df[inputs].as_matrix()
     for data in df:
+        print(data)
         print('Run:', mlp.run(input_=data))
 
 
-train_emotion('happiness', False)
-train_emotion('sadness', True)
-train_emotion('fear', True)
+train_emotion(
+    'happiness',
+    append=False,
+    trainer_=trainer_w_oia,
+    mode='oia'
+)
+train_emotion(
+    'sadness',
+    append=True,
+    trainer_=trainer_w_oia,
+    mode='oia'
+)
+train_emotion(
+    'fear',
+    append=True,
+    trainer_=trainer_w_oia,
+    mode='oia'
+)
 
 # mlp = MLP()
 # mlp.load_model(path=trainer['model'])
