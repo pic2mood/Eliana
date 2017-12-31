@@ -10,6 +10,8 @@ from eliana.imports import *
 from colorthief import ColorThief
 from skimage import io
 
+from eliana.utils import interpolate
+
 
 class Palette:
 
@@ -29,6 +31,6 @@ class Palette:
             hex_ = '#{:02x}{:02x}{:02x}'.format(r, g, b)
             int_ = int(hex_[1:], 16)
 
-            colors = colors + (int_,)
+            colors = colors + (interpolate(int_, place=0.000000001),)
 
         return colors

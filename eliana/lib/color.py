@@ -6,6 +6,7 @@
 .. created:: Nov 15, 2017
 """
 import numpy as np
+from eliana.utils import interpolate
 
 
 class Color:
@@ -44,22 +45,25 @@ class Color:
         colorfulness = int(Color.raw_colorfulness(img))
 
         if colorfulness < 15:
-            return 0.1
+            scaled = 0.1
 
         elif colorfulness in range(15, 33):
-            return 0.2
+            scaled = 0.2
 
         elif colorfulness in range(33, 45):
-            return 0.3
+            scaled = 0.3
 
         elif colorfulness in range(45, 59):
-            return 0.4
+            scaled = 0.4
 
         elif colorfulness in range(59, 82):
-            return 0.5
+            scaled = 0.5
 
         elif colorfulness in range(82, 109):
-            return 0.6
+            scaled = 0.6
 
         elif colorfulness >= 109:
-            return 0.7
+            scaled = 0.7
+
+        scaled = interpolate(value=scaled)
+        return scaled

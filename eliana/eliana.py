@@ -11,6 +11,12 @@ import cv2
 from imutils import build_montages
 from skimage import io
 
+import collections
+
+from eliana import config
+from eliana.lib.mlp import MLP
+from eliana.utils import *
+
 
 class Eliana:
 
@@ -41,38 +47,72 @@ class Eliana:
             texture]
         )
 
-    def run_object(self, objects):
+    def run_object(self, img, trainer):
 
-        objects = annotator.annotate(img)
-        objects.sort(key=lambda obj: obj[1].shape[0] * obj[1].shape[1])
+        input_ = []
+        for _, func in trainer['features'].items():
 
-        palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
+            feature = func(img)
 
-        palette_1 = interpolate(palette_1, place=0.000000001)
-        palette_2 = interpolate(palette_2, place=0.000000001)
-        palette_3 = interpolate(palette_3, place=0.000000001)
+            # if multiple features in one category
+            if isinstance(feature, collections.Sequence):
+                for item in feature:
+                    input_.append(item)
+            else:
+                input_.append(feature)
 
-        color = Color.scaled_colorfulness(img)
-        color = interpolate(color)
+            # print(input_)
 
-        texture = Texture.texture(img)
-        texture = interpolate(texture, place=0.1)
+        return self.mlp.run(input_=input_)
 
-        return self.mlp.run(input_=[
-            palette_1,
-            palette_2,
-            palette_3,
-            color,
-            objects[0],
-            texture]
-        )
+        # annotator = Annotator(
+        #     model=annotator_params['model'],
+        #     ckpt=annotator_params['ckpt'],
+        #     labels=annotator_params['labels'],
+        #     classes=annotator_params['classes']
+        # )
+
+        # objects = annotator.annotate(img)
+        # # objects.sort(key=lambda obj: obj[1].shape[0] * obj[1].shape[1])
+        # top_object = 0. if not objects else max(objects, key=lambda o: o[1].shape[0] * o[1].shape[1])
+        # # print(top_object)
 
 
-enna = Eliana(trainer_w_oia['model'])
+        # palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
+
+        # # palette_1 = interpolate(palette_1, place=0.000000001)
+        # # palette_2 = interpolate(palette_2, place=0.000000001)
+        # # palette_3 = interpolate(palette_3, place=0.000000001)
+
+        # color = Color.scaled_colorfulness(img)
+        # # color = interpolate(color)
+
+        # texture = Texture.texture(img)
+        # # texture = interpolate(texture, place=0.1)
+
+        # print([
+        #     palette_1,
+        #     palette_2,
+        #     palette_3,
+        #     color,
+        #     top_object if top_object == 0 else top_object[2],
+        #     texture])
+
+        # return self.mlp.run(input_=[
+        #     palette_1,
+        #     palette_2,
+        #     palette_3,
+        #     color,
+        #     top_object if top_object == 0 else top_object[2],
+        #     texture]
+        # )
+
+
+enna = Eliana(config.trainer_w_oia['model'])
 
 dir_images = os.path.join(
     os.getcwd(),
-    trainer_w_oia['test_images'],
+    config.trainer_w_oia['raw_images_root'],
     'test'
 )
 
@@ -83,12 +123,12 @@ for i, (img, img_path) in enumerate(
 ):
     print(img_path)
 
-    result = enna.run_overall(img)
+    result = enna.run_object(img, config.trainer_w_oia)
 
     print('Run:', result)
     cv2.putText(
         img,
-        emotions_list[result[0]],
+        [k for k, v in config.emotions_map.items() if v == result][0],
         (40, 40),
         cv2.FONT_HERSHEY_SIMPLEX,
         1.4,

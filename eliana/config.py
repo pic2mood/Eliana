@@ -3,6 +3,14 @@ import os
 import logging
 import traceback
 
+from eliana.lib.palette import Palette
+from eliana.lib.mlp import MLP
+from eliana.lib.annotator import Annotator
+from eliana.lib.color import Color
+from eliana.lib.texture import Texture
+# from eliana.utils import *
+
+
 logger_ = logging.getLogger(__name__)
 logger_.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
@@ -69,6 +77,13 @@ annotator_params = {
     'classes': 90
 }
 
+annotator = Annotator(
+    model=annotator_params['model'],
+    ckpt=annotator_params['ckpt'],
+    labels=annotator_params['labels'],
+    classes=annotator_params['classes']
+)
+
 
 trainer_overall = {
     'dataset': os.path.join(
@@ -102,35 +117,72 @@ trainer_overall = {
     ]
 }
 
-
 trainer_w_oia = {
     'dataset': os.path.join(
         os.getcwd(),
         'training',
         'data',
-        'eliana_ann_oia_3c_palette_dataset.pkl'
-    ),
-    'test_images': os.path.join(
-        os.getcwd(),
-        'training',
-        'data'
+        'oia_3f_dataset.pkl'
     ),
     'model': os.path.join(
         os.getcwd(),
         'training',
         'models',
         'eliana_ann_oia',
-        'eliana_ann_oia_3c_palette.pkl'
+        'oia_3f_model.pkl'
     ),
+    'raw_images_root': os.path.join(
+        os.getcwd(),
+        'training',
+        'data'
+    ),
+    'features': {
+        'top_colors': Palette.dominant_colors,
+        'colorfulness': Color.scaled_colorfulness,
+        'texture': Texture.texture,
+        'top_object': annotator.annotate
+    },
     'columns': [
         'Image Path',
-        'Palette 1',
-        'Palette 2',
-        'Palette 3',
-        'Color',
+        'Top Color 1st',
+        'Top Color 2nd',
+        'Top Color 3rd',
+        'Colorfulness',
         'Texture',
         'Top Object',
         'Emotion Tag',
         'Emotion Value'
     ]
 }
+
+# trainer_w_oia = {
+#     'dataset': os.path.join(
+#         os.getcwd(),
+#         'training',
+#         'data',
+#         'eliana_ann_oia_3c_palette_dataset.pkl'
+#     ),
+#     'test_images': os.path.join(
+#         os.getcwd(),
+#         'training',
+#         'data'
+#     ),
+#     'model': os.path.join(
+#         os.getcwd(),
+#         'training',
+#         'models',
+#         'eliana_ann_oia',
+#         'eliana_ann_oia_3c_palette.pkl'
+#     ),
+#     'columns': [
+#         'Image Path',
+#         'Palette 1',
+#         'Palette 2',
+#         'Palette 3',
+#         'Color',
+#         'Texture',
+#         'Top Object',
+#         'Emotion Tag',
+#         'Emotion Value'
+#     ]
+# }

@@ -10,6 +10,8 @@ import numpy as np
 from skimage.feature import greycomatrix, greycoprops
 from skimage import io, color
 
+from eliana.utils import interpolate
+
 
 class Texture:
 
@@ -35,5 +37,7 @@ class Texture:
 
         texture = greycoprops(greycomatrix_, 'contrast')
         texture = np.mean(texture)
+
+        texture = interpolate(value=texture, place=0.1)
 
         return texture

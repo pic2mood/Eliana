@@ -17,6 +17,8 @@ from matplotlib import pyplot as plt
 from eliana.api.object_detection.utils import label_map_util as lbl
 from eliana.api.object_detection.utils import visualization_utils as vis
 
+from eliana.utils import interpolate
+
 
 class Annotator:
     """.. class:: Annotator
@@ -86,6 +88,15 @@ class Annotator:
         ).astype(
             np.uint8
         )
+
+    def top_object(self, objects):
+        # return .0 if not objects else interpolate(max(
+        #     objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
+        # )[2], place=0.01)
+
+        return 0. if not objects else max(
+            objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
+        )[2]
 
     def annotate(self, img):
         """annotate()
@@ -230,6 +241,8 @@ class Annotator:
                 result.append(
                     (scores[i], self.cropped_images[i], category['id'], category['name'])
                 )
+
+        result = self.top_object(result)
 
         return result
 
