@@ -40,11 +40,26 @@ class Eliana:
 
 if __name__ == '__main__':
 
-    enna = Eliana(config.trainer_w_oia)
+    import sys
+
+    print(sys.argv)
+
+    if len(sys.argv) > 1:
+
+        if sys.argv[1] == 'woia':
+            trainer = config.trainer_w_oia
+
+        elif sys.argv[1] == 'noia':
+            trainer = config.trainer_no_oia
+
+        else:
+            raise ValueError('Invalid argument {0}'.format(sys.argv[1]))
+
+    enna = Eliana(trainer)
 
     dir_images = os.path.join(
         os.getcwd(),
-        config.trainer_w_oia['raw_images_root'],
+        trainer['raw_images_root'],
         'test'
     )
 

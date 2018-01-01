@@ -21,7 +21,7 @@ def train_emotion(trainer_, combinations=None):
             emotion_combinations=combinations
         )
 
-    inputs = trainer_['columns'][1:7]
+    inputs = trainer_['columns'][1:-2]
     train(
         trainer=trainer_,
         inputs=inputs
@@ -40,9 +40,9 @@ def train_emotion(trainer_, combinations=None):
 
 if __name__ == '__main__':
 
-    train_emotion(
-        trainer_=config.trainer_w_oia
-    )
     # train_emotion(
-    #     trainer_=config.trainer_no_oia
+    #     trainer_=config.trainer_w_oia
     # )
+    train_emotion(
+        trainer_=config.trainer_no_oia
+    )

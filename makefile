@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mode=woia
+
 test:
 	python -m unittest eliana.tests.unit_test
 
@@ -8,8 +10,7 @@ doc:
 	bash docs/make-html
 
 run:
-	# run integrated test
-	python -m eliana.eliana
+	python -m eliana.eliana ${mode}
 
 train:
 	python -m eliana.trainer
