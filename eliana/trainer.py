@@ -38,6 +38,11 @@ def train_emotion(trainer_, combinations=None):
         print('Run:', mlp.run(input_=data))
 
 
-train_emotion(
-    trainer_=config.trainer_w_oia
-)
+if __name__ == '__main__':
+
+    train_emotion(
+        trainer_=config.trainer_w_oia
+    )
+    # train_emotion(
+    #     trainer_=config.trainer_no_oia
+    # )

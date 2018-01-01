@@ -38,31 +38,33 @@ class Eliana:
         return self.mlp.run(input_=input_)
 
 
-enna = Eliana(config.trainer_w_oia)
+if __name__ == '__main__':
 
-dir_images = os.path.join(
-    os.getcwd(),
-    config.trainer_w_oia['raw_images_root'],
-    'test'
-)
+    enna = Eliana(config.trainer_w_oia)
 
-to_montage = []
-
-for i, (img, img_path) in enumerate(
-    image_batch_loader(dir_=dir_images, limit=None)
-):
-    print(img_path)
-
-    result = enna.run(img)
-
-    print('Run:', result)
-    put_text(
-        img,
-        [k for k, v in config.emotions_map.items() if v == result][0]
+    dir_images = os.path.join(
+        os.getcwd(),
+        config.trainer_w_oia['raw_images_root'],
+        'test'
     )
 
-    to_montage.append(img)
+    to_montage = []
 
-# montage = build_montages(to_montage, (180, 180), (6, 6))[0]
-montage = montage(to_montage)
-show(montage)
+    for i, (img, img_path) in enumerate(
+        image_batch_loader(dir_=dir_images, limit=None)
+    ):
+        print(img_path)
+
+        result = enna.run(img)
+
+        print('Run:', result)
+        put_text(
+            img,
+            [k for k, v in config.emotions_map.items() if v == result][0]
+        )
+
+        to_montage.append(img)
+
+    # montage = build_montages(to_montage, (180, 180), (6, 6))[0]
+    montage = montage(to_montage)
+    show(montage)

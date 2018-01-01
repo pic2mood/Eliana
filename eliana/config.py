@@ -86,35 +86,39 @@ annotator = Annotator(
 )
 
 
-trainer_overall = {
+trainer_no_oia = {
     'dataset': os.path.join(
         os.getcwd(),
         'training',
         'data',
-        'eliana_ann_overall_3_class_3_feature_dataset.pkl'
-    ),
-    'test_images': os.path.join(
-        os.getcwd(),
-        'training',
-        'data'
+        'no_oia_3f_dataset.pkl'
     ),
     'model': os.path.join(
         os.getcwd(),
         'training',
         'models',
-        'eliana_ann_overall',
-        'eliana_ann_overall_3_class_3_feature.pkl'
+        'eliana_ann_no_oia',
+        'no_oia_3f_model.pkl'
     ),
+    'raw_images_root': os.path.join(
+        os.getcwd(),
+        'training',
+        'data'
+    ),
+    'features': {
+        'top_colors': Palette.dominant_colors,
+        'colorfulness': Color.scaled_colorfulness,
+        'texture': Texture.texture
+    },
     'columns': [
         'Image Path',
-        'Palette 1',
-        'Palette 2',
-        'Palette 3',
-        'Color',
+        'Top Color 1st',
+        'Top Color 2nd',
+        'Top Color 3rd',
+        'Colorfulness',
         'Texture',
         'Emotion Tag',
-        'Emotion Value',
-        'Objects'
+        'Emotion Value'
     ]
 }
 
@@ -155,35 +159,3 @@ trainer_w_oia = {
         'Emotion Value'
     ]
 }
-
-# trainer_w_oia = {
-#     'dataset': os.path.join(
-#         os.getcwd(),
-#         'training',
-#         'data',
-#         'eliana_ann_oia_3c_palette_dataset.pkl'
-#     ),
-#     'test_images': os.path.join(
-#         os.getcwd(),
-#         'training',
-#         'data'
-#     ),
-#     'model': os.path.join(
-#         os.getcwd(),
-#         'training',
-#         'models',
-#         'eliana_ann_oia',
-#         'eliana_ann_oia_3c_palette.pkl'
-#     ),
-#     'columns': [
-#         'Image Path',
-#         'Palette 1',
-#         'Palette 2',
-#         'Palette 3',
-#         'Color',
-#         'Texture',
-#         'Top Object',
-#         'Emotion Tag',
-#         'Emotion Value'
-#     ]
-# }
