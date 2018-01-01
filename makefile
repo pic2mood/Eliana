@@ -13,4 +13,4 @@ run:
 	python -m eliana.eliana ${mode}
 
 train:
-	python -m eliana.trainer
+	python -m eliana.trainer ${mode}

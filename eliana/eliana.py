@@ -6,8 +6,6 @@
 .. created:: Nov 24, 2017
 """
 from eliana.imports import *
-from skimage import io
-
 from eliana import config
 from eliana.lib.mlp import MLP
 from eliana.utils import *
@@ -41,8 +39,6 @@ class Eliana:
 if __name__ == '__main__':
 
     import sys
-
-    print(sys.argv)
 
     if len(sys.argv) > 1:
 

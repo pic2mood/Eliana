@@ -40,9 +40,19 @@ def train_emotion(trainer_, combinations=None):
 
 if __name__ == '__main__':
 
-    # train_emotion(
-    #     trainer_=config.trainer_w_oia
-    # )
+    import sys
+
+    if len(sys.argv) > 1:
+
+        if sys.argv[1] == 'woia':
+            trainer = config.trainer_w_oia
+
+        elif sys.argv[1] == 'noia':
+            trainer = config.trainer_no_oia
+
+        else:
+            raise ValueError('Invalid argument {0}'.format(sys.argv[1]))
+
     train_emotion(
-        trainer_=config.trainer_no_oia
+        trainer_=trainer
     )

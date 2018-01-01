@@ -24,6 +24,8 @@ class Palette:
         io.imsave(temp_file, img)
 
         palette = ColorThief(temp_file).get_palette(color_count=colors)
+        os.remove(temp_file)
+
         colors = ()
 
         for color in palette:
