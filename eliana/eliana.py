@@ -8,7 +8,6 @@
 from eliana.imports import *
 
 import cv2
-from imutils import build_montages
 from skimage import io
 
 import collections
@@ -20,37 +19,16 @@ from eliana.utils import *
 
 class Eliana:
 
-    def __init__(self, model_path):
+    def __init__(self, trainer):
 
         self.mlp = MLP()
-        self.mlp.load_model(path=model_path)
+        self.mlp.load_model(path=trainer['model'])
+        self.trainer = trainer
 
-    def run_overall(self, img):
-
-        palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
-
-        palette_1 = interpolate(palette_1, place=0.000000001)
-        palette_2 = interpolate(palette_2, place=0.000000001)
-        palette_3 = interpolate(palette_3, place=0.000000001)
-
-        color = Color.scaled_colorfulness(img)
-        color = interpolate(color)
-
-        texture = Texture.texture(img)
-        texture = interpolate(texture, place=0.1)
-
-        return self.mlp.run(input_=[
-            palette_1,
-            palette_2,
-            palette_3,
-            color,
-            texture]
-        )
-
-    def run_object(self, img, trainer):
+    def run(self, img):
 
         input_ = []
-        for _, func in trainer['features'].items():
+        for _, func in self.trainer['features'].items():
 
             feature = func(img)
 
@@ -61,54 +39,10 @@ class Eliana:
             else:
                 input_.append(feature)
 
-            # print(input_)
-
         return self.mlp.run(input_=input_)
 
-        # annotator = Annotator(
-        #     model=annotator_params['model'],
-        #     ckpt=annotator_params['ckpt'],
-        #     labels=annotator_params['labels'],
-        #     classes=annotator_params['classes']
-        # )
 
-        # objects = annotator.annotate(img)
-        # # objects.sort(key=lambda obj: obj[1].shape[0] * obj[1].shape[1])
-        # top_object = 0. if not objects else max(objects, key=lambda o: o[1].shape[0] * o[1].shape[1])
-        # # print(top_object)
-
-
-        # palette_1, palette_2, palette_3 = Palette.dominant_colors(img)
-
-        # # palette_1 = interpolate(palette_1, place=0.000000001)
-        # # palette_2 = interpolate(palette_2, place=0.000000001)
-        # # palette_3 = interpolate(palette_3, place=0.000000001)
-
-        # color = Color.scaled_colorfulness(img)
-        # # color = interpolate(color)
-
-        # texture = Texture.texture(img)
-        # # texture = interpolate(texture, place=0.1)
-
-        # print([
-        #     palette_1,
-        #     palette_2,
-        #     palette_3,
-        #     color,
-        #     top_object if top_object == 0 else top_object[2],
-        #     texture])
-
-        # return self.mlp.run(input_=[
-        #     palette_1,
-        #     palette_2,
-        #     palette_3,
-        #     color,
-        #     top_object if top_object == 0 else top_object[2],
-        #     texture]
-        # )
-
-
-enna = Eliana(config.trainer_w_oia['model'])
+enna = Eliana(config.trainer_w_oia)
 
 dir_images = os.path.join(
     os.getcwd(),
@@ -123,7 +57,7 @@ for i, (img, img_path) in enumerate(
 ):
     print(img_path)
 
-    result = enna.run_object(img, config.trainer_w_oia)
+    result = enna.run(img)
 
     print('Run:', result)
     cv2.putText(
@@ -138,5 +72,6 @@ for i, (img, img_path) in enumerate(
 
     to_montage.append(img)
 
-montage = build_montages(to_montage, (180, 180), (6, 6))[0]
+# montage = build_montages(to_montage, (180, 180), (6, 6))[0]
+montage = montage(to_montage)
 show(montage)
