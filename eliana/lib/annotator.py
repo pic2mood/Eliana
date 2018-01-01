@@ -80,13 +80,13 @@ class Annotator:
         )
 
     def top_object(self, objects):
-        # return .0 if not objects else interpolate(max(
-        #     objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
-        # )[2], place=0.01)
-
-        return 0. if not objects else max(
+        return .0 if not objects else interpolate(max(
             objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
-        )[2]
+        )[2], place=0.01)
+
+        # return 0. if not objects else max(
+        #     objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
+        # )[2]
 
     def annotate(self, img):
         """annotate()
