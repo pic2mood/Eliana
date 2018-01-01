@@ -6,8 +6,6 @@
 .. created:: Nov 24, 2017
 """
 from eliana.imports import *
-
-import cv2
 from skimage import io
 
 import collections
@@ -60,14 +58,9 @@ for i, (img, img_path) in enumerate(
     result = enna.run(img)
 
     print('Run:', result)
-    cv2.putText(
+    put_text(
         img,
-        [k for k, v in config.emotions_map.items() if v == result][0],
-        (40, 40),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        1.4,
-        (0, 255, 0),
-        3
+        [k for k, v in config.emotions_map.items() if v == result][0]
     )
 
     to_montage.append(img)

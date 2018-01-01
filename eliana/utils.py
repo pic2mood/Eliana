@@ -15,6 +15,7 @@ import numpy as np
 
 import collections
 from imutils import build_montages
+from cv2 import putText, FONT_HERSHEY_SIMPLEX
 
 from eliana import config
 from eliana.lib.mlp import MLP
@@ -65,6 +66,19 @@ def montage(images):
         (180, 180),
         (rows, max_cols)
     )[0]
+
+
+def put_text(img, text):
+
+    putText(
+        img,
+        text,
+        (40, 40),
+        FONT_HERSHEY_SIMPLEX,
+        1.4,
+        (0, 255, 0),
+        3
+    )
 
 
 # @log('Initializing training...')
