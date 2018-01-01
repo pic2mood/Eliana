@@ -8,8 +8,6 @@
 from eliana.imports import *
 from skimage import io
 
-import collections
-
 from eliana import config
 from eliana.lib.mlp import MLP
 from eliana.utils import *

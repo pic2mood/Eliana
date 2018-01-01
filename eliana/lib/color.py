@@ -5,7 +5,7 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Nov 15, 2017
 """
-import numpy as np
+from eliana.imports import *
 from eliana.utils import interpolate
 
 

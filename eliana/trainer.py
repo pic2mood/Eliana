@@ -5,9 +5,7 @@
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 .. created:: Dec 23, 2017
 """
-import pandas as pd
-
-from eliana.config import *
+from eliana import config
 from eliana.utils import *
 
 
@@ -15,11 +13,11 @@ def train_emotion(trainer_, combinations=None):
 
     if combinations is None:
         build_training_data(
-            trainer=trainer_w_oia,
+            trainer=trainer_,
         )
     else:
         build_training_data(
-            trainer=trainer_w_oia,
+            trainer=trainer_,
             emotion_combinations=combinations
         )
 
@@ -41,5 +39,5 @@ def train_emotion(trainer_, combinations=None):
 
 
 train_emotion(
-    trainer_=trainer_w_oia
+    trainer_=config.trainer_w_oia
 )
