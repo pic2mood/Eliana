@@ -84,10 +84,6 @@ class Annotator:
             objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
         )[2], place=0.01)
 
-        # return 0. if not objects else max(
-        #     objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
-        # )[2]
-
     def annotate(self, img):
         """annotate()
 

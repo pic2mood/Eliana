@@ -6,6 +6,7 @@
 .. created:: Dec 9, 2017
 """
 from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import KFold
 from sklearn.externals import joblib
 
 
@@ -31,9 +32,13 @@ class MLP:
         joblib.dump(self.model, path)
 
     def train(self, input_, output):
-        print('Fit:', self.model.fit(input_, output))
-        # return self.model.score(input_, output)
-        print('Score:', self.model.score(input_, output))
+
+        kf = KFold(n_splits=10)
+
+        for train_index, test_index in kf.split(input_):
+            print('Fit:', self.model.fit(input_, output))
+            # return self.model.score(input_, output)
+            print('Score:', self.model.score(input_, output))
 
     def run(self, input_):
         return self.model.predict([input_])
