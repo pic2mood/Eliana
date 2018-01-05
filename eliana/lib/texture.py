@@ -6,33 +6,26 @@
 .. created:: Nov 19, 2017
 """
 import numpy as np
-from eliana.lib.eliana_image import ElianaImage
 
 from skimage.feature import greycomatrix, greycoprops
-from skimage import io
+from skimage import io, color
+
+from eliana.utils import interpolate
 
 
 class Texture:
 
-    def __init__(self, img: ElianaImage):
-        self.img = img
+    def texture(img):
+        img_gray = np.average(
+            img,
+            weights=[0.299, 0.587, 0.114],
+            axis=2
+        ).astype(np.uint8)
+        # img_gray = color.rgb2gray(img).astype(np.uint8)
 
-    # def __init__(self, path):
-    #     self.path = path
+        greycomatrix_ = greycomatrix(
 
-        self.__convert_img_to_gray()
-        self.__greycomatrix()
-        self.__round_greycomatrix_result()
-
-    def __convert_img_to_gray(self):
-
-        self.img_gray = np.array(self.img.as_pil.convert('L'))
-
-    def __greycomatrix(self):
-
-        self.greycomatrix_result = greycomatrix(
-
-            self.img_gray,
+            img_gray,
 
             distances=[1, 2],
             angles=[0],
@@ -40,17 +33,11 @@ class Texture:
             normed=True,
             symmetric=True
         )
+        greycomatrix_ = np.round(greycomatrix_, 3)
 
-    def __round_greycomatrix_result(self):
+        texture = greycoprops(greycomatrix_, 'contrast')
+        texture = np.mean(texture)
 
-        self.greycomatrix_result = np.round(
-            self.greycomatrix_result, 3
-        )
+        texture = interpolate(value=texture, place=0.1)
 
-    def get_texture_value(self):
-
-        return greycoprops(self.greycomatrix_result, 'contrast')
-
-    def get_texture_mean(self):
-
-        return np.mean(self.get_texture_value())
+        return texture

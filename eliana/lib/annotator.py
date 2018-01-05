@@ -4,20 +4,17 @@
 
 .. moduleauthor:: Raymel Francisco <franciscoraymel@gmail.com>
 """
-
-import os
-#import cv2
 import time
 import argparse
 import multiprocessing
-import numpy as np
 import tensorflow as tf
 from matplotlib import pyplot as plt
 
-from object_detection.utils import label_map_util as lbl
-from object_detection.utils import visualization_utils as vis
+from eliana.api.object_detection.utils import label_map_util as lbl
+from eliana.api.object_detection.utils import visualization_utils as vis
 
-from eliana.lib.eliana_image import ElianaImage
+from eliana.imports import *
+from eliana.utils import interpolate
 
 
 class Annotator:
@@ -28,13 +25,10 @@ class Annotator:
 
     def __init__(
             self,
-            img,
             model: str,
             ckpt: str,
             labels: str,
-            classes: int,
-            session,
-            detection_graph):
+            classes: int):
 
         """Annotator class constructor.
 
@@ -44,15 +38,27 @@ class Annotator:
             detection_graph: pass
         """
 
-        self.img = img
+        self.ckpt = ckpt
+        self.detection_graph = tf.Graph()
+
+        with self.detection_graph.as_default():
+
+            graph_def = tf.GraphDef()
+            fid = tf.gfile.GFile(self.ckpt, 'rb')
+            graph_serialized = fid.read()
+            graph_def.ParseFromString(graph_serialized)
+            tf.import_graph_def(graph_def, name='')
+
+            self.session = tf.Session(graph=self.detection_graph)
+
+        # self.img = img
 
         self.model = model
-        self.ckpt = ckpt
         self.labels = labels
         self.classes = classes
 
-        self.session = session
-        self.detection_graph = detection_graph
+        # self.session = session
+        # self.detection_graph = detection_graph
 
         self.label_map = lbl.load_labelmap(labels)
 
@@ -65,20 +71,27 @@ class Annotator:
         self.category_index = lbl.create_category_index(
             self.categories
         )
-        self.cropped_images = []
 
-    def __reshape_np_image(self, img: ElianaImage):
-        return np.array(img.as_pil).reshape(
-            (img.height, img.width, 3)
+    def __reshape_np_image(self, img):
+        return img.reshape(
+            (img.shape[0], img.shape[1], -1)
         ).astype(
             np.uint8
         )
 
-    def annotate(self):
+    def top_object(self, objects):
+        return .0 if not objects else interpolate(max(
+            objects, key=lambda o: o[1].shape[0] * o[1].shape[1]
+        )[2], place=0.01)
+
+    def annotate(self, img):
         """annotate()
 
         Method for annotation action.
         """
+
+        self.img = img
+        self.cropped_images = []
 
         def __annotate_init_params():
 
@@ -143,23 +156,7 @@ class Annotator:
         )
 
         boxed_img = self.__draw_boxes_and_labels(boxes, classes, scores)
-        # boxed_img.show(use='plt')
-        # print(boxed_img)
-
         self.cropped_images = self.__crop_batch(boxes, scores)
-        # for img in self.cropped_images:
-        #     img.show(use='pil')
-
-        # print(classes)
-        # print(scores)
-        # print(detections)
-
-        # print(np.squeeze(boxes))
-        # print(np.squeeze(classes).astype(np.int32))
-        # print(np.squeeze(scores))
-        # print(self.category_index)
-
-        print()
 
         scores = np.squeeze(scores)
         classes = np.squeeze(classes)
@@ -168,18 +165,14 @@ class Annotator:
 
         for i in range(scores.size):
             if scores[i] > 0.5:
-                # print(
-                #     scores[i],
-                #     self.category_index[classes[i]]
-                # )
                 category = self.category_index[classes[i]]
                 result.append(
-                    (scores[i], category['id'], category['name'])
+                    (scores[i], self.cropped_images[i], category['id'], category['name'])
                 )
 
-        return result
+        result = self.top_object(result)
 
-        # input("Press...")
+        return result
 
     #
     #
@@ -192,10 +185,10 @@ class Annotator:
             ymax: float = boxes[0, i, 2]
             xmax: float = boxes[0, i, 3]
 
-            xminn = int(xmin * self.img.width)
-            xmaxx = int(xmax * self.img.width)
-            yminn = int(ymin * self.img.height)
-            ymaxx = int(ymax * self.img.height)
+            xminn = int(xmin * self.img.shape[1])
+            xmaxx = int(xmax * self.img.shape[1])
+            yminn = int(ymin * self.img.shape[0])
+            ymaxx = int(ymax * self.img.shape[0])
 
             return (xminn, xmaxx, yminn, ymaxx)
 
@@ -237,17 +230,16 @@ class Annotator:
         def ___crop_using_pil(coords: tuple):
 
             (xminn, xmaxx, yminn, ymaxx) = coords
-            img_crop = self.img.as_pil.crop(
-                (xminn, yminn, xmaxx, ymaxx)
-            )
-            return ElianaImage(pil=img_crop)
+            img_crop = self.img[yminn:ymaxx, xminn:xmaxx]
+            return img_crop
 
         def ___crop_using_tf(coords: tuple):
 
             (xminn, xmaxx, yminn, ymaxx) = coords
             img_crop = tf.image.crop_to_bounding_box(
-                self.__reshape_np_image(self.img), yminn, xminn,
-                # self.img.as_numpy, yminn, xminn,
+                self.__reshape_np_image(self.img),
+                yminn,
+                xminn,
                 ymaxx - yminn,
                 xmaxx - xminn
             )
@@ -259,7 +251,6 @@ class Annotator:
 
     def __draw_boxes_and_labels(self, boxes, classes, scores):
 
-        # boxed_img = self.img.as_numpy
         boxed_img = self.__reshape_np_image(self.img)
 
         vis.visualize_boxes_and_labels_on_image_array(
@@ -273,4 +264,4 @@ class Annotator:
             min_score_thresh=0.5
         )
 
-        return ElianaImage(np=boxed_img)
+        return boxed_img

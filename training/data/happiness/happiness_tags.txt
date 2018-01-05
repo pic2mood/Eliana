@@ -1,0 +1,16 @@
+img10.jpg|happiness
+img19.jpg|sadness
+img2.jpg|happiness
+img20.jpg|sadness
+img22.jpg|sadness
+img24.jpg|sadness
+img25.jpg|sadness
+img27.jpg|sadness
+img28.jpg|sadness
+img29.jpg|sadness
+img3.jpg|happiness
+img4.jpg|happiness
+img5.jpg|sadness
+img6.jpg|happiness
+img8.jpg|sadness
+img9.jpg|happiness

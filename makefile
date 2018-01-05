@@ -1,11 +1,16 @@
 #!/bin/bash
 
+mode=woia
+
 test:
-	python -m unittest tests.unit_test_runner
+	python -m unittest eliana.tests.unit_test
 
 doc:
 	bash docs/build-docs
 	bash docs/make-html
 
-# run:
-	# run integrated test
+run:
+	python -m eliana.eliana ${mode}
+
+train:
+	python -m eliana.trainer ${mode}
