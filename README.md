@@ -1,5 +1,8 @@
 # Eliana [![Build Status](https://travis-ci.org/raymelon/Eliana.svg)](https://travis-ci.org/raymelon/Eliana) ![](https://reposs.herokuapp.com/?path=raymelon/Eliana)
+
 **Eliana predicts the human emotion response towards a presented image.**
+
+## What Eliana?
 
 **Implementation of the Object-to-Image Association (OIA) model, which adds object annotations as features to consider in prediction. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](https://www.mathworks.com/help/images/texture-analysis-using-the-gray-level-co-occurrence-matrix-glcm.html?requestedDomain=www.mathworks.com) features.**
 
@@ -52,23 +55,23 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
 #### Running the executable module
 
-   - **Default (without [OIA model](#eliana))**
+   - **Default (without [OIA model](#what-eliana))**
       ```Bash
       make run
       ```
       
-   - **[OIA](#eliana) model**
+   - **[OIA](#what-eliana) model**
       ```Bash
       make run mode=oia
       ```
 
 #### To train
-   - **Default (without [OIA model](#eliana))**
+   - **Default (without [OIA model](#what-eliana))**
       ```Bash
       make train
       ```
       
-   - **[OIA](#eliana) model**
+   - **[OIA](#what-eliana) model**
       ```Bash
       make train mode=oia
       ```
