@@ -57,7 +57,7 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
    - **Default (without [OIA model](#what-eliana))**
       ```Bash
-      make run
+      make run # or make run mode=woia
       ```
       
    - **[OIA](#what-eliana) model**
@@ -68,7 +68,7 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 #### To train
    - **Default (without [OIA model](#what-eliana))**
       ```Bash
-      make train
+      make train # or make train mode=woia
       ```
       
    - **[OIA](#what-eliana) model**
