@@ -55,25 +55,25 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
 #### Running the executable module
 
-   - **Default (without [OIA model](#what-eliana))**
+   - **Default (with [OIA](#what-eliana) model)**
       ```Bash
       make run # or make run mode=woia
       ```
       
-   - **[OIA](#what-eliana) model**
+   - **No [OIA](#what-eliana) model**
       ```Bash
-      make run mode=oia
+      make run mode=noia
       ```
 
 #### To train
-   - **Default (without [OIA model](#what-eliana))**
+   - **Default (with [OIA](#what-eliana) model)**
       ```Bash
       make train # or make train mode=woia
       ```
       
-   - **[OIA](#what-eliana) model**
+   - **No [OIA](#what-eliana) model**
       ```Bash
-      make train mode=oia
+      make train mode=noia
       ```
 
 #### Running tests
