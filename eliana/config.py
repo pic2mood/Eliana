@@ -102,7 +102,8 @@ trainer_oea_less = {
     'raw_images_root': os.path.join(
         os.getcwd(),
         'training',
-        'data'
+        'data',
+        'images'
     ),
     'features': {
         'top_colors': Palette.dominant_colors,
@@ -137,7 +138,8 @@ trainer_oea = {
     'raw_images_root': os.path.join(
         os.getcwd(),
         'training',
-        'data'
+        'data',
+        'images'
     ),
     'features': {
         'top_colors': Palette.dominant_colors,

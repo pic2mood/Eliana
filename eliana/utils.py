@@ -59,7 +59,7 @@ def show(img):
 def montage(images):
 
     max_cols = 6
-    rows = int(len(images) / 6)
+    rows = int(len(images) / max_cols)
 
     return build_montages(
         images,
