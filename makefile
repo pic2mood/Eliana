@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mode=woia
+mode=oea
 
 test:
 	python -m unittest eliana.tests.unit_test
