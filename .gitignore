@@ -5,7 +5,4 @@ env
 tests/__pycache__/
 eliana/__pycache__/
 eliana/lib/__pycache__/
-training/data/fear/
-training/data/happiness/
-training/data/sadness/
-training/data/test/
+training/data/images/
