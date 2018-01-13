@@ -4,7 +4,7 @@
 
 ## What Eliana?
 
-**Eliana is an implementation of the Object-to-Emotion Association (OEA) model, which adds object annotations as features to consider in prediction. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](http://haralick.org/journals/TexturalFeatures.pdf) features.**
+**Eliana is an implementation of the Object-to-Emotion Association (OEA) model, which adds object annotations as features to consider in predicting human emotion response towards an image. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](http://haralick.org/journals/TexturalFeatures.pdf) features.**
 
 **Built on top of [scikit-learn](https://github.com/scikit-learn/scikit-learn) and [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).**
 
@@ -91,7 +91,11 @@ make doc
    1. Format Type 1 (for repo handlers)
        
        ```
-       [<TYPE OF COMMIT>] v<MAJOR>.<MINOR>.<PATCH> build <TRAVIS-BUILD> (#<ISSUE>) <COMMIT MESSAGE>`
+       [<TYPE OF COMMIT>] v<MAJOR>.<MINOR>.<PATCH> b<TRAVIS-BUILD>. (#<ISSUE>) <COMMIT MESSAGE>.`
+       ```
+       Example:
+       ```
+       [feature] v0.1.131 b144. (#24) Added __main__ locks.
        ```
 
    2. Format Type 2 (for pull requests)
@@ -99,18 +103,22 @@ make doc
       ```
       [<TYPE OF COMMIT>] (#<ISSUE>) <COMMIT MESSAGE>
       ```
+      Example:
+       ```
+       [feature] (#24) Added __main__ locks.
+       ```
 
 - The types of commits are as follows:
 
 
      | TYPE | USE FOR |
      |----- | ------- |
-     | FIX | Bug fixes |
-     | SETUP | New technology setups for project's use |
-     | TWEAK | Enhancement of project components for performance |
-     | REFACTOR | Enchancement of project components for style |
-     | FEATURE | New features |
-     | DOC | Any documentation stuff |
+     | fix | Bug fixes |
+     | setup | New technology setups for project's use |
+     | tweak | Enhancement of project components for performance |
+     | refactor | Enchancement of project components for style |
+     | feature | New features |
+     | doc | Any documentation stuff (README, Sphinx doc) |
 
 - The project uses [Semantic Versioning 2.0.0](http://semver.org/) for versioning.
 
