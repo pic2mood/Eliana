@@ -4,7 +4,7 @@
 
 ## What Eliana?
 
-**Eliana is an implementation of the Object-to-Image Association (OIA) model, which adds object annotations as features to consider in prediction. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](http://haralick.org/journals/TexturalFeatures.pdf) features.**
+**Eliana is an implementation of the Object-to-Emotion Association (OEA) model, which adds object annotations as features to consider in prediction. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](http://haralick.org/journals/TexturalFeatures.pdf) features.**
 
 **Built on top of [scikit-learn](https://github.com/scikit-learn/scikit-learn) and [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).**
 
@@ -55,23 +55,23 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
 #### Running the executable module
 
-   - **Default (with [OIA](#what-eliana) model)**
+   - **Default (with [OEA](#what-eliana) model)**
       ```Bash
       make run # or make run mode=woia
       ```
       
-   - **No [OIA](#what-eliana) model**
+   - **No [OEA](#what-eliana) model**
       ```Bash
       make run mode=noia
       ```
 
 #### To train
-   - **Default (with [OIA](#what-eliana) model)**
+   - **Default (with [OEA](#what-eliana) model)**
       ```Bash
       make train # or make train mode=woia
       ```
       
-   - **No [OIA](#what-eliana) model**
+   - **No [OEA](#what-eliana) model**
       ```Bash
       make train mode=noia
       ```
