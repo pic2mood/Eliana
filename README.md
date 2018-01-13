@@ -57,23 +57,23 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
    - **Default (with [OEA](#what-eliana) model)**
       ```Bash
-      make run # or make run mode=woia
+      make run # or make run model=oea
       ```
       
-   - **No [OEA](#what-eliana) model**
+   - **[OEA](#what-eliana)-less model**
       ```Bash
-      make run mode=noia
+      make run model=oea_less
       ```
 
 #### To train
    - **Default (with [OEA](#what-eliana) model)**
       ```Bash
-      make train # or make train mode=woia
+      make train # or make train model=oea
       ```
       
-   - **No [OEA](#what-eliana) model**
+   - **[OEA](#what-eliana)-less model**
       ```Bash
-      make train mode=noia
+      make train model=oea_less
       ```
 
 #### Running tests
