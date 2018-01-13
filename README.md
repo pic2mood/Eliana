@@ -92,29 +92,36 @@ make doc
    1. **Format Type 1 (for main repos)**
        
        ```bash
-       git commit -m "[{commit type}] v{major}.{minor}.{patch} b{travis build no.}. (#{issue no.}) {commit message}."
+       git commit -m "[{commit type}] v{major}.{minor}.{patch} b{travis build no.}. (#{tracker no.}) (#{issue no.}) {commit message}."
        ```
        Example:
        ```bash
-       git commit -m "[feature] v0.1.131 b144. (#24) Added __main__ locks."
+       # with issue
+       git commit -m "[doc] v0.1.1 b1. (#24) Changes on commit message format."
+       
+       # multiple issues
+       git commit -m "[doc] v0.1.1 b1. (#24 #32) Changes on commit message format."
+       
+       # with tracker
+       git commit -m "[doc] v0.1.1 b1. (#8) (#24 #32) Changes on commit message format."
        ```
 
    2. **Format Type 2 (for forks)**
    
       ```bash
-      git commit -m "[{commit type}] (#{issue no.}) {commit message}"
+      git commit -m "[{commit type}] (#{issue no.}) (#{tracker no.}) {commit message}"
       ```
       Example:
        ```bash
-       git commit -m "[feature] (#24) Added __main__ locks."
+       git commit -m "[doc] (#24) Changes on commit message format."
        ```
 
 #### The types of commit messages are as follows:
 
-   | TYPE | USE FOR |
-   |----- | ------- |
-   | **doc** | Documentation stuff (README, Sphinx doc) |
-   |         | `[doc] v0.1.1 b1. Changes on commit message format.` |
+   | TYPE | USE FOR | TRACKERS |
+   |----- | ------- | -------- |
+   | **doc** | Documentation stuff (README, LICENSE, Sphinx doc) | Sphinx ([#8](https://github.com/raymelon/Eliana/issues/8)), README ([#42](https://github.com/raymelon/Eliana/issues/42)) 
+   |         | `[doc] v0.1.1 b1. (#8) (#24) Changes on commit message format.` |
    | **feature** | New feature |
    |             | `[feature] v0.1.1 b1. Added color filter on colorfulness module.` |
    | **fix** | Bug fixes |
