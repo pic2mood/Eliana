@@ -87,42 +87,55 @@ make doc
 ```
 
 ### III. Commiting
-- Commiting comes in the following format:
-   1. Format Type 1 (for repo handlers)
+#### Commit messages comes in the following format:
+
+   1. **Format Type 1 (for main repos)**
        
-       ```
-       [<TYPE OF COMMIT>] v<MAJOR>.<MINOR>.<PATCH> b<TRAVIS-BUILD>. (#<ISSUE>) <COMMIT MESSAGE>.`
+       ```bash
+       git commit -m "[{commit type}] v{major}.{minor}.{patch} b{travis build no.}. (#{issue no.}) {commit message}."
        ```
        Example:
-       ```
-       [feature] v0.1.131 b144. (#24) Added __main__ locks.
+       ```bash
+       git commit -m "[feature] v0.1.131 b144. (#24) Added __main__ locks."
        ```
 
-   2. Format Type 2 (for pull requests)
+   2. **Format Type 2 (for forks)**
    
-      ```
-      [<TYPE OF COMMIT>] (#<ISSUE>) <COMMIT MESSAGE>
+      ```bash
+      git commit -m "[{commit type}] (#{issue no.}) {commit message}"
       ```
       Example:
+       ```bash
+       git commit -m "[feature] (#24) Added __main__ locks."
        ```
-       [feature] (#24) Added __main__ locks.
-       ```
 
-- The types of commits are as follows:
+#### The types of commit messages are as follows:
 
-
-     | TYPE | USE FOR |
-     |----- | ------- |
-     | fix | Bug fixes |
-     | setup | New technology setups for project's use |
-     | tweak | Enhancement of project components for performance |
-     | refactor | Enchancement of project components for style |
-     | feature | New features |
-     | doc | Any documentation stuff (README, Sphinx doc) |
+   | TYPE | USE FOR |
+   |----- | ------- |
+   | **doc** | Documentation stuff (README, Sphinx doc) |
+   |         | `[doc] v0.1.1 b1. Changes on commit message format.` |
+   | **feature** | New feature |
+   |             | `[feature] v0.1.1 b1. Added color filter on colorfulness module.` |
+   | **fix** | Bug fixes |
+   |         | `[fix] v0.1.1 b1. (#6) Fix on non-showing image.` |
+   | **merge** | Pull request merges |
+   |           | `[merge] v0.1.1 b1. Merge pull request #40 from raymelon/0.1-pre.` |
+   | **refactor** | Style/format enhancements |
+   |           | `[refactor] v0.1.1 b1. Made spacing in accordance to PEP8.` |
+   | **setup** | Setup of new third-party technology/system |
+   |           | `[setup] v0.1.1 b1. Create .travis.yml` |
+   | **tweak** | Performance enchancements |
+   |           | `[tweak] v0.1.1 b1. OEA model accuracy tuning.` |
+     
 
 - The project uses [Semantic Versioning 2.0.0](http://semver.org/) for versioning.
 
+- Patch versions are updated every commit.
+
 - Build numbers `<TRAVIS-BUILD>` follows the [project's Travis-CI build count](https://travis-ci.org/raymelon/Eliana). 
+
+- Build numbers are updated every push.
 
 - Note that pull requests aren't built automatically, and thus for this type of commit it is advised to use the Format Type 2.
 
