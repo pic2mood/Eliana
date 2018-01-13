@@ -20,26 +20,18 @@ eliana\.lib\.color module
     :undoc-members:
     :show-inheritance:
 
-eliana\.lib\.eliana module
---------------------------
+eliana\.lib\.mlp module
+-----------------------
 
-.. automodule:: eliana.lib.eliana
+.. automodule:: eliana.lib.mlp
     :members:
     :undoc-members:
     :show-inheritance:
 
-eliana\.lib\.eliana\_image module
----------------------------------
+eliana\.lib\.palette module
+---------------------------
 
-.. automodule:: eliana.lib.eliana_image
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-eliana\.lib\.image\_batch\_loader module
-----------------------------------------
-
-.. automodule:: eliana.lib.image_batch_loader
+.. automodule:: eliana.lib.palette
     :members:
     :undoc-members:
     :show-inheritance:

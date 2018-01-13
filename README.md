@@ -4,7 +4,7 @@
 
 ## What Eliana?
 
-**Eliana is an implementation of the Object-to-Image Association (OIA) model, which adds object annotations as features to consider in prediction. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](https://www.mathworks.com/help/images/texture-analysis-using-the-gray-level-co-occurrence-matrix-glcm.html?requestedDomain=www.mathworks.com) features.**
+**Eliana is an implementation of the Object-to-Emotion Association (OEA) model, which adds object annotations as features to consider in predicting human emotion response towards an image. Uses [MSCOCO annotated objects (Lin et. al., 2015)](http://arxiv.org/abs/1405.0312), [colorfulness score (Hasler and  Susstrunk, 2003)](https://infoscience.epfl.ch/record/33994/files/HaslerS03.pdf), [dominant colors palette (using color-thief)](https://github.com/fengsp/color-thief-py), and [Mean GLCM contrast/texture (Haralick et. al., 1973)](http://haralick.org/journals/TexturalFeatures.pdf) features.**
 
 **Built on top of [scikit-learn](https://github.com/scikit-learn/scikit-learn) and [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).**
 
@@ -55,25 +55,25 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 
 #### Running the executable module
 
-   - **Default (without [OIA model](#what-eliana))**
+   - **Default (with [OEA](#what-eliana) model)**
       ```Bash
-      make run # or make run mode=woia
+      make run # or make run model=oea
       ```
       
-   - **[OIA](#what-eliana) model**
+   - **[OEA](#what-eliana)-less model**
       ```Bash
-      make run mode=oia
+      make run model=oea_less
       ```
 
 #### To train
-   - **Default (without [OIA model](#what-eliana))**
+   - **Default (with [OEA](#what-eliana) model)**
       ```Bash
-      make train # or make train mode=woia
+      make train # or make train model=oea
       ```
       
-   - **[OIA](#what-eliana) model**
+   - **[OEA](#what-eliana)-less model**
       ```Bash
-      make train mode=oia
+      make train model=oea_less
       ```
 
 #### Running tests
@@ -87,34 +87,62 @@ make doc
 ```
 
 ### III. Commiting
-- Commiting comes in the following format:
-   1. Format Type 1 (for repo handlers)
+#### Commit messages comes in the following format:
+
+   1. **Format Type 1 (for main repos)**
        
+       ```bash
+       git commit -m "[{commit type}] v{major}.{minor}.{patch} b{travis build no.}. (#{tracker no.}) (#{issue no.}) {commit message}."
        ```
-       [<TYPE OF COMMIT>] v<MAJOR>.<MINOR>.<PATCH> build <TRAVIS-BUILD> (#<ISSUE>) <COMMIT MESSAGE>`
+       Example:
+       ```bash
+       # with issue
+       git commit -m "[doc] v0.1.1 b1. (#24) Changes on commit message format."
+       
+       # multiple issues
+       git commit -m "[doc] v0.1.1 b1. (#24 #32) Changes on commit message format."
+       
+       # with tracker
+       git commit -m "[doc] v0.1.1 b1. (#8) (#24 #32) Changes on commit message format."
        ```
 
-   2. Format Type 2 (for pull requests)
+   2. **Format Type 2 (for forks)**
    
+      ```bash
+      git commit -m "[{commit type}] (#{issue no.}) (#{tracker no.}) {commit message}"
       ```
-      [<TYPE OF COMMIT>] (#<ISSUE>) <COMMIT MESSAGE>
-      ```
+      Example:
+       ```bash
+       git commit -m "[doc] (#24) Changes on commit message format."
+       ```
 
-- The types of commits are as follows:
+#### The types of commit messages are as follows:
 
-
-     | TYPE | USE FOR |
-     |----- | ------- |
-     | FIX | Bug fixes |
-     | SETUP | New technology setups for project's use |
-     | TWEAK | Enhancement of project components for performance |
-     | REFACTOR | Enchancement of project components for style |
-     | FEATURE | New features |
-     | DOC | Any documentation stuff |
+   | TYPE | USE FOR | TRACKERS |
+   |----- | ------- | -------- |
+   | **doc** | Documentation stuff (README, LICENSE, Sphinx doc) | Sphinx ([#8](https://github.com/raymelon/Eliana/issues/8)), README ([#42](https://github.com/raymelon/Eliana/issues/42)) 
+   |         | `[doc] v0.1.1 b1. (#8) (#24) Changes on commit message format.` |
+   | **feature** | New feature |
+   |             | `[feature] v0.1.1 b1. Added color filter on colorfulness module.` |
+   | **fix** | Bug fixes |
+   |         | `[fix] v0.1.1 b1. (#6) Fix on non-showing image.` |
+   | **merge** | Pull request merges |
+   |           | `[merge] v0.1.1 b1. Merge pull request #40 from raymelon/0.1-pre.` |
+   | **refactor** | Style/format enhancements |
+   |           | `[refactor] v0.1.1 b1. Made spacing in accordance to PEP8.` |
+   | **setup** | Setup of new third-party technology/system |
+   |           | `[setup] v0.1.1 b1. Create .travis.yml` |
+   | **tweak** | Performance enchancements |
+   |           | `[tweak] v0.1.1 b1. OEA model accuracy tuning.` |
+     
 
 - The project uses [Semantic Versioning 2.0.0](http://semver.org/) for versioning.
 
+- Patch versions are updated every commit.
+
 - Build numbers `<TRAVIS-BUILD>` follows the [project's Travis-CI build count](https://travis-ci.org/raymelon/Eliana). 
+
+- Build numbers are updated every push.
 
 - Note that pull requests aren't built automatically, and thus for this type of commit it is advised to use the Format Type 2.
 

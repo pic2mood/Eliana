@@ -1,0 +1,43 @@
+
+#image img {
+	position: absolute;
+	width: 500px;
+	height: 500px;
+}
+
+#btn {
+	position: relative;
+	width: 90%;
+	font-size: 3em;
+	margin: 15px 15px 15px 15px;
+	left: 0%;
+}
+
+#bod {
+	float: left;
+	width: 20%;
+}
+
+#misc {
+	float: right;
+	width: 33.33%;
+}
+
+body:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#create {
+	position: relative;
+	width: 70%;
+	height: 100%;
+	font-size: 1.5em;
+	margin-top: 10px;
+}
+
+#textbox {
+	position: relative;
+	width: 70%;
+}

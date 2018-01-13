@@ -86,19 +86,18 @@ annotator = Annotator(
 )
 
 
-trainer_no_oia = {
+trainer_oea_less = {
     'dataset': os.path.join(
         os.getcwd(),
         'training',
         'data',
-        'no_oia_3f_dataset.pkl'
+        'oea_less_dataset.pkl'
     ),
     'model': os.path.join(
         os.getcwd(),
         'training',
         'models',
-        'eliana_ann_no_oia',
-        'no_oia_3f_model.pkl'
+        'oea_less_model.pkl'
     ),
     'raw_images_root': os.path.join(
         os.getcwd(),
@@ -122,19 +121,18 @@ trainer_no_oia = {
     ]
 }
 
-trainer_w_oia = {
+trainer_oea = {
     'dataset': os.path.join(
         os.getcwd(),
         'training',
         'data',
-        'oia_3f_dataset.pkl'
+        'oea_dataset.pkl'
     ),
     'model': os.path.join(
         os.getcwd(),
         'training',
         'models',
-        'eliana_ann_oia',
-        'oia_3f_model.pkl'
+        'oea_model.pkl'
     ),
     'raw_images_root': os.path.join(
         os.getcwd(),

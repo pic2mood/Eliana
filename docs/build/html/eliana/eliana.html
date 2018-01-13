@@ -1,16 +1,13 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>eliana package &#8212; Eliana 0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -33,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -49,17 +46,85 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="eliana.lib.html">eliana.lib package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#eliana-lib-annotator-module">eliana.lib.annotator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.annotator">eliana.lib.annotator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.color">eliana.lib.color module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.eliana">eliana.lib.eliana module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#eliana-lib-eliana-image-module">eliana.lib.eliana_image module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.image_batch_loader">eliana.lib.image_batch_loader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.mlp">eliana.lib.mlp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.palette">eliana.lib.palette module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib.texture">eliana.lib.texture module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="eliana.lib.html#module-eliana.lib">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="eliana.tests.html">eliana.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="eliana.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eliana.tests.html#eliana-tests-unit-test-module">eliana.tests.unit_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eliana.tests.html#module-eliana.tests">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="eliana-config-module">
+<h2>eliana.config module<a class="headerlink" href="#eliana-config-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="eliana-eliana-module">
+<h2>eliana.eliana module<a class="headerlink" href="#eliana-eliana-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-eliana.imports">
+<span id="eliana-imports-module"></span><h2>eliana.imports module<a class="headerlink" href="#module-eliana.imports" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="eliana-trainer-module">
+<h2>eliana.trainer module<a class="headerlink" href="#eliana-trainer-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-eliana.utils">
+<span id="eliana-utils-module"></span><h2>eliana.utils module<a class="headerlink" href="#module-eliana.utils" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-utils"></span><dl class="function">
+<dt id="eliana.utils.build_training_data">
+<code class="descclassname">eliana.utils.</code><code class="descname">build_training_data</code><span class="sig-paren">(</span><em>trainer, emotion_combinations=['happiness', 'sadness', 'fear']</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.build_training_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.image_batch_loader">
+<code class="descclassname">eliana.utils.</code><code class="descname">image_batch_loader</code><span class="sig-paren">(</span><em>dir_</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.image_batch_loader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.image_single_loader">
+<code class="descclassname">eliana.utils.</code><code class="descname">image_single_loader</code><span class="sig-paren">(</span><em>img_path</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.image_single_loader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.interpolate">
+<code class="descclassname">eliana.utils.</code><code class="descname">interpolate</code><span class="sig-paren">(</span><em>value</em>, <em>place=0.01</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.montage">
+<code class="descclassname">eliana.utils.</code><code class="descname">montage</code><span class="sig-paren">(</span><em>images</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.montage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.putText">
+<code class="descclassname">eliana.utils.</code><code class="descname">putText</code><span class="sig-paren">(</span><em>img</em>, <em>text</em>, <em>org</em>, <em>fontFace</em>, <em>fontScale</em>, <em>color</em><span class="optional">[</span>, <em>thickness</em><span class="optional">[</span>, <em>lineType</em><span class="optional">[</span>, <em>bottomLeftOrigin</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; img<a class="headerlink" href="#eliana.utils.putText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.put_text">
+<code class="descclassname">eliana.utils.</code><code class="descname">put_text</code><span class="sig-paren">(</span><em>img</em>, <em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.put_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.show">
+<code class="descclassname">eliana.utils.</code><code class="descname">show</code><span class="sig-paren">(</span><em>img</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="eliana.utils.train">
+<code class="descclassname">eliana.utils.</code><code class="descname">train</code><span class="sig-paren">(</span><em>trainer</em>, <em>inputs</em><span class="sig-paren">)</span><a class="headerlink" href="#eliana.utils.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-eliana">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-eliana" title="Permalink to this headline">¶</a></h2>
@@ -108,7 +173,7 @@
       &copy;2017, Raymel Francisco, John Paul Magturo.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

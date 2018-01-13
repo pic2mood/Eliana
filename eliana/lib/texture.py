@@ -28,7 +28,8 @@ class Texture:
             img_gray,
 
             distances=[1, 2],
-            angles=[0],
+            angles=[0, 0.785398, 1.5708, 2.35619],
+            #angles=[0],
             levels=256,
             normed=True,
             symmetric=True

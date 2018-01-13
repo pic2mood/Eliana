@@ -44,11 +44,11 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1:
 
-        if sys.argv[1] == 'woia':
-            trainer = config.trainer_w_oia
+        if sys.argv[1] == 'oea':
+            trainer = config.trainer_oea
 
-        elif sys.argv[1] == 'noia':
-            trainer = config.trainer_no_oia
+        elif sys.argv[1] == 'oea_less':
+            trainer = config.trainer_oea_less
 
         else:
             raise ValueError('Invalid argument {0}'.format(sys.argv[1]))
