@@ -136,3 +136,9 @@ def build_training_data(
     )
     config.logger_.debug('Dataset:\n' + str(df))
     df.to_pickle(trainer['dataset'])
+
+
+def view_dataset(path):
+
+    df = pd.read_pickle(path)
+    config.logger_.debug('Dataset:\n' + str(df))

@@ -86,6 +86,11 @@ make test
 make doc
 ```
 
+#### View dataset
+```Bash
+make view-dataset dataset= # path to dataset
+```
+
 ### III. Commiting
 #### Commit messages comes in the following format:
 
