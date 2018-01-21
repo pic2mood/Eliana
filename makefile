@@ -1,7 +1,8 @@
 #!/bin/bash
 
-model=oea
+args=
 dataset='./training/data/oea_dataset.pkl'
+single_path='./training/data/images/test/img17.jpg'
 
 
 test:
@@ -12,7 +13,7 @@ doc:
 	bash docs/make-html
 
 run:
-	python -m eliana.eliana ${model}
+	python -m eliana.eliana ${args}
 
 train:
 	python -m eliana.trainer ${model}
