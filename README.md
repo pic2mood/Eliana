@@ -33,9 +33,9 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
 ## Contributing Guidelines
 ### I. Setup
 1. **Fork and clone the project.**
-2. **Install [Anaconda](https://www.anaconda.com/downloads).**
-3. **Setup the virtual enviroment, through**
+2. **Setup the virtual enviroment, through**
    1. The packaged virtual environment
+        - Install [Anaconda](https://www.anaconda.com/downloads).
         - Download the conda enviroment.
             - [Main (MEGA)](https://mega.nz/#F!Yn4WzY6I!3o2klQ-LfVwkTt61yVA9Gw)
             - [Mirror (Google Drive)](https://drive.google.com/open?id=0B2Gw0zD3SerkVWtsSVlRTUNuWVE)
@@ -44,36 +44,66 @@ Just a beautiful random name for our engine. The name itself derives from Hebrew
                ***This one needs to be synced to the Main link*
              
       or,          
-   2. Manual setup of requirements
+   2. Manual setup of environment through Anaconda or [PIP](https://pypi.python.org/pypi/pip)
 
-4. **Change directory to the virtual environment directory, then activate it.**
-   ```Bash
-   source activate ./env/eliana
-   ```
+3. **Change directory to the virtual environment directory, then activate it.**
+   1. If you're using the packaged enviroment,
+      ```Bash
+      cd {path to venv directory}
+      source activate ./env/eliana
+      ```
+   2. Else,
+      ```Bash
+      source activate {path to venv directory}
+      ```
    
 ### II. Builds, run and tests
 
 #### Running the executable module
 
    - **Default (with [OEA](#what-eliana) model)**
+      - Using Makefile
       ```Bash
-      make run # or make run model=oea
+      make run # or make run args='--model oea'
+      ```
+      
+      - Using Python
+      ```Bash
+      python -m eliana.eliana # or python -m eliana.eliana --model oea
       ```
       
    - **[OEA](#what-eliana)-less model**
+      - Using Makefile
       ```Bash
-      make run model=oea_less
+      make run args='--model oea_less'
+      ```
+      
+      - Using Python
+      ```Bash
+      python -m eliana.eliana --model oea_less
       ```
 
 #### To train
    - **Default (with [OEA](#what-eliana) model)**
+      - Using Makefile
       ```Bash
       make train # or make train model=oea
       ```
       
+      - Using Python
+      ```Bash
+      python -m eliana.trainer # or python -m eliana.trainer oea
+      ```
+      
    - **[OEA](#what-eliana)-less model**
+      - Using Makefile
       ```Bash
       make train model=oea_less
+      ```
+      
+      - Using Python
+      ```Bash
+      python -m eliana.trainer oea_less
       ```
 
 #### Running tests
