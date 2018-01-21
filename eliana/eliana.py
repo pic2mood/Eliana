@@ -10,6 +10,8 @@ from eliana import config
 from eliana.lib.mlp import MLP
 from eliana.utils import *
 
+import multiprocessing as mp
+
 
 class Eliana:
 
@@ -18,13 +20,23 @@ class Eliana:
         self.mlp = MLP()
         self.mlp.load_model(path=trainer['model'])
         self.trainer = trainer
+        self.pool = mp.Pool()
 
-    def run(self, img):
+    def run(self, img, img_path):
 
         input_ = []
-        for _, func in self.trainer['features'].items():
+        for key, func in self.trainer['features'].items():
 
-            feature = func(img)
+            if key == 'top_colors':
+                feature = self.pool.apply_async(func, [img, img_path]).get()
+
+            elif key == 'top_object':
+                # annotator module uses unpickable objects
+                #   which can't be pooled
+                feature = func(img)
+
+            else:
+                feature = self.pool.apply_async(func, [img]).get()
 
             # if multiple features in one category
             if isinstance(feature, collections.Sequence):
@@ -66,7 +78,7 @@ if __name__ == '__main__':
     ):
         print(img_path)
 
-        result = enna.run(img)
+        result = enna.run(img, img_path)
 
         print('Run:', result)
         put_text(
@@ -79,3 +91,6 @@ if __name__ == '__main__':
     # montage = build_montages(to_montage, (180, 180), (6, 6))[0]
     montage = montage(to_montage)
     show(montage)
+
+    # release multiprocessing pool
+    enna.pool.close()

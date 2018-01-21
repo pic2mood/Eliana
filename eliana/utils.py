@@ -34,6 +34,21 @@ def image_single_loader(img_path):
     return img
 
 
+def image_path_loader(dir_, limit=None):
+
+    # logger_.info('Test images dir: ' + dir_)
+    print('Test images dir: ' + dir_)
+
+    paths = []
+
+    dir_glob = sorted(glob(os.path.join(dir_, '*.jpg')))
+
+    for img_path in dir_glob[:limit]:
+        paths.append(img_path)
+
+    return paths
+
+
 # @log('Loading images...')
 def image_batch_loader(dir_, limit=None):
 
@@ -58,8 +73,8 @@ def show(img):
 
 def montage(images):
 
-    max_cols = 6
-    rows = int(len(images) / max_cols)
+    rows = 7
+    max_cols = int(len(images) / rows)
 
     return build_montages(
         images,
@@ -114,9 +129,12 @@ def build_training_data(
             image_batch_loader(dir_=dir_images, limit=None)
         ):
             datum = [img_path.split('/')[-1]]
-            for _, func in trainer['features'].items():
+            for key, func in trainer['features'].items():
 
-                feature = func(img)
+                if key == 'top_colors':
+                    feature = func(img, img_path)
+                else:
+                    feature = func(img)
 
                 # if multiple features in one category
                 if isinstance(feature, collections.Sequence):
