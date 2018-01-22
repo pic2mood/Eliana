@@ -5,4 +5,4 @@ env
 tests/__pycache__/
 eliana/__pycache__/
 eliana/lib/__pycache__/
-training/data/images
+training/data/dataset
