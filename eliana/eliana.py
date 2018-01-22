@@ -22,19 +22,24 @@ class Eliana:
             batch=False,
             montage=False,
             single_path='',
+            score=False
     ):
-        self.mlp = MLP()
-        self.mlp.load_model(path=trainer['model'])
         self.trainer = trainer
+        self.mlp = MLP()
+        self.mlp.load_model(path=self.trainer['model'])
+
         self.parallel = parallel
+
+        if self.parallel:
+            self.pool = mp.Pool()
+
         self.batch = batch
         self.montage = montage
 
         if not self.batch:
             self.single_path = single_path
 
-        if self.parallel:
-            self.pool = mp.Pool()
+        self.score = score
 
     def run(self, img, img_path):
 
@@ -73,35 +78,65 @@ class Eliana:
             else:
                 input_.append(feature)
 
-        return self.mlp.run(input_=input_)
+        return input_, self.mlp.run(input_=input_).tolist()
 
     def batch_process(self):
 
         if self.montage:
             to_montage = []
 
-        dir_images = os.path.join(
-            os.getcwd(),
-            self.trainer['raw_images_root'],
-            'test'
-        )
+        emotion_combinations = ['happiness', 'sadness', 'fear']
+        emotions = {}
+        for em in emotion_combinations:
+            emotions[em] = config.emotions_map[em]
 
-        for i, (img, img_path) in enumerate(
-            image_batch_loader(dir_=dir_images, limit=None)
-        ):
-            print(img_path)
+        input_ = []
+        output = []
+        for emotion_str, emotion_val in emotions.items():
 
-            result = self.run(img, img_path)
+            dir_images = os.path.join(
+                trainer['raw_images_testset'],
+                emotion_str
+            )
 
-            print('Run:', result)
+            for i, (img, img_path) in enumerate(
+                image_batch_loader(dir_=dir_images, limit=None)
+            ):
+                print(img_path)
 
-            if self.montage:
-                put_text(
-                    img,
-                    [k for k, v in config.emotions_map.items() if v == result][0]
-                )
+                features, result = self.run(img, img_path)
 
-                to_montage.append(img)
+                print('Result:', config.emotions_list[result[0]])
+                print('Expected:', emotion_str)
+
+                if self.score:
+                    input_.append(features)
+                    output.append(config.emotions_map[emotion_str])
+
+                if self.montage:
+                    # embed the predicted result
+                    put_text(
+                        img=img,
+                        text=config.emotions_list[result[0]],
+                        offset=(40, 40),
+                        color=(0, 255, 0)
+                    )
+                    if config.emotions_list[result[0]] == emotion_str:
+                        # green if predicted correctly
+                        color_ = (0, 255, 0)
+                    else:
+                        # red if incorrect
+                        color_ = (255, 0, 0)
+
+                    # embed the expected result
+                    put_text(
+                        img=img,
+                        text=emotion_str,
+                        offset=(40, 75),
+                        color=color_
+                    )
+
+                    to_montage.append(img)
 
         if self.montage:
             montage_ = montage(to_montage)
@@ -111,22 +146,48 @@ class Eliana:
             # release multiprocessing pool
             self.pool.close()
 
+        if self.score:
+            print('Score:', self.mlp.model.score(input_, output))
+
     def single_process(self):
 
         print(self.single_path)
 
-        img = image_single_loader(self.single_path)
-        result = self.run(img, self.single_path)
+        emotion_str = self.single_path.split('/')[-2]
 
-        print('Run:', result)
+        img = image_single_loader(self.single_path)
+        features, result = self.run(img, self.single_path)
+
+        print('Result:', config.emotions_list[result[0]])
+        print('Expected:', emotion_str)
 
         if self.montage:
+            # embed the predicted result
             put_text(
-                img,
-                [k for k, v in config.emotions_map.items() if v == result][0]
+                img=img,
+                text=config.emotions_list[result[0]],
+                offset=(40, 40),
+                color=(0, 255, 0)
+            )
+            if config.emotions_list[result[0]] == emotion_str:
+                # green if predicted correctly
+                color_ = (0, 255, 0)
+            else:
+                # red if incorrect
+                color_ = (255, 0, 0)
+
+            # embed the expected result
+            put_text(
+                img=img,
+                text=emotion_str,
+                offset=(40, 70),
+                color=color_
             )
 
             show(img)
+
+        if self.score:
+            print('Score:', self.mlp.model.score([features], [result]))
 
 
 if __name__ == '__main__':
@@ -139,28 +200,28 @@ if __name__ == '__main__':
         action='store',
         dest='model',
         default='oea',
-        help='two eliana models available: oea and oea_less'
+        help='Two eliana models available: oea and oea_less.'
     )
     parser.add_argument(
         '--parallel',
         action='store_true',
         default=False,
         dest='parallel',
-        help='enable parallel processing for faster results. default is false'
+        help='Enable parallel processing for faster results.'
     )
     parser.add_argument(
         '--batch',
         action='store_true',
         default=False,
         dest='batch',
-        help='enable batch processing. default is true'
+        help='Enable batch processing.'
     )
     parser.add_argument(
         '--montage',
         action='store_true',
         default=False,
         dest='montage',
-        help='embed result on the image. default is true'
+        help='Embed result on the image.'
     )
     parser.add_argument(
         '--single_path',
@@ -169,11 +230,18 @@ if __name__ == '__main__':
             os.getcwd(),
             'training',
             'data',
-            'images',
-            'test',
+            'testset',
+            'happiness',
             'img17.jpg'
         ),
-        help='single image path if batch is disabled.'
+        help='Single image path if batch is disabled.'
+    )
+    parser.add_argument(
+        '--score',
+        action='store_true',
+        dest='score',
+        default=False,
+        help='Add model accuracy score to output.'
     )
 
     args = parser.parse_args()
@@ -189,10 +257,9 @@ if __name__ == '__main__':
         parallel=args.parallel,
         batch=args.batch,
         montage=args.montage,
-        single_path=args.single_path
+        single_path=args.single_path,
+        score=args.score
     )
-
-    print(args.batch)
 
     if args.batch:
         enna.batch_process()

@@ -2,8 +2,8 @@
 
 args=
 dataset='./training/data/oea_dataset.pkl'
-single_path='./training/data/images/test/img17.jpg'
-
+single_path='./training/data/testset/happiness/img17.jpg'
+model=oea
 
 test:
 	python -m unittest eliana.tests.unit_test

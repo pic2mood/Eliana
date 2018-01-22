@@ -83,15 +83,15 @@ def montage(images):
     )[0]
 
 
-def put_text(img, text):
+def put_text(img, text, offset, color: tuple):
 
     putText(
         img,
         text,
-        (40, 40),
+        offset,
         FONT_HERSHEY_SIMPLEX,
         1.4,
-        (0, 255, 0),
+        color,
         3
     )
 
@@ -123,7 +123,7 @@ def build_dataset(
     # dataset building
     data = []
     for emotion_str, emotion_val in emotions.items():
-        dir_images = os.path.join(trainer['raw_images_root'], emotion_str)
+        dir_images = os.path.join(trainer['raw_images_dataset'], emotion_str)
 
         for i, (img, img_path) in enumerate(
             image_batch_loader(dir_=dir_images, limit=None)
