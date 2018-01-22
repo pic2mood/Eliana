@@ -20,3 +20,9 @@ train:
 
 view-dataset:
 	python -m eliana.view_dataset ${dataset}
+
+view-travis:
+	travis show
+
+view-issues:
+	ghi list
