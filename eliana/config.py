@@ -129,17 +129,29 @@ trainer_oea = {
         'data',
         'oea_dataset.pkl'
     ),
+    'testset': os.path.join(
+        os.getcwd(),
+        'training',
+        'data',
+        'oea_testset.pkl'
+    ),
     'model': os.path.join(
         os.getcwd(),
         'training',
         'models',
         'oea_model.pkl'
     ),
-    'raw_images_root': os.path.join(
+    'raw_images_dataset': os.path.join(
         os.getcwd(),
         'training',
         'data',
-        'images'
+        'dataset'
+    ),
+    'raw_images_testset': os.path.join(
+        os.getcwd(),
+        'training',
+        'data',
+        'testset'
     ),
     'features': {
         'top_colors': Palette.dominant_colors,

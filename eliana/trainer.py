@@ -12,11 +12,11 @@ from eliana.utils import *
 def train_emotion(trainer_, combinations=None):
 
     if combinations is None:
-        build_training_data(
+        build_dataset(
             trainer=trainer_,
         )
     else:
-        build_training_data(
+        build_dataset(
             trainer=trainer_,
             emotion_combinations=combinations
         )

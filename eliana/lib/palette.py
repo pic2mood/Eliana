@@ -15,13 +15,17 @@ from eliana.utils import interpolate
 
 class Palette:
 
-    def dominant_colors(img, colors=2):
+    def dominant_colors(img, img_path, colors=2):
 
         temp_file = os.path.join(
             os.getcwd(),
-            'temp.jpg'
+            '.temps',
+            '.temp_{0}'.format(img_path.split('/')[-1])
         )
         io.imsave(temp_file, img)
+
+        #palette = ColorThief(temp_file).get_palette(color_count=colors)
+        #os.remove(temp_file)
 
         palette = ColorThief(temp_file).get_palette(color_count=colors)
         os.remove(temp_file)

@@ -34,6 +34,21 @@ def image_single_loader(img_path):
     return img
 
 
+def image_path_loader(dir_, limit=None):
+
+    # logger_.info('Test images dir: ' + dir_)
+    print('Test images dir: ' + dir_)
+
+    paths = []
+
+    dir_glob = sorted(glob(os.path.join(dir_, '*.jpg')))
+
+    for img_path in dir_glob[:limit]:
+        paths.append(img_path)
+
+    return paths
+
+
 # @log('Loading images...')
 def image_batch_loader(dir_, limit=None):
 
@@ -58,8 +73,8 @@ def show(img):
 
 def montage(images):
 
-    max_cols = 6
-    rows = int(len(images) / max_cols)
+    rows = 7
+    max_cols = int(len(images) / rows)
 
     return build_montages(
         images,
@@ -68,15 +83,15 @@ def montage(images):
     )[0]
 
 
-def put_text(img, text):
+def put_text(img, text, offset, color: tuple):
 
     putText(
         img,
         text,
-        (40, 40),
+        offset,
         FONT_HERSHEY_SIMPLEX,
         1.4,
-        (0, 255, 0),
+        color,
         3
     )
 
@@ -97,7 +112,7 @@ def train(trainer, inputs):
     mlp.save_model(path=trainer['model'])
 
 
-def build_training_data(
+def build_dataset(
     trainer, emotion_combinations=['happiness', 'sadness', 'fear']
 ):
     # emotion filtering
@@ -108,15 +123,18 @@ def build_training_data(
     # dataset building
     data = []
     for emotion_str, emotion_val in emotions.items():
-        dir_images = os.path.join(trainer['raw_images_root'], emotion_str)
+        dir_images = os.path.join(trainer['raw_images_dataset'], emotion_str)
 
         for i, (img, img_path) in enumerate(
             image_batch_loader(dir_=dir_images, limit=None)
         ):
             datum = [img_path.split('/')[-1]]
-            for _, func in trainer['features'].items():
+            for key, func in trainer['features'].items():
 
-                feature = func(img)
+                if key == 'top_colors':
+                    feature = func(img, img_path)
+                else:
+                    feature = func(img)
 
                 # if multiple features in one category
                 if isinstance(feature, collections.Sequence):
@@ -136,3 +154,9 @@ def build_training_data(
     )
     config.logger_.debug('Dataset:\n' + str(df))
     df.to_pickle(trainer['dataset'])
+
+
+def view_dataset(path):
+
+    df = pd.read_pickle(path)
+    config.logger_.debug('Dataset:\n' + str(df))
