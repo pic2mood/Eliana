@@ -1,4 +1,4 @@
-# Eliana [![Build Status](https://travis-ci.org/raymelon/Eliana.svg)](https://travis-ci.org/raymelon/Eliana) ![](https://reposs.herokuapp.com/?path=raymelon/Eliana)
+# Eliana [![Build Status](https://travis-ci.org/raymelon/Eliana.svg)](https://travis-ci.org/raymelon/Eliana) ![](https://reposs.herokuapp.com/?path=raymelon/Eliana) [![Maintainability](https://api.codeclimate.com/v1/badges/cb4c7932d76918b25989/maintainability)](https://codeclimate.com/github/raymelon/Eliana/maintainability)
 
 **Eliana predicts the human emotion response towards a presented image.**
 
