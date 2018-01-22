@@ -112,7 +112,7 @@ def train(trainer, inputs):
     mlp.save_model(path=trainer['model'])
 
 
-def build_training_data(
+def build_dataset(
     trainer, emotion_combinations=['happiness', 'sadness', 'fear']
 ):
     # emotion filtering
