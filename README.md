@@ -1,4 +1,4 @@
-# Eliana [![Build Status]
+# Eliana
 
 Project codename Eliana. Pre-release of Pictomood. Archived repo.
 
